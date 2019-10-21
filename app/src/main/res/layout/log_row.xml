@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/lrHorizontalLL"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/lrVerticalLogInfoLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/logTypeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/exercice_types"
+                android:gravity="center"
+                android:minHeight="35dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/logNameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="35dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/exercise_name_placeholder"
+                android:inputType="textPersonName"
+                android:paddingTop="5dp"
+                android:background="@null"
+                android:paddingBottom="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lrVerticalLogAmmountLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lrLogAmmountDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:height="35dp"
+                android:gravity="center"
+                android:text="Ammount:" />
+
+            <EditText
+                android:id="@+id/lrAmmountEtext"
+                style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="number" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
