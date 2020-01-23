@@ -18,12 +18,12 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/logger_date_button"
-        app:layout_constraintEnd_toStartOf="@+id/dateRightArrow"
-        app:layout_constraintStart_toEndOf="@+id/dateLeftArrow"
+        app:layout_constraintEnd_toStartOf="@+id/nextDayButton"
+        app:layout_constraintStart_toEndOf="@+id/prevDayButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/dateLeftArrow"
+        android:id="@+id/prevDayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
@@ -42,7 +42,7 @@
         app:srcCompat="@drawable/ic_arrow_left" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/dateRightArrow"
+        android:id="@+id/nextDayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -76,5 +76,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_add_button_round" />
+
+    <ListView
+        android:id="@+id/logsListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/addLogButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

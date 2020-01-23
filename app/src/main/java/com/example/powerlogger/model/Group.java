@@ -1,4 +1,4 @@
-package com.example.powerlogger.ui.groups;
+package com.example.powerlogger.model;
 
 public class Group {
     private String name;

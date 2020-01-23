@@ -1,7 +1,7 @@
-package com.example.powerlogger.ui.data.model;
+package com.example.powerlogger.model;
 
 /**
- * Data class that captures user information for logged in users retrieved from LoginRepository
+ * Data class that captures user information for logged in users retrieved from UserRepository
  */
 public class LoggedInUser {
 

@@ -1,58 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.logger.AddLogFragment">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.logger.AddLogFragment"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/logsListView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/addLogLL"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/addLogLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:showDividers="none"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="9dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/includeGrpBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:minWidth="150dp"
-                android:text="@string/include_group" />
+                <EditText
+                    android:id="@+id/logName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="25dp"
+                    android:ems="10"
+                    android:hint="name"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/addExerciseToLogBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="150dp"
-                android:onClick="onAddLog"
-                android:text="@string/add_exercise_btn_text" />
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/logIntensity"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="minutes"
+                    android:inputType="numberSigned"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/logName" />
 
+                <Spinner
+                    android:id="@+id/logType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/logTypeTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/logIntensity" />
+
+                <Button
+                    android:id="@+id/confirmAddLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="269dp"
+                    android:width="200dp"
+                    android:text="Add Log"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Notes" />
+
+                <EditText
+                    android:id="@+id/Notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:ems="10"
+                    android:hint="notes"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addLogGroupSpinner" />
+
+                <Spinner
+                    android:id="@+id/addLogGroupSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/addLogGroupTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/logType" />
+
+                <TextView
+                    android:id="@+id/logTypeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:width="50dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="type"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/logIntensity" />
+
+                <TextView
+                    android:id="@+id/addLogGroupTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:width="50dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="group"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/logType" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>

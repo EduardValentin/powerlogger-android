@@ -1,4 +1,4 @@
-package com.example.powerlogger.ui.data;
+package com.example.powerlogger.utils;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.
@@ -28,6 +28,13 @@ public class Result<T> {
             this.data = data;
         }
 
+        public Success() {
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
         public T getData() {
             return this.data;
         }
@@ -36,6 +43,13 @@ public class Result<T> {
     // Error sub-class
     public final static class Error extends Result {
         private Exception error;
+
+        public void setError(Exception error) {
+            this.error = error;
+        }
+
+        public Error() {
+        }
 
         public Error(Exception error) {
             this.error = error;
