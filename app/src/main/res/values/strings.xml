@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">PowerLogger</string>
+    <string name="title_nutrition">Nutrition</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_logger">Logger</string>
+    <string name="title_groups">Log Groups</string>
+
+    <string name="logger_date_button">Logs Today</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_exercise_btn_text">Add Exercise</string>
+    <string name="log_name_here_placeholder">Log name here</string>
+    <string name="exercise_name_placeholder">Enter exercise name here</string>
+    <string name="include_group">Include Group</string>
+    <string name="add_a_log_group">Add a log group</string>
+
+
+    <string-array name="exercice_types">
+        <item>Strength Training</item>
+        <item>Slow Pace Cardio</item>
+        <item>Medium Pace Cardio</item>
+        <item>HIIT</item>
+        <item>Swiming</item>
+    </string-array>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="register">Register</string>
+</resources>
