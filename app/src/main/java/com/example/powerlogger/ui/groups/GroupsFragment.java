@@ -14,7 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.diegodobelo.expandingview.ExpandingItem;
+import com.diegodobelo.expandingview.ExpandingList;
 import com.example.powerlogger.R;
 import com.example.powerlogger.dto.GroupDTO;
 import com.example.powerlogger.model.Group;
@@ -25,9 +28,10 @@ import java.util.List;
 
 public class GroupsFragment extends Fragment {
     private ArrayList<Group> groupsArrayList;
-    private ListView groupsListView;
+//    private ListView groupsListView;
     private GroupsViewModel groupsViewModel;
     private ImageButton addGroupBtn;
+    private ExpandingList expandingList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,22 +41,25 @@ public class GroupsFragment extends Fragment {
 
         groupsViewModel = ViewModelProviders.of(this).get(GroupsViewModel.class);
         addGroupBtn = view.findViewById(R.id.addGroupButton);
-        groupsListView = view.findViewById(R.id.groupsListView);
+//        groupsListView = view.findViewById(R.id.groupsListView);
         groupsViewModel = ViewModelProviders.of(this).get(GroupsViewModel.class);
 
-        groupsListView.setOnItemClickListener((parent, view1, position, id) -> {
-            GroupDTO groupDTO = groupsViewModel.getGroupsLiveData().getValue().get(position);
-            onEditGroup(groupDTO);
-        });
+//        groupsListView.setOnItemClickListener((parent, view1, position, id) -> {
+//            GroupDTO groupDTO = groupsViewModel.getGroupsLiveData().getValue().get(position);
+//            onEditGroup(groupDTO);
+//        });
 
         addGroupBtn.setOnClickListener(v -> onAddNewGroup());
 
-        updateListView(groupsViewModel.getGroupsLiveData().getValue());
+//        updateListView(groupsViewModel.getGroupsLiveData().getValue());
+//
+//        groupsViewModel.getGroupsLiveData().observe(this, groupDTOS -> {
+//            updateListView(groupDTOS);
+//        });
 
-        groupsViewModel.getGroupsLiveData().observe(this, groupDTOS -> {
-            updateListView(groupDTOS);
-        });
-
+        expandingList = view.findViewById(R.id.expanding_list_main);
+        renderGroups(groupsViewModel.getGroupsLiveData().getValue());
+        groupsViewModel.getGroupsLiveData().observe(this, groups -> renderGroups(groups));
         return view;
     }
 
@@ -62,6 +69,25 @@ public class GroupsFragment extends Fragment {
         fragmentTransaction.replace(R.id.nav_host_fragment, createGroupFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void renderGroups(List<GroupDTO> groups) {
+        groups.forEach(groupDTO -> {
+            ExpandingItem item = expandingList.createNewItem(R.layout.expandable_layout);
+
+            ((TextView) item.findViewById(R.id.title))
+                    .setText(groupDTO.getName());
+
+            // Handle log subitems
+
+            item.createSubItems(2);
+
+            View subItemZero = item.getSubItemView(0);
+            ((TextView) subItemZero.findViewById(R.id.sub_title)).setText("Cool");
+
+            View subItemOne = item.getSubItemView(1);
+            ((TextView) subItemOne.findViewById(R.id.sub_title)).setText("Awesome");
+        });
     }
 
     public void onEditGroup(GroupDTO groupDTO) {
@@ -76,9 +102,9 @@ public class GroupsFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private void updateListView(List<GroupDTO> groupDTOS) {
-        ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, groupDTOS);
-        groupsListView.setAdapter(arrayAdapter);
-    }
+//    private void updateListView(List<GroupDTO> groupDTOS) {
+//        ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, groupDTOS);
+//        groupsListView.setAdapter(arrayAdapter);
+//    }
 
 }

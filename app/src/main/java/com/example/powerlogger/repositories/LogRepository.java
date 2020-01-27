@@ -20,6 +20,7 @@ public class LogRepository {
     private static LogRepository ourInstance;
     private LogDataService logDataService;
     private MutableLiveData<List<LogDTO>> logsCahce = new MutableLiveData<>();
+    private UserRepository userRepository = UserRepository.getInstance();
 
     public static LogRepository getInstance() {
         if(ourInstance == null) {
@@ -33,7 +34,7 @@ public class LogRepository {
     }
 
     public void addLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logDataService.postNewLog(log).enqueue(new Callback<LogDTO>() {
+        logDataService.postNewLog(userRepository.getToken(), log).enqueue(new Callback<LogDTO>() {
             @Override
             public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
                 List<LogDTO> oldList = logsCahce.getValue();
@@ -56,7 +57,7 @@ public class LogRepository {
     }
 
     public void fetchLogs(LocalDate date) {
-        logDataService.fetchAllLogs(date).enqueue(new Callback<List<LogDTO>>() {
+        logDataService.fetchAllLogs(userRepository.getToken(), date).enqueue(new Callback<List<LogDTO>>() {
             @Override
             public void onResponse(Call<List<LogDTO>> call, Response<List<LogDTO>> response) {
                 logsCahce.setValue(response.body());
@@ -69,9 +70,37 @@ public class LogRepository {
         });
     }
 
+    public void updateLog(LogDTO logDTO) {
+        logDataService.updateLog(userRepository.getToken(), logDTO.getId(), logDTO).enqueue(new Callback<LogDTO>() {
+            @Override
+            public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
+                List<LogDTO> listToUpdate = logsCahce.getValue();
+                LogDTO logToUpdate = listToUpdate.stream().filter(log -> log.getId().equalsIgnoreCase(response.body().getId())).findFirst().get();
+                listToUpdate.remove(logToUpdate);
+                listToUpdate.add(response.body());
+                logsCahce.setValue(listToUpdate);
+            }
+
+            @Override
+            public void onFailure(Call<LogDTO> call, Throwable t) {
+
+            }
+        });
+    }
+
     private LogRepository() {
         logDataService = APIClient.getRetrofitInstance().create(LogDataService.class);
         this.logsCahce.setValue(new ArrayList<>());
-        this.logsCahce.getValue().add(new LogDTO("Exercitiu 1", LogType.FULL_BODY.toString(), "10"));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdjbas1d", "Exercitiu 1", LogType.FULL_BODY.toString(), "10", "100", "some note here"));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdjbasd", "Exercitiu 2", LogType.FULL_BODY.toString(), "10", "100",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdjbas2d","Exercitiu 3", LogType.FULL_BODY.toString(), "10", "235",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdjb2asd","Exercitiu 4", LogType.FULL_BODY.toString(), "10", "100",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdj4basd","Exercitiu 5", LogType.FULL_BODY.toString(), "10", "100",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdjb3asd","Exercitiu 6", LogType.FULL_BODY.toString(), "10", "100",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asdjknas-asdjb5asd","Exercitiu 7", LogType.FULL_BODY.toString(), "10", "234",null));
+        this.logsCahce.getValue().add(new LogDTO("aslnda6d-asdjknas-asdjbasd","Exercitiu 10", LogType.FULL_BODY.toString(), "10", "100",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-asd7jknas-asdjbasd","Exercitiu 8", LogType.FULL_BODY.toString(), "10", "123",null));
+        this.logsCahce.getValue().add(new LogDTO("aslndad-a8sdjknas-asdjbasd","Exercitiu 9", LogType.FULL_BODY.toString(), "10", "100",null));
+
     }
 }

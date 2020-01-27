@@ -4,6 +4,6 @@ public enum LogType {
     STRENGTH,
     FULL_BODY,
     SLOW_CARDIO,
-    MEDIUM_PACE_CARDIO,
+    MEDIUM_CARDIO,
     HIIT,
 }

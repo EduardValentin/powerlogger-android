@@ -21,9 +21,4 @@
         android:name="com.example.powerlogger.ui.groups.GroupsFragment"
         android:label="@string/title_groups"
         tools:layout="@layout/fragment_groups" />
-    <fragment
-        android:id="@+id/navigation_nutrition"
-        android:name="com.example.powerlogger.ui.nutrition.NutritionFragment"
-        android:label="@string/title_nutrition"
-        tools:layout="@layout/fragment_nutrition" />
 </navigation>

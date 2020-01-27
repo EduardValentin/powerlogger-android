@@ -4,7 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.logger.AddLogFragment"
+        tools:context=".ui.logger.CreateOrEditLogFragment"
         android:layout_height="match_parent">
 
         <ScrollView
@@ -64,16 +64,16 @@
                     android:id="@+id/confirmAddLog"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_marginTop="269dp"
+                    android:layout_marginTop="100dp"
                     android:width="200dp"
                     android:text="Add Log"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Notes" />
+                    app:layout_constraintTop_toBottomOf="@+id/logNotes" />
 
                 <EditText
-                    android:id="@+id/Notes"
+                    android:id="@+id/logNotes"
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
                     android:layout_marginStart="25dp"
@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="28dp"
                     android:width="50dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="2dp"
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="28dp"
                     android:width="50dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="2dp"

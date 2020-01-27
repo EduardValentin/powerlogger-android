@@ -13,6 +13,7 @@ import com.example.powerlogger.repositories.LogRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
@@ -29,11 +30,21 @@ public class LoggerViewModel extends ViewModel {
     private LocalDate currentDate = LocalDate.now();
     private MutableLiveData<List<LogDTO>> logCacheForUI = new MutableLiveData<>();
     private MutableLiveData<List<GroupDTO>> groupsLiveData = new MutableLiveData<>();
+    private MutableLiveData<Date> curreantDateInViewLive = new MutableLiveData<>();
 
     public LoggerViewModel() {
         logCacheForUI.setValue(logRepository.getLogsCahce().getValue());
         logRepository.getLogsCahce().observeForever(logDTOS -> logCacheForUI.setValue(logDTOS));
         groupRepository.getGroupCache().observeForever(groupDTOS -> groupsLiveData.setValue(groupDTOS));
+        curreantDateInViewLive.setValue(new Date());
+    }
+
+    public void addDaysToCurrentDateInView(int days) {
+        Date current = curreantDateInViewLive.getValue();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(current);
+        calendar.add(Calendar.DATE, days);
+        curreantDateInViewLive.setValue(calendar.getTime());
     }
 
     public LiveData<List<LogDTO>> getLogs() {
@@ -55,5 +66,9 @@ public class LoggerViewModel extends ViewModel {
 
     public void fetchLogs() {
         logRepository.fetchLogs(this.currentDate);
+    }
+
+    public MutableLiveData<Date> getCurreantDateInViewLive() {
+        return curreantDateInViewLive;
     }
 }

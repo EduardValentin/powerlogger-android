@@ -22,16 +22,7 @@ public class GroupCreateOrEditFragment extends Fragment {
     private String editGroupId;
     private  EditText groupNameEditText;
     private GroupRepository groupRepository = GroupRepository.getInstance();
-
-    public GroupCreateOrEditFragment() {
-        // Required empty public constructor
-        Bundle data = getArguments();
-        try {
-            editGroupId = data.getString("groupId");
-        } catch (NullPointerException e) {
-            editGroupId = null;
-        }
-    }
+    private  Button saveGroup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,20 +32,25 @@ public class GroupCreateOrEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle data = getArguments();
+        try {
+            editGroupId = data.getString("groupId");
+        } catch (NullPointerException e) {
+            editGroupId = null;
+        }
+
         View view = inflater.inflate(R.layout.fragment_group_create_or_edit, container, false);
 
-        Button saveGroup = view.findViewById(R.id.saveGroup);
         Button backButton = view.findViewById(R.id.addGroupBackBtn);
+        saveGroup = view.findViewById(R.id.saveGroup);
         groupNameEditText = view.findViewById(R.id.groupName);
 
         backButton.setOnClickListener(v -> popFragmentFromStack());
 
-        if(editGroupId != null) {
-            saveGroup.setText("Edit");
-            saveGroup.setOnClickListener(v -> editGroup(editGroupId));
+        if (editGroupId != null) {
+            handleUIForEdit();
         } else {
-            saveGroup.setText("Create");
-            saveGroup.setOnClickListener(v -> createGroup());
+            handleUIForCreate();
         }
 
         // Inflate the layout for this fragment
@@ -72,6 +68,26 @@ public class GroupCreateOrEditFragment extends Fragment {
 
     private void popFragmentFromStack() {
         getActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private void handleUIForEdit () {
+        saveGroup.setText("Edit");
+
+        GroupDTO groupToEdit = groupRepository
+                .getGroupCache()
+                .getValue()
+                .stream()
+                .filter(g -> g.getId().equalsIgnoreCase(editGroupId))
+                .findFirst()
+                .orElse(null);
+
+        groupNameEditText.setText(groupToEdit.getName());
+        saveGroup.setOnClickListener(v -> editGroup(editGroupId));
+    }
+
+    private void handleUIForCreate() {
+        saveGroup.setText("Create");
+        saveGroup.setOnClickListener(v -> createGroup());
     }
 
     private void createGroup() {
