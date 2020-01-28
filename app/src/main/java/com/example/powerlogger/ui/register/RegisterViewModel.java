@@ -21,13 +21,13 @@ public class RegisterViewModel extends ViewModel {
     /*
     *   Called when one of the inputs is changed. It checks for errors and if it finds any it sets them in the state variable.
     */
-    public void valuesChanged(String username, String email, String password, String confirmPassword) {
+    public void valuesChanged(String username, String email, String password, String confirmPassword, String weight) {
 
-        String firstNameError= null;
-        String lastNameError= null;
+        String usernameError = null;
         String emailError= null;
         String confirmPassError = null;
         String passwordError = null;
+        String weightError = null;
 
         if (!isLongEnough(password)) {
             passwordError = "Password length needs to be greater than 6 characters";
@@ -36,20 +36,20 @@ public class RegisterViewModel extends ViewModel {
         } else if(confirmPassword.length() <= 0) {
             confirmPassError = "Confirmation is required";
         }
-//
-//        if(firstName.length() == 0) {
-//            firstNameError = "First name is required";
-//        }
 
-        if(username.length() == 0) {
-            lastNameError = "Last name is required";
+        if (weight.length() == 0) {
+            weightError = "Weight is required";
+        }
+
+        if (username.length() == 0) {
+            usernameError = "Username is required";
         }
 
         if(email.length() == 0) {
             emailError = "Email name is required";
         }
 
-        registerFormStateMutableLiveData.setValue(new RegisterFormState(firstNameError, lastNameError, emailError, passwordError, confirmPassError));
+        registerFormStateMutableLiveData.setValue(new RegisterFormState(emailError, passwordError, confirmPassError, weightError, usernameError));
     }
 
     public LiveData<RegisterFormState> getRegisterFormStateMutableLiveData() {

@@ -2,26 +2,18 @@ package com.example.powerlogger.ui.register;
 
 public class RegisterFormState {
 
-    private String firstNameError;
-    private String lastNameError;
+    private String usernameErrror;
     private String emailError;
     private String passwordError;
     private String confirmPasswordError;
+    private String weightError;
 
-    public RegisterFormState(String firstNameError, String lastNameError, String emailError, String passwordError, String confirmPasswordError) {
-        this.firstNameError = firstNameError;
-        this.lastNameError = lastNameError;
+    public RegisterFormState( String usernameError, String emailError, String passwordError, String confirmPasswordError, String weightError) {
+        this.usernameErrror = usernameError;
+        this.weightError = weightError;
         this.emailError = emailError;
         this.passwordError = passwordError;
         this.confirmPasswordError = confirmPasswordError;
-    }
-
-    public String getFirstNameError() {
-        return firstNameError;
-    }
-
-    public String getLastNameError() {
-        return lastNameError;
     }
 
     public String getEmailError() {
@@ -37,6 +29,6 @@ public class RegisterFormState {
     }
 
     public boolean isDataValid() {
-        return firstNameError == null && lastNameError == null && emailError == null && confirmPasswordError == null && passwordError == null;
+        return usernameErrror== null && weightError == null && emailError == null && confirmPasswordError == null && passwordError == null;
     }
 }

@@ -20,6 +20,7 @@ import com.diegodobelo.expandingview.ExpandingItem;
 import com.diegodobelo.expandingview.ExpandingList;
 import com.example.powerlogger.R;
 import com.example.powerlogger.dto.GroupDTO;
+import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.model.Group;
 
 import java.util.ArrayList;
@@ -72,21 +73,29 @@ public class GroupsFragment extends Fragment {
     }
 
     private void renderGroups(List<GroupDTO> groups) {
+        expandingList.removeAllViews();
+
         groups.forEach(groupDTO -> {
             ExpandingItem item = expandingList.createNewItem(R.layout.expandable_layout);
 
             ((TextView) item.findViewById(R.id.title))
                     .setText(groupDTO.getName());
 
-            // Handle log subitems
+            List<LogDTO> logs = groupDTO.getLogsList();
 
-            item.createSubItems(2);
+            item.createSubItems(logs.size());
 
-            View subItemZero = item.getSubItemView(0);
-            ((TextView) subItemZero.findViewById(R.id.sub_title)).setText("Cool");
+            Button groupEditBtn = item.findViewById(R.id.groupEditButton);
+            groupEditBtn.setOnClickListener(v -> onEditGroup(groupDTO));
 
-            View subItemOne = item.getSubItemView(1);
-            ((TextView) subItemOne.findViewById(R.id.sub_title)).setText("Awesome");
+            for (int i = 0; i < logs.size(); i++) {
+                View subItemView = item.getSubItemView(i);
+
+                TextView title = subItemView.findViewById(R.id.sub_title);
+                title.setText(logs.get(i).getName());
+
+
+            }
         });
     }
 
@@ -101,10 +110,5 @@ public class GroupsFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
-//    private void updateListView(List<GroupDTO> groupDTOS) {
-//        ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, groupDTOS);
-//        groupsListView.setAdapter(arrayAdapter);
-//    }
 
 }

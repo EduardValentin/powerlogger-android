@@ -11,6 +11,7 @@ import com.example.powerlogger.model.Log;
 import com.example.powerlogger.repositories.GroupRepository;
 import com.example.powerlogger.repositories.LogRepository;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,7 +28,7 @@ import retrofit2.Response;
 public class LoggerViewModel extends ViewModel {
     private LogRepository logRepository = LogRepository.getInstance();
     private GroupRepository groupRepository = GroupRepository.getInstance();
-    private LocalDate currentDate = LocalDate.now();
+//    private Date currentDate = new Date();
     private MutableLiveData<List<LogDTO>> logCacheForUI = new MutableLiveData<>();
     private MutableLiveData<List<GroupDTO>> groupsLiveData = new MutableLiveData<>();
     private MutableLiveData<Date> curreantDateInViewLive = new MutableLiveData<>();
@@ -63,9 +64,13 @@ public class LoggerViewModel extends ViewModel {
     public void addLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
         logRepository.addLog(log, handleSuccess, handleError);
     }
+    public void updateLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
+        logRepository.updateLog(log, handleSuccess, handleError);
+    }
 
     public void fetchLogs() {
-        logRepository.fetchLogs(this.currentDate);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        logRepository.fetchLogs(format.format(this.curreantDateInViewLive.getValue()));
     }
 
     public MutableLiveData<Date> getCurreantDateInViewLive() {

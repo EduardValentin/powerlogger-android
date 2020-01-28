@@ -7,7 +7,7 @@ import java.util.List;
 public class GroupDTO {
     private String id;
     private String name;
-    private List<LogDTO> logsList;
+    private List<LogDTO> logs;
 
     public GroupDTO(String id, String name) {
         this.id = id;
@@ -36,11 +36,11 @@ public class GroupDTO {
     }
 
     public List<LogDTO> getLogsList() {
-        return logsList;
+        return logs;
     }
 
     public void setLogsList(List<LogDTO> logsList) {
-        this.logsList = logsList;
+        this.logs = logsList;
     }
 
     public void setName(String name) {

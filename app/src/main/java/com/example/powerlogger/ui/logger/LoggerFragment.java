@@ -49,7 +49,12 @@ public class LoggerFragment extends Fragment {
         currentDateTextView = root.findViewById(R.id.currentDateTextView);
 
         addNewExerciceBtn.setOnClickListener(view -> {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Bundle data = new Bundle();
+            data.putString("currentDateInView", formatter.format(loggerViewModel.getCurreantDateInViewLive().getValue()));
+            // TODO: this is also bad. change pls..
             Fragment AddLogFragment = new CreateOrEditLogFragment();
+            AddLogFragment .setArguments(data);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.nav_host_fragment, AddLogFragment);
             fragmentTransaction.addToBackStack(null);
@@ -75,13 +80,18 @@ public class LoggerFragment extends Fragment {
         nextDayButton.setOnClickListener(v -> loggerViewModel.addDaysToCurrentDateInView(1));
         prevDayButton.setOnClickListener(v -> loggerViewModel.addDaysToCurrentDateInView(-1));
 
+        loggerViewModel.fetchLogs();
+
         return root;
     }
 
     public void openEditFragment(LogDTO logDTO) {
         Fragment editLogFragment = new CreateOrEditLogFragment();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        // TODO: this is so bad... change sometime
         Bundle data = new Bundle();
         data.putString("logId", logDTO.getId());
+        data.putString("currentDateInView", formatter.format(loggerViewModel.getCurreantDateInViewLive().getValue()));
 
         editLogFragment.setArguments(data);
         FragmentTransaction fragmentTransaction =  getFragmentManager().beginTransaction();
@@ -98,6 +108,8 @@ public class LoggerFragment extends Fragment {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
             currentDateTextView.setText(dateFormat.format(newDate));
         }
+
+        loggerViewModel.fetchLogs();
     }
 
     private boolean isSameDay(Date date1, Date date2) {

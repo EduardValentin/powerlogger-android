@@ -5,25 +5,33 @@ import androidx.annotation.NonNull;
 public class LogDTO {
     private String id;
     private String name;
-    private String type;
-    private String intensity;
+    private String category;
+    private int minutes;
     private String groupId;
-    private String kcal;
+    private int kcal;
     private String notes;
+    private String createdAt;
 
-    public LogDTO(String id, String name, String type, String intensity, String kcal, String notes) {
-        this.id = id;
+    public LogDTO(String name, String type, int minutes, String notes, String createdAt) {
         this.name = name;
-        this.type = type;
-        this.intensity = intensity;
-        this.kcal = kcal;
+        this.category = type;
+        this.minutes = minutes;
         this.notes = notes;
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return name + " | " +  type + " | " + " Intensity: " + intensity;
+        return name + " | " +  category + " | " + " Intensity: " + minutes;
     }
 
     public String getGroupId() {
@@ -42,11 +50,11 @@ public class LogDTO {
         this.groupId = groupId;
     }
 
-    public String getKcal() {
+    public int getKcal() {
         return kcal;
     }
 
-    public void setKcal(String kcal) {
+    public void setKcal(int kcal) {
         this.kcal = kcal;
     }
 
@@ -59,19 +67,11 @@ public class LogDTO {
     }
 
     public String getType() {
-        return type;
+        return category;
     }
 
     public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getIntensity() {
-        return intensity;
-    }
-
-    public void setIntensity(String intensity) {
-        this.intensity = intensity;
+        this.category = type;
     }
 
     public String getNotes() {
@@ -80,5 +80,21 @@ public class LogDTO {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 }
