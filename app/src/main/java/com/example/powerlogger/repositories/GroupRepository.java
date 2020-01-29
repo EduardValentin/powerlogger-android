@@ -79,14 +79,14 @@ public class GroupRepository {
                 int index = 0;
                 List<GroupDTO> old = groupCache.getValue();
                 for (GroupDTO g: old) {
-                    if (g.getId() == groupId) {
+                    if (g.getId().equals(groupId)) {
                         break;
                     }
                     index++;
                 }
 
                 old.remove(index);
-                old.add(index, response.body());
+                old.add(response.body());
                 groupCache.setValue(old);
             }
 
