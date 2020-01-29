@@ -13,11 +13,12 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface LogDataService {
 
-    @GET(Env.BASE_API_PREFIX + "/logs?date={date}")
-    Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Path("date") LocalDate date);
+    @GET(Env.BASE_API_PREFIX + "/logs")
+    Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Query("date") String date);
 
     @GET(Env.BASE_API_PREFIX + "/logs/{id}")
     Call<LogDTO> fetchOneLog(@Header ("Authorization") String token, @Path("id") int id);

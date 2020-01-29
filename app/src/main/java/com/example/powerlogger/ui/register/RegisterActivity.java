@@ -29,12 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
-//        final EditText firstName = findViewById(R.id.registerFirstName);
-//        final EditText lastName = findViewById(R.id.registerLastName);
         final EditText username = findViewById(R.id.registerUsername);
         final EditText email = findViewById(R.id.registerEmail);
         final EditText password = findViewById(R.id.registerPassword);
         final EditText confirmPassword = findViewById(R.id.registerConfirmPassword);
+        final EditText weight = findViewById(R.id.weightTextInput);
         final Button registerButton = findViewById(R.id.registerButton);
 
         loadingProgressBar = findViewById(R.id.loading);
@@ -49,14 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
             if(state.getConfirmPasswordError() != null) {
                 confirmPassword.setError(state.getConfirmPasswordError());
             }
-//
-//            if(state.getFirstNameError() != null) {
-//                firstName.setError(state.getFirstNameError());
-//            }
-//
-//            if(state.getLastNameError() != null) {
-//                lastName.setError(state.getLastNameError());
-//            }
 
             if(state.getEmailError() != null) {
                 email.setError(state.getEmailError());
@@ -83,24 +74,23 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 registerViewModel.valuesChanged(
-//                        firstName.getText().toString(),
                         username.getText().toString(),
                         email.getText().toString(),
                         password.getText().toString(),
-                        confirmPassword.getText().toString());
-
+                        confirmPassword.getText().toString(),
+                        weight.getText().toString()
+                        );
             }
-
         };
 
         registerButton.setOnClickListener(view -> {
             loadingProgressBar.setVisibility(View.VISIBLE);
 
             RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
-//                    firstName.getText().toString(),
                     username.getText().toString(),
                     email.getText().toString(),
-                    password.getText().toString());
+                    password.getText().toString(),
+                    weight.getText().toString());
 
             registerViewModel.signup(registerRequestDTO, obj -> {
                 loadingProgressBar.setVisibility(View.INVISIBLE);
@@ -120,9 +110,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         password.addTextChangedListener(watcher);
         confirmPassword.addTextChangedListener(watcher);
-//        firstName.addTextChangedListener(watcher);
         username.addTextChangedListener(watcher);
         email.addTextChangedListener(watcher);
+        weight.addTextChangedListener(watcher);
     }
 
     private void updateUiWithUser() {

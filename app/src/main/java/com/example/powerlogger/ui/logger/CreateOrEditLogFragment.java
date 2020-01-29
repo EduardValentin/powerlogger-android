@@ -22,7 +22,9 @@ import com.example.powerlogger.dto.GroupDTO;
 import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.utils.ArrayUtills;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class CreateOrEditLogFragment extends Fragment {
@@ -34,6 +36,7 @@ public class CreateOrEditLogFragment extends Fragment {
     private LoggerViewModel loggerViewModel;
     private OnFragmentInteractionListener mListener;
     private String editLogId;
+    private String currentDateInView;
     private TextView logNotes;
 
     @Override
@@ -50,6 +53,13 @@ public class CreateOrEditLogFragment extends Fragment {
             editLogId = data.getString("logId");
         } catch (NullPointerException e) {
             editLogId = null;
+        }
+
+
+        try {
+            currentDateInView = data.getString("currentDateInView");
+        } catch (NullPointerException e) {
+            currentDateInView = null;
         }
 
         // Inflate the layout for this fragment
@@ -130,6 +140,10 @@ public class CreateOrEditLogFragment extends Fragment {
         if (currentLogToEdit != null) {
             logName.setText(currentLogToEdit.getName());
             logType.setSelection(LogType.valueOf(currentLogToEdit.getType()).ordinal());
+            logIntensity.setText(Integer.toString(
+                    currentLogToEdit.getMinutes())
+            );
+            logNotes.setText(currentLogToEdit.getNotes());
 
             GroupDTO groupOfLog = groups
                     .stream()
@@ -150,28 +164,43 @@ public class CreateOrEditLogFragment extends Fragment {
         addLogButton.setOnClickListener(v -> onAddLogConfirm(v));
     }
 
-    private void onAddLogConfirm(View v) {
-        LogDTO toAdd = new LogDTO(
-                "786y",
+    private LogDTO constructLogFromInputs () {
+
+        GroupDTO selectedGroup = (GroupDTO) groupsSpinner.getSelectedItem();
+
+        GroupDTO groupDTO = loggerViewModel
+                .getGroups()
+                .getValue()
+                .stream()
+                .filter(grp -> grp.getName().equalsIgnoreCase(selectedGroup.getName()))
+                .findAny()
+                .orElse(null);
+
+        LogDTO computedLog = new LogDTO(
                 logName.getText().toString(),
                 logType.getSelectedItem().toString(),
-                logIntensity.getText().toString(),
-                "56",
-                null
+                Integer.parseInt(logIntensity.getText().toString()),
+                logNotes.getText().toString(),
+                currentDateInView
         );
+
+        if (groupDTO != null) {
+            computedLog.setGroupId(groupDTO.getId());
+        }
+
+        return computedLog;
+    }
+
+    private void onAddLogConfirm(View v) {
+        LogDTO toAdd = constructLogFromInputs();
+
         loggerViewModel.addLog(toAdd, o -> handleSuccess(), t -> handleError(t));
     }
 
     private void onEditLogConfirm(View v) {
-        LogDTO toAdd = new LogDTO(
-                "786y",
-                logName.getText().toString(),
-                logType.getSelectedItem().toString(),
-                logIntensity.getText().toString(),
-                "56",
-                null
-        );
-        loggerViewModel.addLog(toAdd, o -> handleSuccess(), t -> handleError(t));
+        LogDTO toEdit = constructLogFromInputs();
+        toEdit.setId(editLogId);
+        loggerViewModel.updateLog(toEdit, o -> handleSuccess(), t -> handleError(t));
     }
 
 }
