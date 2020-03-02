@@ -28,25 +28,15 @@ import retrofit2.Response;
 public class LoggerViewModel extends ViewModel {
     private LogRepository logRepository = LogRepository.getInstance();
     private GroupRepository groupRepository = GroupRepository.getInstance();
-//    private Date currentDate = new Date();
     private MutableLiveData<List<LogDTO>> logCacheForUI = new MutableLiveData<>();
     private MutableLiveData<List<GroupDTO>> groupsLiveData = new MutableLiveData<>();
-    private MutableLiveData<Date> curreantDateInViewLive = new MutableLiveData<>();
 
     public LoggerViewModel() {
         logCacheForUI.setValue(logRepository.getLogsCahce().getValue());
         logRepository.getLogsCahce().observeForever(logDTOS -> logCacheForUI.setValue(logDTOS));
         groupRepository.getGroupCache().observeForever(groupDTOS -> groupsLiveData.setValue(groupDTOS));
-        curreantDateInViewLive.setValue(new Date());
     }
 
-    public void addDaysToCurrentDateInView(int days) {
-        Date current = curreantDateInViewLive.getValue();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(current);
-        calendar.add(Calendar.DATE, days);
-        curreantDateInViewLive.setValue(calendar.getTime());
-    }
 
     public LiveData<List<LogDTO>> getLogs() {
 
@@ -66,14 +56,5 @@ public class LoggerViewModel extends ViewModel {
     }
     public void updateLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
         logRepository.updateLog(log, handleSuccess, handleError);
-    }
-
-    public void fetchLogs() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        logRepository.fetchLogs(format.format(this.curreantDateInViewLive.getValue()));
-    }
-
-    public MutableLiveData<Date> getCurreantDateInViewLive() {
-        return curreantDateInViewLive;
     }
 }

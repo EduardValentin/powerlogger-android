@@ -62,19 +62,7 @@ public class AddLogsGroupFragment extends Fragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 IncludeGroupsDTO includeGroupsDTO = new IncludeGroupsDTO();
-
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = new Date();
-                System.out.println(dateFormat.format(date));
-                includeGroupsDTO.setDate(date);
-
                 includeGroupsDTO.setCheckedGroupsIds(checkedGroupsIds);
-
-//                //testare
-//                System.out.println("TESTARE---------------------");
-//                for(String elem : includeGroupsDTO.getCheckedGroupsIds()) {
-//                    System.out.println(elem);
-//                }
             }
         });
 
@@ -83,9 +71,9 @@ public class AddLogsGroupFragment extends Fragment {
     }
 
     private void renderGroups(List<GroupDTO> groups) {
+        expandingList.removeAllViews();
 
         groups.forEach(groupDTO -> {
-
             ExpandingItem item = expandingList.createNewItem(R.layout.include_groups_expandable_layout);
             CheckBox cb = (CheckBox) item.findViewById(R.id.checkbox_group);
             cb.setText(groupDTO.getName());
@@ -104,10 +92,6 @@ public class AddLogsGroupFragment extends Fragment {
                 }
             });
 
-            //((TextView) item.findViewById(R.id.title))
-              //      .setText(groupDTO.getName());
-
-            // Handle log subitems
 
             item.createSubItems(2);
 

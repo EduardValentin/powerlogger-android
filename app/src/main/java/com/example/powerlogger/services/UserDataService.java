@@ -10,9 +10,9 @@ import retrofit2.http.POST;
 
 public interface UserDataService {
 
-    @POST("users/signin")
+    @POST("api/v1/users/signin")
     Call<UserResponseDTO> signin(@Body LoginRequestDTO loginRequestDTO);
 
-    @POST("users/signup")
+    @POST("api/v1/users/signup")
     Call<UserResponseDTO> signup(@Body RegisterRequestDTO registerRequestDTO);
 }

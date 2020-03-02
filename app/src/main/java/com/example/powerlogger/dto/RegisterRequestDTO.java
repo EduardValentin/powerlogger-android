@@ -1,22 +1,36 @@
 package com.example.powerlogger.dto;
 
+import android.widget.TextView;
+
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterRequestDTO {
-    private String username;
-    private String email;
-    private String password;
-    private List<Integer> roles;
-    private String weight;
+    public String username;
+    public String email;
+    public String password;
+    public UserSettingsDTO settings;
 
-    public RegisterRequestDTO(String username, String email, String password, String weight) {
+    public RegisterRequestDTO(String username, String email, String password, UserSettingsDTO userSettingsDTO) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles = new ArrayList<>();
-        this.weight = weight;
-        roles.add(1);
+        this.settings = userSettingsDTO;
+    }
+
+    public RegisterRequestDTO() {
+        this.settings = new UserSettingsDTO();
+    }
+
+    public UserSettingsDTO getSettings() {
+        return settings;
+    }
+
+    public void setSettings(UserSettingsDTO settings) {
+        this.settings = settings;
     }
 
     public String getUsername() {
@@ -45,21 +59,5 @@ public class RegisterRequestDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<Integer> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Integer> roles) {
-        this.roles = roles;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
     }
 }

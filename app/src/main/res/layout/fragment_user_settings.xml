@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.powerlogger.utils.BasicConverters" />
+        <variable
+            name="viewmodel"
+            type="com.example.powerlogger.ui.register.RegisterViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.powerlogger.ui.register.UserSettingsFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.register.UserSettingsFragment">
+
+        <ProgressBar
+            android:id="@+id/loadingSpinner"
+            android:layout_width="272dp"
+            android:layout_height="144dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <EditText
+            android:id="@+id/userBirthDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:ems="10"
+            android:hint="@string/birth_date"
+            android:text="@{viewmodel.registerRequestDTO.settings.birthDate}"
+            android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
+            android:clickable="true"
+            android:focusable="false"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userHeight" />
+
+        <EditText
+            android:id="@+id/userHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:ems="10"
+            android:hint="@string/height"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
+            android:text="@={BasicConverters.fromFloatToString(viewmodel.registerRequestDTO.settings.height)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userWeight" />
+
+        <EditText
+            android:id="@+id/userWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:ems="10"
+            android:hint="@string/weight"
+            android:text="@={BasicConverters.fromFloatToString(viewmodel.registerRequestDTO.settings.weight)}"
+            android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="151dp"
+            android:width="150dp"
+            android:enabled="false"
+            android:text="@string/register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

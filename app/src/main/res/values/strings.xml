@@ -33,4 +33,10 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="username">Username</string>
+    <string name="to_user_settings">Next</string>
+    <string name="height">height</string>
+    <string name="birth_date">birth date</string>
+    <string name="weight">weight</string>
 </resources>

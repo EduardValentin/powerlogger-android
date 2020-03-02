@@ -4,7 +4,9 @@ import com.example.powerlogger.Env;
 import com.example.powerlogger.dto.LogDTO;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,14 +20,11 @@ import retrofit2.http.Query;
 public interface LogDataService {
 
     @GET(Env.BASE_API_PREFIX + "/logs")
-    Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Query("date") String date);
-
-    @GET(Env.BASE_API_PREFIX + "/logs/{id}")
-    Call<LogDTO> fetchOneLog(@Header ("Authorization") String token, @Path("id") int id);
+    Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Query("date") Date date);
 
     @POST(Env.BASE_API_PREFIX + "/logs")
     Call<LogDTO> postNewLog(@Header ("Authorization") String token, @Body LogDTO log);
 
     @PUT(Env.BASE_API_PREFIX + "/logs/{id}")
-    Call<LogDTO> updateLog(@Header ("Authorization") String token, @Path ("id") String id, @Body LogDTO log);
+    Call<LogDTO> updateLog(@Header ("Authorization") String token, @Path ("id") UUID id, @Body LogDTO log);
 }

@@ -1,53 +1,51 @@
 package com.example.powerlogger.dto;
 
-import androidx.annotation.NonNull;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 public class LogDTO {
-    private String id;
-    private String name;
-    private String category;
+    private UUID id;
     private int minutes;
-    private String groupId;
     private int kcal;
     private String notes;
-    private String createdAt;
+    private LocalDate createdAt;
+    private ExerciseDTO exercise;
 
-    public LogDTO(String name, String type, int minutes, String notes, String createdAt) {
-        this.name = name;
-        this.category = type;
+
+    public LogDTO(UUID id, int minutes, int kcal, String notes, LocalDate createdAt) {
+        this.id = id;
         this.minutes = minutes;
+        this.kcal = kcal;
         this.notes = notes;
         this.createdAt = createdAt;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public ExerciseDTO getExercise() {
+        return exercise;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setExercise(ExerciseDTO exercise) {
+        this.exercise = exercise;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return name + " | " +  category + " | " + " Intensity: " + minutes;
+    public LogDTO() {
     }
 
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 
     public int getKcal() {
@@ -58,22 +56,6 @@ public class LogDTO {
         this.kcal = kcal;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return category;
-    }
-
-    public void setType(String type) {
-        this.category = type;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -82,19 +64,11 @@ public class LogDTO {
         this.notes = notes;
     }
 
-    public String getCategory() {
-        return category;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public int getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 }

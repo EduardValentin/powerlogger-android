@@ -92,9 +92,7 @@ public class GroupsFragment extends Fragment {
                 View subItemView = item.getSubItemView(i);
 
                 TextView title = subItemView.findViewById(R.id.sub_title);
-                title.setText(logs.get(i).getName());
-
-
+                title.setText(logs.get(i).getExercise().getName());
             }
         });
     }

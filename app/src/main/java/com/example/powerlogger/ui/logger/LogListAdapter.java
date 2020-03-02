@@ -47,7 +47,7 @@ public class LogListAdapter extends ArrayAdapter<LogDTO>{
             viewHolder = (LogListItemViewHolder) convertView.getTag();
         }
 
-        viewHolder.getLogName().setText(dataModel.getName());
+        viewHolder.getLogName().setText(dataModel.getExercise().getName());
         viewHolder.getKcal().setText("Kcal: " + dataModel.getKcal());
         viewHolder.setPosition(position);
         convertView.setOnClickListener(onItemClick);

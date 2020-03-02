@@ -5,54 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/dashboard_grid_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:columnCount="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+    <TextView
+        android:id="@+id/caloriesBurnedWeekTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Kcal this week:"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:rowCount="2">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Avg. Performance"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Top Exercise"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Best Day"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Something Else"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1" />
-
-    </androidx.gridlayout.widget.GridLayout>
-
+    <TextView
+        android:id="@+id/caloriesTodayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="142dp"
+        android:text="Kcal today"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedWeekTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

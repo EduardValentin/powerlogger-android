@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
-        final Button registerButton = findViewById(R.id.registerButton);
+        final Button registerButton = findViewById(R.id.toUserSettingsButton);
         final Context self = this;
         loadingProgressBar = findViewById(R.id.loading);
 

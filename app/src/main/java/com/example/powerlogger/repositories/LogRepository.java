@@ -1,14 +1,18 @@
 package com.example.powerlogger.repositories;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.powerlogger.APIClient;
 import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.services.LogDataService;
 import com.example.powerlogger.ui.logger.LogType;
+import com.example.powerlogger.utils.APICallsUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -40,37 +44,39 @@ public class LogRepository {
                 List<LogDTO> oldList = logsCahce.getValue();
 
                 if(response.body() == null) {
+                    APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
                     return;
                 }
 
                 oldList.add(response.body());
-
                 logsCahce.setValue(oldList);
-
-                if(handleSuccess != null) {
-                    handleSuccess.accept(response.body());
-                }
+                APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
             }
 
             @Override
             public void onFailure(Call<LogDTO> call, Throwable t) {
-                if (handleError != null){
-                    handleError.accept(t);
-                }
+                APICallsUtils.getHandlerOrDefault(handleError).accept(t);
             }
         });
     }
 
-    public void fetchLogs(String date) {
+    public void fetchLogs(Date date, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
         logDataService.fetchAllLogs(userRepository.getToken(), date).enqueue(new Callback<List<LogDTO>>() {
             @Override
             public void onResponse(Call<List<LogDTO>> call, Response<List<LogDTO>> response) {
-                logsCahce.setValue(response.body());
+                if (response.code() == 200) {
+                    logsCahce.setValue(response.body());
+                    APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
+                } else {
+                    Log.e("FETCH LOGS ERROR","Error while fetching logs with date: " + date + " for user: " + userRepository.getToken());
+                    logsCahce.setValue(new ArrayList<>());
+                    APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
+                }
             }
 
             @Override
             public void onFailure(Call<List<LogDTO>> call, Throwable t) {
-
+                APICallsUtils.getHandlerOrDefault(handleError).accept(t);
             }
         });
     }
@@ -81,25 +87,22 @@ public class LogRepository {
             public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
 
                 if(response.body() == null) {
+                    APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
                     return;
                 }
 
                 List<LogDTO> listToUpdate = logsCahce.getValue();
-                LogDTO logToUpdate = listToUpdate.stream().filter(log -> log.getId().equalsIgnoreCase(response.body().getId())).findFirst().get();
+                LogDTO logToUpdate = listToUpdate.stream().filter(log -> log.getId().equals(response.body().getId())).findFirst().get();
                 listToUpdate.remove(logToUpdate);
                 listToUpdate.add(response.body());
                 logsCahce.setValue(listToUpdate);
 
-                if(handleSuccess != null) {
-                    handleSuccess.accept(response.body());
-                }
+                APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
             }
 
             @Override
             public void onFailure(Call<LogDTO> call, Throwable t) {
-                if (handleError != null){
-                    handleError.accept(t);
-                }
+                APICallsUtils.getHandlerOrDefault(handleError).accept(t);
             }
         });
     }
