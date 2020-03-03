@@ -19,7 +19,7 @@ public class CaloriesRepository {
     private UserRepository userRepository = UserRepository.getInstance();
     private CaloriesDataService caloriesDataService;
 
-    public CaloriesRepository() {
+    private CaloriesRepository() {
         this.caloriesDataService = APIClient.getRetrofitInstance().create(CaloriesDataService.class);
     }
 

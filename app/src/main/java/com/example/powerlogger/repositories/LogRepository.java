@@ -7,12 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.powerlogger.APIClient;
 import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.services.LogDataService;
-import com.example.powerlogger.ui.logger.LogType;
 import com.example.powerlogger.utils.APICallsUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -60,7 +58,7 @@ public class LogRepository {
         });
     }
 
-    public void fetchLogs(Date date, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
+    public void fetchLogs(LocalDate date, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
         logDataService.fetchAllLogs(userRepository.getToken(), date).enqueue(new Callback<List<LogDTO>>() {
             @Override
             public void onResponse(Call<List<LogDTO>> call, Response<List<LogDTO>> response) {

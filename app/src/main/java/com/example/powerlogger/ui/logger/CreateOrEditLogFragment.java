@@ -17,28 +17,37 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.powerlogger.MainActivity;
 import com.example.powerlogger.MainActivityViewModel;
 import com.example.powerlogger.R;
+import com.example.powerlogger.dto.ExerciseDTO;
 import com.example.powerlogger.dto.GroupDTO;
 import com.example.powerlogger.dto.LogDTO;
+import com.example.powerlogger.model.ExerciseCategory;
 import com.example.powerlogger.utils.ArrayUtills;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class CreateOrEditLogFragment extends Fragment {
-    private EditText logName;
+    private EditText exerciseName;
+    private Spinner exerciseType;
+    private Spinner exercisesSpinner;
+
     private EditText logIntensity;
-    private Spinner logType;
-    private Spinner groupsSpinner;
-    private Button addLogButton;
-    private LoggerViewModel loggerViewModel;
-    private OnFragmentInteractionListener mListener;
-    private String editLogId;
     private TextView logNotes;
+    private Spinner groupsSpinner;
+
+    private Button addLogButton;
     private MainActivityViewModel mainActivityViewModel;
+    private String editLogId;
+    private LocalDate currentDateInView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,66 +59,64 @@ public class CreateOrEditLogFragment extends Fragment {
 
         Bundle data = getArguments();
         try {
-            editLogId = data.getString("logId");
+            editLogId = data.getString(Constants.LOG_ID_BUNDLE_KEY);
         } catch (NullPointerException e) {
             editLogId = null;
         }
 
+        try {
+            String dateMiliStr = data.getString(Constants.CURRENT_DATE_BUNDLE_KEY);
+            currentDateInView = Instant.ofEpochMilli(Long.parseLong(dateMiliStr)).atZone(ZoneId.systemDefault()).toLocalDate();
+        } catch (NullPointerException e) {
+            currentDateInView = null;
+        }
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_edit_log, container, false);
 
         mainActivityViewModel = ViewModelProviders.of(this.getActivity()).get(MainActivityViewModel.class);
+        groupsSpinner = view.findViewById(R.id.addLogGroupSpinner);
+        exercisesSpinner = view.findViewById(R.id.exercisesSpinner);
 
-//        logName = view.findViewById(R.id.logName);
-//        logIntensity = view.findViewById(R.id.logIntensity);
-//        logType = view.findViewById(R.id.logType);
-//        addLogButton = view.findViewById(R.id.confirmAddLog);
-//        groupsSpinner = view.findViewById(R.id.addLogGroupSpinner);
-//        logNotes = view.findViewById(R.id.logNotes);
+        mainActivityViewModel.getExerciseLiveData().observe(this, exerciseDTOS -> {
+            ArrayAdapter<ExerciseDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, exerciseDTOS);
+            exercisesSpinner.setAdapter(arrayAdapter);
+        });
+
+        mainActivityViewModel.getGroupsLiveData().observe(this, groupDTOS -> {
+            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupDTOS);
+            groupsSpinner.setAdapter(arrayAdapter);
+        });
+
+
+        exerciseName = view.findViewById(R.id.logName);
+        logIntensity = view.findViewById(R.id.logIntensity);
+        exerciseName = view.findViewById(R.id.logType);
+        addLogButton = view.findViewById(R.id.confirmAddLog);
+        logNotes = view.findViewById(R.id.logNotes);
 //
-//        loggerViewModel.getGroups().observe(this, groupDTOS -> {
-//            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupDTOS);
-//            groupsSpinner.setAdapter(arrayAdapter);
-//        });
+
 //
-//        String[] logTypes = Arrays.stream(LogType.values()).map(LogType::toString).toArray(String[]::new);
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, logTypes);
-//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        logType.setAdapter(arrayAdapter);
-//
-//        if (editLogId != null) {
-//          handleUIForEditMode();
-//        } else {
-//           handleUIForAddMode();
-//        }
+        String[] exerciseCategories =
+                Arrays.stream(ExerciseCategory.values())
+                        .map(ExerciseCategory::toString)
+                        .toArray(String[]::new);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this.getContext(),
+                android.R.layout.simple_spinner_item,
+                exerciseCategories);
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exerciseType.setAdapter(arrayAdapter);
+
+        if (editLogId != null) {
+          handleUIForEditMode();
+        } else {
+           handleUIForAddMode();
+        }
 
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        loggerViewModel = ViewModelProviders.of(this).get(LoggerViewModel.class);
-
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     private void handleError(Throwable t) {
@@ -121,10 +128,10 @@ public class CreateOrEditLogFragment extends Fragment {
     }
 
     private void handleUIForEditMode() {
-//        addLogButton.setText("Edit Log");
-//        addLogButton.setOnClickListener(v -> onEditLogConfirm(v));
-//
-//        List<GroupDTO> groups = loggerViewModel.getGroups().getValue();
+        addLogButton.setText("Edit Log");
+        addLogButton.setOnClickListener(this::onEditLogConfirm);
+        List<GroupDTO> groups = mainActivityViewModel.getGroupsLiveData().getValue();
+
 //        LogDTO currentLogToEdit = loggerViewModel
 //                .getLogs()
 //                .getValue()

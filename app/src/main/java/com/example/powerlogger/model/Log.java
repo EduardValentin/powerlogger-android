@@ -1,7 +1,5 @@
 package com.example.powerlogger.model;
 
-import com.example.powerlogger.ui.logger.LogType;
-
 public class Log {
     private String name;
     private LogType type;

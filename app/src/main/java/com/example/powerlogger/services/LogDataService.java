@@ -20,7 +20,7 @@ import retrofit2.http.Query;
 public interface LogDataService {
 
     @GET(Env.BASE_API_PREFIX + "/logs")
-    Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Query("date") Date date);
+    Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Query("date") LocalDate date);
 
     @POST(Env.BASE_API_PREFIX + "/logs")
     Call<LogDTO> postNewLog(@Header ("Authorization") String token, @Body LogDTO log);
