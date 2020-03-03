@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements CreateOrEditLogFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
 
     @Override
@@ -35,10 +35,5 @@ public class MainActivity extends AppCompatActivity implements CreateOrEditLogFr
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

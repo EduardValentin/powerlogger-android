@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.logger.CreateOrEditLogFragment"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.logger.CreateOrEditLogFragment">
 
         <ScrollView
             android:id="@+id/scrollView3"
@@ -24,44 +23,84 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/logName"
+                <LinearLayout
+                    android:id="@+id/exerciseControls"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:ems="10"
-                    android:hint="name"
-                    android:inputType="textPersonName"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Spinner
+                        android:id="@+id/exercisesSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="32dp" />
+
+                    <Button
+                        android:id="@+id/addExerciseButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:background="#00FFFFFF"
+                        android:padding="10dp"
+                        android:text="@string/add_new_exercise" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/addNewExerciseLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="157dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <Spinner
+                        android:id="@+id/exerciseType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:minHeight="32dp" />
+
+                    <Spinner
+                        android:id="@+id/exerciseGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:minHeight="32dp" />
+
+                    <EditText
+                        android:id="@+id/exerciseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/exercise_name_placeholder"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/logIntensity"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="150dp"
                     android:layout_marginEnd="25dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:hint="minutes"
+                    android:hint="@string/minutes"
                     android:inputType="numberSigned"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logName" />
-
-                <Spinner
-                    android:id="@+id/logType"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/logTypeTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/logIntensity" />
+                    app:layout_constraintTop_toTopOf="@+id/exerciseControls" />
 
                 <Button
                     android:id="@+id/confirmAddLog"
@@ -69,7 +108,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="100dp"
                     android:width="200dp"
-                    android:text="Add Log"
+                    android:text="@string/add_log"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,76 +122,17 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="25dp"
                     android:ems="10"
-                    android:hint="notes"
+                    android:hint="@string/notes"
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addLogGroupSpinner" />
+                    app:layout_constraintTop_toBottomOf="@+id/logIntensity"
+                    android:autofillHints="" />
 
-                <Spinner
-                    android:id="@+id/addLogGroupSpinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addLogGroupTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/logType" />
-
-                <TextView
-                    android:id="@+id/logTypeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="28dp"
-                    android:width="50dp"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="type"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logIntensity" />
-
-                <TextView
-                    android:id="@+id/addLogGroupTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="28dp"
-                    android:width="50dp"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="group"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logType" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    <Button
-        android:id="@+id/addExerciseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="New Exercise"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Spinner
-        android:id="@+id/exercisesSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/addExerciseButton"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="41dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,12 +2,10 @@ package com.example.powerlogger.model;
 
 public class Log {
     private String name;
-    private LogType type;
     private int intensity;
 
-    public Log(String name, LogType type, int intensity) {
+    public Log(String name, int intensity) {
         this.name = name;
-        this.type = type;
         this.intensity = intensity;
     }
 
@@ -26,13 +24,5 @@ public class Log {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LogType getType() {
-        return type;
-    }
-
-    public void setType(LogType type) {
-        this.type = type;
     }
 }

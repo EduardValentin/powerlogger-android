@@ -39,4 +39,8 @@
     <string name="height">height</string>
     <string name="birth_date">birth date</string>
     <string name="weight">weight</string>
+    <string name="add_new_exercise">Add New Exercise</string>
+    <string name="minutes">minutes</string>
+    <string name="notes">notes</string>
+    <string name="add_log">Add Log</string>
 </resources>

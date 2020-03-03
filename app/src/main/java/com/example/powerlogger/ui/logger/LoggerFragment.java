@@ -57,11 +57,11 @@ public class LoggerFragment extends Fragment {
 
         Context context = this.getContext();
 
-        mainActivityViewModel.getLogsLiveData().observe(this, logDTOS -> {
+        loggerViewModel.getLogs().observe(this, logDTOS -> {
             LogListAdapter logListAdapter = new LogListAdapter(context, logDTOS, v -> {
                 LogListItemViewHolder viewHolder = (LogListItemViewHolder) v.getTag();
-                openEditFragment(mainActivityViewModel
-                        .getLogsLiveData()
+                openEditFragment(loggerViewModel
+                        .getLogs()
                         .getValue()
                         .get(viewHolder.getPosition()));
             });

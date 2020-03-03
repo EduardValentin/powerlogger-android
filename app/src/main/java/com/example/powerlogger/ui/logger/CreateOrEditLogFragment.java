@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,11 @@ import java.util.List;
 public class CreateOrEditLogFragment extends Fragment {
     private EditText exerciseName;
     private Spinner exerciseType;
+    private Button addNewExerciseButton;
     private Spinner exercisesSpinner;
+
+    private LinearLayout exerciseControlsLayout;
+    private LinearLayout addNewExerciseLayout;
 
     private EditText logIntensity;
     private TextView logNotes;
@@ -74,9 +79,16 @@ public class CreateOrEditLogFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_edit_log, container, false);
 
+        addNewExerciseLayout = view.findViewById(R.id.addNewExerciseLayout);
+        exerciseControlsLayout = view.findViewById(R.id.exerciseControls);
+
         mainActivityViewModel = ViewModelProviders.of(this.getActivity()).get(MainActivityViewModel.class);
-        groupsSpinner = view.findViewById(R.id.addLogGroupSpinner);
+        groupsSpinner = view.findViewById(R.id.exerciseGroup);
         exercisesSpinner = view.findViewById(R.id.exercisesSpinner);
+
+        addNewExerciseButton = view.findViewById(R.id.addExerciseButton);
+
+        addNewExerciseButton.setOnClickListener(this::onAddNewExercise);
 
         mainActivityViewModel.getExerciseLiveData().observe(this, exerciseDTOS -> {
             ArrayAdapter<ExerciseDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, exerciseDTOS);
@@ -89,9 +101,9 @@ public class CreateOrEditLogFragment extends Fragment {
         });
 
 
-        exerciseName = view.findViewById(R.id.logName);
+        exerciseName = view.findViewById(R.id.exerciseName);
         logIntensity = view.findViewById(R.id.logIntensity);
-        exerciseName = view.findViewById(R.id.logType);
+        exerciseType = view.findViewById(R.id.exerciseType);
         addLogButton = view.findViewById(R.id.confirmAddLog);
         logNotes = view.findViewById(R.id.logNotes);
 //
@@ -207,4 +219,8 @@ public class CreateOrEditLogFragment extends Fragment {
 //        loggerViewModel.updateLog(toEdit, o -> handleSuccess(), t -> handleError(t));
     }
 
+    public void onAddNewExercise(View v) {
+        exerciseControlsLayout.setVisibility(View.GONE);
+        addNewExerciseLayout.setVisibility(View.VISIBLE);
+    }
 }
