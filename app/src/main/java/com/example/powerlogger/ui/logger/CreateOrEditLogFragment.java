@@ -27,6 +27,8 @@ import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.model.ExerciseCategory;
 import com.example.powerlogger.utils.ArrayUtills;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -42,7 +44,7 @@ public class CreateOrEditLogFragment extends Fragment {
     private Spinner exercisesSpinner;
 
     private LinearLayout exerciseControlsLayout;
-    private LinearLayout addNewExerciseLayout;
+    private ExpandableLayout addNewExerciseLayout;
 
     private EditText logIntensity;
     private TextView logNotes;
@@ -220,7 +222,6 @@ public class CreateOrEditLogFragment extends Fragment {
     }
 
     public void onAddNewExercise(View v) {
-        exerciseControlsLayout.setVisibility(View.GONE);
-        addNewExerciseLayout.setVisibility(View.VISIBLE);
+        addNewExerciseLayout.toggle();
     }
 }

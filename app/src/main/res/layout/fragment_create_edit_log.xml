@@ -1,6 +1,7 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,14 +11,11 @@
             android:id="@+id/scrollView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -27,6 +25,7 @@
                     android:id="@+id/exerciseControls"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginTop="60dp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -50,65 +49,82 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+
+                <net.cachapa.expandablelayout.ExpandableLayout
                     android:id="@+id/addNewExerciseLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="157dp"
-                    android:orientation="vertical"
-                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    app:el_duration="500"
+                    app:el_expanded="false"
+                    app:el_parallax="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/exerciseControls">
 
 
-                    <Spinner
-                        android:id="@+id/exerciseType"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:minHeight="32dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/exerciseGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:minHeight="32dp" />
+                        <EditText
+                            android:id="@+id/exerciseName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="25dp"
+                            android:layout_marginBottom="10dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:hint="@string/exercise_name_placeholder"
+                            android:inputType="textPersonName" />
 
-                    <EditText
-                        android:id="@+id/exerciseName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:autofillHints=""
-                        android:ems="10"
-                        android:hint="@string/exercise_name_placeholder"
-                        android:inputType="textPersonName" />
+                        <Spinner
+                            android:id="@+id/exerciseGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="25dp"
+                            android:layout_marginBottom="10dp"
+                            android:minHeight="32dp" />
 
-                </LinearLayout>
+                        <Spinner
+                            android:id="@+id/exerciseType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="25dp"
+                            android:minHeight="32dp" />
+                    </LinearLayout>
+
+                </net.cachapa.expandablelayout.ExpandableLayout>
 
                 <EditText
                     android:id="@+id/logIntensity"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="25dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/minutes"
                     android:inputType="numberSigned"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/exerciseControls" />
+                    app:layout_constraintTop_toBottomOf="@+id/addNewExerciseLayout" />
 
                 <Button
                     android:id="@+id/confirmAddLog"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginBottom="60dp"
                     android:width="200dp"
                     android:text="@string/add_log"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,16 +135,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="25dp"
+                    android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/notes"
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logIntensity"
-                    android:autofillHints="" />
+                    app:layout_constraintTop_toBottomOf="@+id/logIntensity" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
