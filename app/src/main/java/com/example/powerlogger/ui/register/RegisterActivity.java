@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity  implements DatePickerDi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);

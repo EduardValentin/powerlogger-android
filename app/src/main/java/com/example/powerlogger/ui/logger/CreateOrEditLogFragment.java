@@ -51,7 +51,10 @@ public class CreateOrEditLogFragment extends Fragment {
     private Spinner groupsSpinner;
 
     private Button addLogButton;
+
     private MainActivityViewModel mainActivityViewModel;
+    private CreateOrEditLogViewModel createOrEditLogViewModel;
+
     private String editLogId;
     private LocalDate currentDateInView;
 
@@ -85,6 +88,8 @@ public class CreateOrEditLogFragment extends Fragment {
         exerciseControlsLayout = view.findViewById(R.id.exerciseControls);
 
         mainActivityViewModel = ViewModelProviders.of(this.getActivity()).get(MainActivityViewModel.class);
+        createOrEditLogViewModel = ViewModelProviders.of(this).get(CreateOrEditLogViewModel.class);
+
         groupsSpinner = view.findViewById(R.id.exerciseGroup);
         exercisesSpinner = view.findViewById(R.id.exercisesSpinner);
 
@@ -108,12 +113,10 @@ public class CreateOrEditLogFragment extends Fragment {
         exerciseType = view.findViewById(R.id.exerciseType);
         addLogButton = view.findViewById(R.id.confirmAddLog);
         logNotes = view.findViewById(R.id.logNotes);
-//
 
-//
         String[] exerciseCategories =
                 Arrays.stream(ExerciseCategory.values())
-                        .map(ExerciseCategory::toString)
+                        .map(ExerciseCategory::getName)
                         .toArray(String[]::new);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -222,6 +225,12 @@ public class CreateOrEditLogFragment extends Fragment {
     }
 
     public void onAddNewExercise(View v) {
+        if (addNewExerciseLayout.isExpanded()) {
+            createOrEditLogViewModel.setCreatingNewExercise(false);
+        } else {
+            createOrEditLogViewModel.setCreatingNewExercise(true);
+        }
+
         addNewExerciseLayout.toggle();
     }
 }
