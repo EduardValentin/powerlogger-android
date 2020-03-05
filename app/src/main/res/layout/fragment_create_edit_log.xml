@@ -39,13 +39,17 @@
 
                     <Button
                         android:id="@+id/addExerciseButton"
+                        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:background="#00FFFFFF"
+                        android:elevation="1dp"
                         android:padding="10dp"
-                        android:text="@string/add_new_exercise" />
+                        android:text="@string/add_new_exercise"
+                        android:textSize="12sp"
+                        app:icon="@drawable/ic_add_black_24dp" />
 
                 </LinearLayout>
 
