@@ -33,9 +33,11 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CreateOrEditLogFragment extends Fragment {
     private EditText exerciseName;
@@ -98,12 +100,22 @@ public class CreateOrEditLogFragment extends Fragment {
         addNewExerciseButton.setOnClickListener(this::onAddNewExercise);
 
         mainActivityViewModel.getExerciseLiveData().observe(this, exerciseDTOS -> {
-            ArrayAdapter<ExerciseDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, exerciseDTOS);
+            List<ExerciseDTO> exercises = new ArrayList<>();
+            exercises.addAll(exerciseDTOS);
+            ExerciseDTO placeholder = new ExerciseDTO();
+            placeholder.setName("Select exercise");
+            exercises.add(placeholder);
+            ArrayAdapter<ExerciseDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, exercises);
             exercisesSpinner.setAdapter(arrayAdapter);
         });
 
         mainActivityViewModel.getGroupsLiveData().observe(this, groupDTOS -> {
-            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupDTOS);
+            List<GroupDTO> groupsList = new ArrayList<>();
+            groupsList.addAll(groupDTOS);
+            GroupDTO placeholder = new GroupDTO();
+            placeholder.setName("Select groups");
+            groupsList.add(0, placeholder);
+            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupsList);
             groupsSpinner.setAdapter(arrayAdapter);
         });
 
@@ -114,10 +126,12 @@ public class CreateOrEditLogFragment extends Fragment {
         addLogButton = view.findViewById(R.id.confirmAddLog);
         logNotes = view.findViewById(R.id.logNotes);
 
-        String[] exerciseCategories =
+        List<String> exerciseCategories =
                 Arrays.stream(ExerciseCategory.values())
                         .map(ExerciseCategory::getName)
-                        .toArray(String[]::new);
+                        .collect(Collectors.toList());
+
+        exerciseCategories.add(0, "Exercise category");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this.getContext(),
@@ -220,7 +234,7 @@ public class CreateOrEditLogFragment extends Fragment {
 
     private void onEditLogConfirm(View v) {
 //        LogDTO toEdit = constructLogFromInputs();
-//        toEdit.setId(editLogId);
+//        toEdit.setyId(editLogId);
 //        loggerViewModel.updateLog(toEdit, o -> handleSuccess(), t -> handleError(t));
     }
 

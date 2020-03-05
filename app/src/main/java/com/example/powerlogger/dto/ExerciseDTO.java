@@ -40,5 +40,10 @@ public class ExerciseDTO {
     public void setGroups(List<GroupDTO> groups) {
         this.groups = groups;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
 
