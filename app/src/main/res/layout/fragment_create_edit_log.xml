@@ -2,6 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="com.example.powerlogger.utils.BasicConverters" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.powerlogger.ui.logger.CreateOrEditLogViewModel" />
+
+        <variable
+            name="view"
+            type="com.example.powerlogger.ui.logger.CreateOrEditLogFragment" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,6 +92,7 @@
                             android:layout_marginBottom="10dp"
                             android:autofillHints=""
                             android:ems="10"
+                            android:text="@={viewmodel.exerciseDTO.name}"
                             android:hint="@string/exercise_name_placeholder"
                             android:inputType="textPersonName" />
 
@@ -113,6 +125,7 @@
                     android:layout_marginEnd="25dp"
                     android:autofillHints=""
                     android:ems="10"
+                    android:text="@={BasicConverters.fromIntegerToString(viewmodel.logDTO.minutes)}"
                     android:hint="@string/minutes"
                     android:inputType="numberSigned"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -144,6 +157,7 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/notes"
+                    android:text="@={viewmodel.logDTO.notes}"
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"

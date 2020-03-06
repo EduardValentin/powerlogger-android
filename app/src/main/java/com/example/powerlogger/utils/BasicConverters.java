@@ -15,6 +15,14 @@ public class BasicConverters {
         }
     }
 
+    public static int fromStringToInteger(String nr) {
+        try {
+            return Integer.parseInt(nr);
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
     public static float fromStringToFloat(String nr) {
         try {
             return Float.parseFloat(nr);
@@ -29,6 +37,14 @@ public class BasicConverters {
             return "";
         }
         return Float.toString(f);
+    }
+
+    @InverseMethod("fromStringToInteger")
+    public static String fromIntegerToString(int nr) {
+        if (nr == 0) {
+            return "";
+        }
+        return Integer.toString(nr);
     }
 
     @InverseMethod("fromStringToDate")

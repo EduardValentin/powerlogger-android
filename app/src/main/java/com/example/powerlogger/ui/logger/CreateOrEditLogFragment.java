@@ -7,9 +7,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,6 +62,11 @@ public class CreateOrEditLogFragment extends Fragment {
     private String editLogId;
     private LocalDate currentDateInView;
 
+    private final AdapterView.OnItemSelectedListener onCategorySelectListener = new CustomItemSelectedListener<String>(this::onSelectCategory);
+    private final AdapterView.OnItemSelectedListener onExerciseSelectListener = new CustomItemSelectedListener<ExerciseDTO>(this::onSelectExercise);
+    private final AdapterView.OnItemSelectedListener onGroupSelectListener = new CustomItemSelectedListener<GroupDTO>(this::onSelectGroup);
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +101,13 @@ public class CreateOrEditLogFragment extends Fragment {
 
         groupsSpinner = view.findViewById(R.id.exerciseGroup);
         exercisesSpinner = view.findViewById(R.id.exercisesSpinner);
+        exerciseType = view.findViewById(R.id.exerciseType);
+
+        exerciseType.setOnItemSelectedListener(this.onCategorySelectListener);
+        exercisesSpinner.setOnItemSelectedListener(this.onExerciseSelectListener);
+        groupsSpinner.setOnItemSelectedListener(this.onGroupSelectListener);
 
         addNewExerciseButton = view.findViewById(R.id.addExerciseButton);
-
         addNewExerciseButton.setOnClickListener(this::onAddNewExercise);
 
         mainActivityViewModel.getExerciseLiveData().observe(this, exerciseDTOS -> {
@@ -122,7 +133,6 @@ public class CreateOrEditLogFragment extends Fragment {
 
         exerciseName = view.findViewById(R.id.exerciseName);
         logIntensity = view.findViewById(R.id.logIntensity);
-        exerciseType = view.findViewById(R.id.exerciseType);
         addLogButton = view.findViewById(R.id.confirmAddLog);
         logNotes = view.findViewById(R.id.logNotes);
 
@@ -142,9 +152,9 @@ public class CreateOrEditLogFragment extends Fragment {
         exerciseType.setAdapter(arrayAdapter);
 
         if (editLogId != null) {
-          handleUIForEditMode();
+            handleUIForEditMode();
         } else {
-           handleUIForAddMode();
+            handleUIForAddMode();
         }
 
         return view;
@@ -246,5 +256,24 @@ public class CreateOrEditLogFragment extends Fragment {
         }
 
         addNewExerciseLayout.toggle();
+    }
+
+    public void onSelectCategory(String category) {
+        try {
+            createOrEditLogViewModel.getExerciseDTO().setCategory(ExerciseCategory.valueOf(category));
+        } catch (Exception ex) {
+            Log.e("CATEGORY SELECT ERR:", ex.getMessage());
+        }
+    }
+
+    public void onSelectExercise(ExerciseDTO exerciseDTO) {
+        try {
+            createOrEditLogViewModel.getLogDTO().setExercise(exerciseDTO);
+        } catch (Exception ex) {
+            Log.e("EXERCISE SELECT ERR:", ex.getMessage());
+        }
+    }
+
+    public void onSelectGroup(GroupDTO groupDTO) {
     }
 }

@@ -1,12 +1,14 @@
 package com.example.powerlogger.dto;
 
+import com.example.powerlogger.model.ExerciseCategory;
+
 import java.util.List;
 import java.util.UUID;
 
 public class ExerciseDTO {
     private UUID id;
     private String name;
-    private String category;
+    private ExerciseCategory category;
     private List<GroupDTO> groups;
 
     public UUID getId() {
@@ -25,11 +27,11 @@ public class ExerciseDTO {
         this.name = name;
     }
 
-    public String getCategory() {
+    public ExerciseCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ExerciseCategory category) {
         this.category = category;
     }
 
