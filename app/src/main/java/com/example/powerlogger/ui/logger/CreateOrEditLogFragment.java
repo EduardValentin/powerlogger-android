@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidbuts.multispinnerfilter.KeyPairBoolData;
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch;
 import com.example.powerlogger.MainActivity;
 import com.example.powerlogger.MainActivityViewModel;
 import com.example.powerlogger.R;
@@ -50,7 +53,7 @@ public class CreateOrEditLogFragment extends Fragment {
 
     private EditText logIntensity;
     private TextView logNotes;
-    private Spinner groupsSpinner;
+    private MultiSpinnerSearch groupsSpinner;
 
     private Button addLogButton;
 
@@ -95,6 +98,7 @@ public class CreateOrEditLogFragment extends Fragment {
         groupsSpinner = view.findViewById(R.id.exerciseGroup);
         exercisesSpinner = view.findViewById(R.id.exercisesSpinner);
 
+
         addNewExerciseButton = view.findViewById(R.id.addExerciseButton);
 
         addNewExerciseButton.setOnClickListener(this::onAddNewExercise);
@@ -115,14 +119,16 @@ public class CreateOrEditLogFragment extends Fragment {
             GroupDTO placeholder = new GroupDTO();
             placeholder.setName("Select groups");
             groupsList.add(0, placeholder);
-            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupsList);
-            groupsSpinner.setAdapter(arrayAdapter);
+            groupsSpinner.setItems(makeKeyPairDataFromList(groupDTOS), -1, (list) -> Log.i("SELECTION", "Something got selected"));
+//            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupsList);
+//            groupsSpinner.setAdapter(arrayAdapter);
         });
 
 
         exerciseName = view.findViewById(R.id.exerciseName);
         logIntensity = view.findViewById(R.id.logIntensity);
         exerciseType = view.findViewById(R.id.exerciseType);
+
         addLogButton = view.findViewById(R.id.confirmAddLog);
         logNotes = view.findViewById(R.id.logNotes);
 
@@ -142,9 +148,9 @@ public class CreateOrEditLogFragment extends Fragment {
         exerciseType.setAdapter(arrayAdapter);
 
         if (editLogId != null) {
-          handleUIForEditMode();
+            handleUIForEditMode();
         } else {
-           handleUIForAddMode();
+            handleUIForAddMode();
         }
 
         return view;
@@ -246,5 +252,19 @@ public class CreateOrEditLogFragment extends Fragment {
         }
 
         addNewExerciseLayout.toggle();
+    }
+
+    private <T extends Identifiable> List<KeyPairBoolData> makeKeyPairDataFromList(List<T> items) {
+        return items.stream().map(this::makeKeyPairBoolDataFromItem).collect(Collectors.toList());
+    }
+
+    private <T extends Identifiable> KeyPairBoolData makeKeyPairBoolDataFromItem(T item) {
+        KeyPairBoolData keyPairBoolData = new KeyPairBoolData();
+        keyPairBoolData.setName(item.getName());
+        keyPairBoolData.setObject(item);
+        keyPairBoolData.setId(new Date().getTime());
+        keyPairBoolData.setSelected(false);
+
+        return keyPairBoolData;
     }
 }

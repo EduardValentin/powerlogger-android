@@ -29,7 +29,7 @@ import java.util.List;
 
 public class GroupsFragment extends Fragment {
     private ArrayList<Group> groupsArrayList;
-//    private ListView groupsListView;
+    //    private ListView groupsListView;
     private GroupsViewModel groupsViewModel;
     private ImageButton addGroupBtn;
     private ExpandingList expandingList;
@@ -83,10 +83,12 @@ public class GroupsFragment extends Fragment {
 
             List<LogDTO> logs = groupDTO.getLogsList();
 
-            item.createSubItems(logs.size());
-
             Button groupEditBtn = item.findViewById(R.id.groupEditButton);
             groupEditBtn.setOnClickListener(v -> onEditGroup(groupDTO));
+
+            if (logs == null) return;
+
+            item.createSubItems(logs.size());
 
             for (int i = 0; i < logs.size(); i++) {
                 View subItemView = item.getSubItemView(i);

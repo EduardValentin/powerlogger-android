@@ -2,9 +2,11 @@ package com.example.powerlogger.dto;
 
 import androidx.annotation.NonNull;
 
+import com.example.powerlogger.ui.logger.Identifiable;
+
 import java.util.List;
 
-public class GroupDTO {
+public class GroupDTO implements Identifiable {
     private String id;
     private String name;
     private List<LogDTO> logs;
