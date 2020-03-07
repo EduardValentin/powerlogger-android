@@ -49,6 +49,9 @@ dependencies {
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     implementation 'com.diegodobelo.expandingview:expanding-view:0.9.4'
     implementation 'com.google.android.material:material:1.2.0-alpha05'
+
+    implementation 'com.github.pratikbutani:MultiSelectSpinner:-SNAPSHOT'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

@@ -2,10 +2,12 @@ package com.example.powerlogger.dto;
 
 import com.example.powerlogger.model.ExerciseCategory;
 
+import com.example.powerlogger.ui.logger.Identifiable;
+
 import java.util.List;
 import java.util.UUID;
 
-public class ExerciseDTO {
+public class ExerciseDTO implements Identifiable {
     private UUID id;
     private String name;
     private ExerciseCategory category;

@@ -1,10 +1,12 @@
 package com.example.powerlogger.dto;
 
 
+import com.example.powerlogger.ui.logger.Identifiable;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class LogDTO {
+public class LogDTO implements Identifiable {
     private UUID id;
     private int minutes;
     private int kcal;
@@ -70,5 +72,10 @@ public class LogDTO {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String getName() {
+        return this.exercise.getName();
     }
 }

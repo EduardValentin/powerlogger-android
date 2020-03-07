@@ -108,6 +108,7 @@ public class CreateOrEditLogFragment extends Fragment {
         groupsSpinner.setOnItemSelectedListener(this.onGroupSelectListener);
 
         addNewExerciseButton = view.findViewById(R.id.addExerciseButton);
+
         addNewExerciseButton.setOnClickListener(this::onAddNewExercise);
 
         mainActivityViewModel.getExerciseLiveData().observe(this, exerciseDTOS -> {
@@ -133,6 +134,7 @@ public class CreateOrEditLogFragment extends Fragment {
 
         exerciseName = view.findViewById(R.id.exerciseName);
         logIntensity = view.findViewById(R.id.logIntensity);
+        exerciseType = view.findViewById(R.id.exerciseType);
         addLogButton = view.findViewById(R.id.confirmAddLog);
         logNotes = view.findViewById(R.id.logNotes);
 
