@@ -14,6 +14,50 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorHint">@color/textColor</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:buttonStyle">@style/MyButtonStyle</item>
+        <item name="android:spinnerStyle">@style/MyDropdownStyle</item>
+    </style>
+
+    <style name="MyAlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorHint">@color/textColor</item>
+
+        <!-- Customize your theme here. -->
+        <!--        <selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+        <!--            <item name="android:backgroundTint" android:state_enabled="false">@color/colorPrimary</item>-->
+        <!--        </selector>-->
+    </style>
+
+
+    <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:width">120dp</item>
+        <!-- Customize your theme here. -->
+<!--        <selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--            <item name="android:backgroundTint" android:state_enabled="false">@color/colorPrimary</item>-->
+<!--        </selector>-->
+    </style>
+
+
+    <style name="MyAccentButtonStyle" parent="Widget.MaterialComponents.Button">
+        <!-- Customize your theme here. -->
+        <item name="android:width">120dp</item>
+        <item name="android:backgroundTint">@color/colorAccent</item>
+    </style>
+
+
+    <style name="MyDropdownStyle" parent="Widget.AppCompat.Spinner.DropDown">
+        <!-- Customize your theme here. -->
+        <item name="android:backgroundTint">@color/colorPrimary</item>
     </style>
 
     <style name="HiddenTitleTheme" parent="AppTheme">

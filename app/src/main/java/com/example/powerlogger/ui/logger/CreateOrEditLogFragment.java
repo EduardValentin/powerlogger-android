@@ -1,7 +1,5 @@
 package com.example.powerlogger.ui.logger;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,24 +18,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.powerlogger.MainActivity;
 import com.example.powerlogger.MainActivityViewModel;
 import com.example.powerlogger.R;
 import com.example.powerlogger.dto.ExerciseDTO;
 import com.example.powerlogger.dto.GroupDTO;
-import com.example.powerlogger.dto.LogDTO;
+import com.example.powerlogger.lib.multiselect.MultiSelectSpinner;
 import com.example.powerlogger.model.ExerciseCategory;
-import com.example.powerlogger.utils.ArrayUtills;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +46,7 @@ public class CreateOrEditLogFragment extends Fragment {
 
     private EditText logIntensity;
     private TextView logNotes;
-    private Spinner groupsSpinner;
+    private MultiSelectSpinner groupsSpinner;
 
     private Button addLogButton;
 
@@ -64,7 +58,6 @@ public class CreateOrEditLogFragment extends Fragment {
 
     private final AdapterView.OnItemSelectedListener onCategorySelectListener = new CustomItemSelectedListener<String>(this::onSelectCategory);
     private final AdapterView.OnItemSelectedListener onExerciseSelectListener = new CustomItemSelectedListener<ExerciseDTO>(this::onSelectExercise);
-    private final AdapterView.OnItemSelectedListener onGroupSelectListener = new CustomItemSelectedListener<GroupDTO>(this::onSelectGroup);
 
 
     @Override
@@ -100,12 +93,12 @@ public class CreateOrEditLogFragment extends Fragment {
         createOrEditLogViewModel = ViewModelProviders.of(this).get(CreateOrEditLogViewModel.class);
 
         groupsSpinner = view.findViewById(R.id.exerciseGroup);
+        groupsSpinner.setPlaceholderText("Select groups");
         exercisesSpinner = view.findViewById(R.id.exercisesSpinner);
         exerciseType = view.findViewById(R.id.exerciseType);
 
         exerciseType.setOnItemSelectedListener(this.onCategorySelectListener);
         exercisesSpinner.setOnItemSelectedListener(this.onExerciseSelectListener);
-        groupsSpinner.setOnItemSelectedListener(this.onGroupSelectListener);
 
         addNewExerciseButton = view.findViewById(R.id.addExerciseButton);
 
@@ -127,8 +120,8 @@ public class CreateOrEditLogFragment extends Fragment {
             GroupDTO placeholder = new GroupDTO();
             placeholder.setName("Select groups");
             groupsList.add(0, placeholder);
-            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupsList);
-            groupsSpinner.setAdapter(arrayAdapter);
+//            ArrayAdapter<GroupDTO> arrayAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, groupsList);
+            groupsSpinner.setItems(groupsList);
         });
 
 
@@ -143,7 +136,8 @@ public class CreateOrEditLogFragment extends Fragment {
                         .map(ExerciseCategory::getName)
                         .collect(Collectors.toList());
 
-        exerciseCategories.add(0, "Exercise category");
+        exerciseCategories.add(0, "typ" +
+                "");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this.getContext(),
@@ -170,9 +164,7 @@ public class CreateOrEditLogFragment extends Fragment {
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
-    private void handleUIForEditMode() {
-        addLogButton.setText("Edit Log");
-        addLogButton.setOnClickListener(this::onEditLogConfirm);
+    private void handleUIForEditMode() { addLogButton.setOnClickListener(this::onEditLogConfirm);
         List<GroupDTO> groups = mainActivityViewModel.getGroupsLiveData().getValue();
 
 //        LogDTO currentLogToEdit = loggerViewModel

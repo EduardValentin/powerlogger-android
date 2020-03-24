@@ -2,14 +2,14 @@ package com.example.powerlogger.dto;
 
 import androidx.annotation.NonNull;
 
-import com.example.powerlogger.ui.logger.Identifiable;
-
+import com.example.powerlogger.lib.SelectableItem;
 import java.util.List;
 
-public class GroupDTO implements Identifiable {
+public class GroupDTO implements SelectableItem {
     private String id;
     private String name;
     private List<LogDTO> logs;
+    private boolean selected;
 
     public GroupDTO(String id, String name) {
         this.id = id;
@@ -47,5 +47,15 @@ public class GroupDTO implements Identifiable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

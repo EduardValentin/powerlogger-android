@@ -10,8 +10,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_exercise_btn_text">Add Exercise</string>
-    <string name="log_name_here_placeholder">Log name here</string>
-    <string name="exercise_name_placeholder">Enter exercise name here</string>
+    <string name="log_name_here_placeholder">name</string>
+    <string name="exercise_name_placeholder">name</string>
     <string name="include_group">Include Group</string>
     <string name="add_a_log_group">Add a log group</string>
 
@@ -43,4 +43,5 @@
     <string name="minutes">minutes</string>
     <string name="notes">notes</string>
     <string name="add_log">Add Log</string>
+    <string name="save">Save</string>
 </resources>

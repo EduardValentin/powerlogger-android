@@ -37,7 +37,9 @@
                     android:id="@+id/exerciseControls"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="60dp"
+                    android:layout_marginEnd="25dp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -47,21 +49,23 @@
                         android:id="@+id/exercisesSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:foregroundTint="#B85252"
                         android:minHeight="32dp" />
 
                     <Button
                         android:id="@+id/addExerciseButton"
-                        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+                        style="@android:style/Widget.DeviceDefault.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
-                        android:background="#00FFFFFF"
+                        android:background="#00AAA1A1"
                         android:elevation="1dp"
                         android:padding="10dp"
                         android:text="@string/add_new_exercise"
                         android:textSize="12sp"
-                        app:icon="@drawable/ic_add_black_24dp" />
+                        app:icon="@drawable/ic_add_black_24dp"
+                        app:rippleColor="#F43131" />
 
                 </LinearLayout>
 
@@ -93,18 +97,20 @@
                             android:layout_marginBottom="10dp"
                             android:autofillHints=""
                             android:ems="10"
-                            android:text="@={viewmodel.exerciseDTO.name}"
                             android:hint="@string/exercise_name_placeholder"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:text="@={viewmodel.exerciseDTO.name}"
+                            android:textColor="@color/colorPrimary" />
 
-                        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+                        <com.example.powerlogger.lib.multiselect.MultiSelectSpinner
                             android:id="@+id/exerciseGroup"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
                             android:layout_marginRight="25dp"
                             android:layout_marginBottom="10dp"
-                            app:hintText="Add exercise to groups" />
+                            android:minHeight="32dp"
+                            android:spinnerMode="dropdown" />
 
                         <Spinner
                             android:id="@+id/exerciseType"
@@ -112,13 +118,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
                             android:layout_marginRight="25dp"
-                            android:minHeight="32dp" />
+                            android:minHeight="32dp"
+                            android:spinnerMode="dropdown" />
                     </LinearLayout>
 
                 </net.cachapa.expandablelayout.ExpandableLayout>
 
                 <EditText
                     android:id="@+id/logIntensity"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="25dp"
@@ -126,9 +134,10 @@
                     android:layout_marginEnd="25dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:text="@={BasicConverters.fromIntegerToString(viewmodel.logDTO.minutes)}"
                     android:hint="@string/minutes"
                     android:inputType="numberSigned"
+                    android:text="@={BasicConverters.fromIntegerToString(viewmodel.logDTO.minutes)}"
+                    android:textColorHighlight="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,20 +145,25 @@
 
                 <Button
                     android:id="@+id/confirmAddLog"
+                    style="@style/MyAccentButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginTop="128dp"
                     android:layout_marginBottom="60dp"
-                    android:width="200dp"
-                    android:text="@string/add_log"
+                    android:width="180dp"
+                    android:background="#C84848"
+                    android:text="@string/save"
+                    android:textColorHighlight="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logNotes" />
+                    app:layout_constraintTop_toBottomOf="@+id/logNotes"
+                    app:rippleColor="#00FFFFFF" />
 
                 <EditText
                     android:id="@+id/logNotes"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
                     android:layout_marginStart="25dp"
@@ -158,8 +172,8 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/notes"
-                    android:text="@={viewmodel.logDTO.notes}"
                     android:inputType="textPersonName"
+                    android:text="@={viewmodel.logDTO.notes}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
