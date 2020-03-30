@@ -26,6 +26,8 @@ public class ExerciseRepository {
 
     private ExerciseRepository() {
         this.exerciseCache = new MutableLiveData<>();
+        this.exerciseCache.setValue(new ArrayList<>());
+
         this.userRepository = UserRepository.getInstance();
         this.exerciseDataService = APIClient.getRetrofitInstance().create(ExerciseDataService.class);
     }

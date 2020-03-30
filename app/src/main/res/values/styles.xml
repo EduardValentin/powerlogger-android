@@ -9,11 +9,8 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="MyMaterialTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="MyMaterialTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:background">@color/background</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorHint">@color/textColor</item>
@@ -21,30 +18,39 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="android:buttonStyle">@style/MyButtonStyle</item>
         <item name="android:spinnerStyle">@style/MyDropdownStyle</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--        <item name="colorPrimaryVariant">@color/primaryVariant</item>-->
+        <!--        <item name="colorOnPrimary">@color/onPrimary</item>-->
+        <!--        <item name="colorSecondary">@color/colorPrimary</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/secondaryVariant</item>-->
+        <item name="colorOnSecondary">@color/textColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--        <item name="colorSurface">@color/surface</item>-->
+        <!--        <item name="colorOnSurface">@color/onSurface</item>-->
+        <!--        <item name="colorError">@color/error</item>-->
+        <!--        <item name="colorOnError">@color/onError</item>-->
+        <!--        <item name="colorButtonNormal">@color/buttonNormal</item>-->
+        <!--        <item name="colorControlNormal">@color/controlNormal</item>-->
+        <!--        <item name="colorControlActivated">@color/controlActivated</item>-->
+        <!--        <item name="colorControlHighlight">@color/controlHighlight</item>-->
+        <!--        <item name="colorBackgroundFloating">@color/backgroundFloating</item>-->
     </style>
 
     <style name="MyAlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
-        <!-- Customize your theme here. -->
-
     </style>
 
     <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorHint">@color/textColor</item>
-
-        <!-- Customize your theme here. -->
-        <!--        <selector xmlns:android="http://schemas.android.com/apk/res/android">-->
-        <!--            <item name="android:backgroundTint" android:state_enabled="false">@color/colorPrimary</item>-->
-        <!--        </selector>-->
+        <item name="android:textColorHint">@color/fadedTextColor</item>
     </style>
 
 
     <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:width">120dp</item>
-        <!-- Customize your theme here. -->
-<!--        <selector xmlns:android="http://schemas.android.com/apk/res/android">-->
-<!--            <item name="android:backgroundTint" android:state_enabled="false">@color/colorPrimary</item>-->
-<!--        </selector>-->
     </style>
 
 

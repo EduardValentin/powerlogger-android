@@ -7,6 +7,7 @@ import com.example.powerlogger.dto.ExerciseDTO;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -16,5 +17,5 @@ public interface ExerciseDataService {
     Call<List<ExerciseDTO>> fetchAllExercises(@Header("Authorization") String token);
 
     @POST(Env.BASE_API_PREFIX + "/exercises")
-    Call<ExerciseDTO> addNewExercise(ExerciseDTO exerciseDTO, @Header("Authorization") String token);
+    Call<ExerciseDTO> addNewExercise(@Body ExerciseDTO exerciseDTO, @Header("Authorization") String token);
 }

@@ -22,8 +22,8 @@ public interface LogDataService {
     @GET(Env.BASE_API_PREFIX + "/logs")
     Call<List<LogDTO>> fetchAllLogs(@Header ("Authorization") String token, @Query("date") LocalDate date);
 
-    @POST(Env.BASE_API_PREFIX + "/logs")
-    Call<LogDTO> postNewLog(@Header ("Authorization") String token, @Body LogDTO log);
+    @POST(Env.BASE_API_PREFIX + "/exercises/{exerciseId}/logs")
+    Call<LogDTO> postNewLog(@Header ("Authorization") String token, @Path("exerciseId") String exerciseId, @Body LogDTO log);
 
     @PUT(Env.BASE_API_PREFIX + "/logs/{id}")
     Call<LogDTO> updateLog(@Header ("Authorization") String token, @Path ("id") UUID id, @Body LogDTO log);

@@ -45,7 +45,7 @@ public class LoggerFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_logger, container, false);
 
-        Button addNewExerciceBtn = root.findViewById(R.id.addLogButton);
+        FloatingActionButton addNewExerciceBtn = root.findViewById(R.id.addLogButton);
 
 
         logsListView = root.findViewById(R.id.logsListView);

@@ -53,14 +53,6 @@ public class LoggerViewModel extends ViewModel {
         currentDateInViewLive.setValue(current.plusDays(days));
     }
 
-    public void addLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logRepository.addLog(log, handleSuccess, handleError);
-    }
-
-    public void updateLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logRepository.updateLog(log, handleSuccess, handleError);
-    }
-
     public void fetchLogs(LocalDate date) {
         logRepository.fetchLogs(date, null, null);
     }

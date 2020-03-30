@@ -7,12 +7,12 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class LogDTO implements Identifiable {
-    private UUID id;
-    private int minutes;
-    private int kcal;
-    private String notes;
-    private LocalDate createdAt;
-    private ExerciseDTO exercise;
+    public UUID id;
+    public int minutes;
+    public int kcal;
+    public String notes;
+    public LocalDate createdAt;
+    public ExerciseDTO exercise;
 
 
     public LogDTO(UUID id, int minutes, int kcal, String notes, LocalDate createdAt) {

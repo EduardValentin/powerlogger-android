@@ -16,7 +16,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="0dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/prevDayButton"
@@ -25,16 +26,18 @@
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="55dp"
                 android:clickable="true"
+                android:elevation="0dp"
                 android:focusable="true"
-                android:tint="@android:color/transparent"
+                android:scrollbarSize="40dp"
+                android:tint="@color/textColor"
                 app:backgroundTint="@android:color/transparent"
-                app:backgroundTintMode="add"
-                app:elevation="2dp"
-                app:fabSize="mini"
+                app:elevation="0dp"
+                app:fabSize="normal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:maxImageSize="40dp"
                 app:rippleColor="@android:color/transparent"
-                app:srcCompat="@drawable/ic_arrow_left" />
+                app:srcCompat="@drawable/ic_chevron_left_white_24dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/nextDayButton"
@@ -43,14 +46,17 @@
                 android:layout_marginTop="55dp"
                 android:layout_marginEnd="70dp"
                 android:clickable="true"
+                android:elevation="-1dp"
                 android:focusable="true"
-                app:backgroundTint="@color/textColor"
-                app:backgroundTintMode="add"
-                app:elevation="2dp"
-                app:fabSize="mini"
+                android:scrollbarSize="40dp"
+                android:tint="@color/textColor"
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="-1dp"
+                app:fabSize="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_right" />
+                app:maxImageSize="40dp"
+                app:srcCompat="@drawable/ic_chevron_right_white_24dp" />
 
             <ListView
                 android:id="@+id/logsListView"
@@ -60,7 +66,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currentDateTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/currentDateTextView">
+
+            </ListView>
 
             <TextView
                 android:id="@+id/currentDateTextView"
@@ -83,27 +91,31 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/addLogButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:width="120dp"
-        android:text="New Log"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-    <Button
         android:id="@+id/includeGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
         android:width="120dp"
         android:text="@string/title_groups"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addLogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:scrollbarSize="40dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:maxImageSize="40dp"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

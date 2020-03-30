@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.powerlogger.APIClient;
+import com.example.powerlogger.dto.ExerciseDTO;
 import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.services.LogDataService;
 import com.example.powerlogger.utils.APICallsUtils;
@@ -25,37 +26,38 @@ public class LogRepository {
     private UserRepository userRepository = UserRepository.getInstance();
 
     public static LogRepository getInstance() {
-        if(ourInstance == null) {
+        if (ourInstance == null) {
             ourInstance = new LogRepository();
         }
         return ourInstance;
     }
 
-    public  MutableLiveData<List<LogDTO>> getLogsCahce() {
+    public MutableLiveData<List<LogDTO>> getLogsCahce() {
         return logsCahce;
     }
 
-    public void addLog(LogDTO log, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logDataService.postNewLog(userRepository.getToken(), log).enqueue(new Callback<LogDTO>() {
-            @Override
-            public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
-                List<LogDTO> oldList = logsCahce.getValue();
+    public void addLog(LogDTO log, ExerciseDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
+        logDataService.postNewLog(userRepository.getToken(), exerciseDTO.getId().toString(), log)
+                .enqueue(new Callback<LogDTO>() {
+                    @Override
+                    public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
+                        List<LogDTO> oldList = logsCahce.getValue();
+    // TODO: see error handling
+                        if (response.body() == null) {
+                            APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
+                            return;
+                        }
 
-                if(response.body() == null) {
-                    APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
-                    return;
-                }
+                        oldList.add(response.body());
+                        logsCahce.setValue(oldList);
+                        APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
+                    }
 
-                oldList.add(response.body());
-                logsCahce.setValue(oldList);
-                APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<LogDTO> call, Throwable t) {
-                APICallsUtils.getHandlerOrDefault(handleError).accept(t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<LogDTO> call, Throwable t) {
+                        APICallsUtils.getHandlerOrDefault(handleError).accept(t);
+                    }
+                });
     }
 
     public void fetchLogs(LocalDate date, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
@@ -66,7 +68,7 @@ public class LogRepository {
                     logsCahce.setValue(response.body());
                     APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
                 } else {
-                    Log.e("FETCH LOGS ERROR","Error while fetching logs with date: " + date + " for user: " + userRepository.getToken());
+                    Log.e("FETCH LOGS ERROR", "Error while fetching logs with date: " + date + " for user: " + userRepository.getToken());
                     logsCahce.setValue(new ArrayList<>());
                     APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
                 }
@@ -84,7 +86,7 @@ public class LogRepository {
             @Override
             public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
 
-                if(response.body() == null) {
+                if (response.body() == null) {
                     APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
                     return;
                 }

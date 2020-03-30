@@ -9,13 +9,21 @@
         android:id="@+id/navigation_logger"
         android:name="com.example.powerlogger.ui.logger.LoggerFragment"
         android:label="@string/title_logger"
-        tools:layout="@layout/fragment_logger" />
+        tools:layout="@layout/fragment_logger" >
+        <action
+            android:id="@+id/action_navigation_logger_to_navigation_groups"
+            app:destination="@id/navigation_groups" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.powerlogger.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_logger"
+            app:destination="@id/navigation_logger" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_groups"
         android:name="com.example.powerlogger.ui.groups.GroupsFragment"

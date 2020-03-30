@@ -10,7 +10,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="452dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.groups.GroupsFragment">
 
@@ -19,13 +19,15 @@
 
         <com.diegodobelo.expandingview.ExpandingList
             android:id="@+id/expanding_list_main"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <!--        <ListView-->
         <!--            android:id="@+id/groupsListView"-->
@@ -61,9 +63,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addGroupButton"
-        android:layout_width="94dp"
-        android:layout_height="352dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_gravity="bottom|center"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:scrollbarSize="50dp"
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:maxImageSize="50dp"
+        app:rippleColor="@color/textColor" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

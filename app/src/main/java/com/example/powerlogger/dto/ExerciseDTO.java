@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class ExerciseDTO implements Identifiable {
-    private UUID id;
-    private String name;
-    private ExerciseCategory category;
-    private List<GroupDTO> groups;
+    public UUID id;
+    public String name;
+    public ExerciseCategory category;
+    public List<GroupDTO> groups;
 
     public UUID getId() {
         return id;

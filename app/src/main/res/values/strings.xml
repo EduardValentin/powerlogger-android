@@ -44,4 +44,6 @@
     <string name="notes">notes</string>
     <string name="add_log">Add Log</string>
     <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="name">Name</string>
 </resources>
