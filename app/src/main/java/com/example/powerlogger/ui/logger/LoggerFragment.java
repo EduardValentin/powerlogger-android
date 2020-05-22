@@ -1,124 +1,179 @@
 package com.example.powerlogger.ui.logger;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.powerlogger.MainActivityViewModel;
 import com.example.powerlogger.R;
+import com.example.powerlogger.databinding.FragmentLoggerBindingImpl;
+import com.example.powerlogger.dto.ExerciseDTO;
+import com.example.powerlogger.dto.GroupDTO;
 import com.example.powerlogger.dto.LogDTO;
+import com.example.powerlogger.ui.includeWorkouts.IncludeGroupsActivity;
 import com.example.powerlogger.utils.APIError;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.powerlogger.utils.Constants;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.shape.ShapeAppearanceModel;
+import com.google.android.material.transition.MaterialContainerTransform;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class LoggerFragment extends Fragment {
 
     private LoggerViewModel loggerViewModel;
     private MainActivityViewModel mainActivityViewModel;
-    private ListView logsListView;
-    private FloatingActionButton nextDayButton;
-    private FloatingActionButton prevDayButton;
-    private TextView currentDateTextView;
+    private FragmentLoggerBindingImpl bindingFragment;
+    private LogsListFragment logsListFragment;
+
+    public static final int INCLUDE_GROUPS_REQUEST_CODE = 1;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        loggerViewModel = ViewModelProviders.of(this).get(LoggerViewModel.class);
-        mainActivityViewModel = ViewModelProviders.of(this.getActivity()).get(MainActivityViewModel.class);
-        mainActivityViewModel.fetchGroups();
+        bindingFragment = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_logger, container, false);
 
-        View root = inflater.inflate(R.layout.fragment_logger, container, false);
+        View view = bindingFragment.getRoot();
+        bindingFragment.setView(this);
+        bindingFragment.setLifecycleOwner(this);
 
-        FloatingActionButton addNewExerciceBtn = root.findViewById(R.id.addLogButton);
+        loggerViewModel = new ViewModelProvider(this).get(LoggerViewModel.class);
+        mainActivityViewModel = new ViewModelProvider(this.getActivity()).get(MainActivityViewModel.class);
 
+        bindingFragment.addLogButton.setOnClickListener(this::openAddFragment);
 
-        logsListView = root.findViewById(R.id.logsListView);
-        nextDayButton = root.findViewById(R.id.nextDayButton);
-        prevDayButton = root.findViewById(R.id.prevDayButton);
-        currentDateTextView = root.findViewById(R.id.currentDateTextView);
+        logsListFragment = new LogsListFragment();
+        attachListFragment();
 
-        addNewExerciceBtn.setOnClickListener(this::openAddFragment);
+        loggerViewModel.getLogs().observe(getViewLifecycleOwner(), this::onChanged);
+        loggerViewModel.getCurrentDateInViewLive().observe(getViewLifecycleOwner(), this::handleDateChange);
 
-        Context context = this.getContext();
+        updateTotalKcal(loggerViewModel.getLogs().getValue());
 
-        loggerViewModel.getLogs().observe(this, logDTOS -> {
-            LogListAdapter logListAdapter = new LogListAdapter(context, logDTOS, v -> {
-                LogListItemViewHolder viewHolder = (LogListItemViewHolder) v.getTag();
-                openEditFragment(loggerViewModel
-                        .getLogs()
-                        .getValue()
-                        .get(viewHolder.getPosition()));
-            });
-            logsListView.setAdapter(logListAdapter);
-        });
+        mainActivityViewModel.getApiGroupsError().observe(getViewLifecycleOwner(), this::onError);
+        mainActivityViewModel.getApiLogsError().observe(getViewLifecycleOwner(), this::onError);
 
-        loggerViewModel.getCurrentDateInViewLive().observe(this, date -> handleDateChange(date));
+        bindingFragment.nextDayButton.setOnClickListener(v -> loggerViewModel.addDaysToCurrentDateInView(1));
+        bindingFragment.prevDayButton.setOnClickListener(v -> loggerViewModel.addDaysToCurrentDateInView(-1));
 
-        mainActivityViewModel.getApiGroupsError().observe(this, this::onError);
-        mainActivityViewModel.getApiLogsError().observe(this, this::onError);
-
-        nextDayButton.setOnClickListener(v -> loggerViewModel.addDaysToCurrentDateInView(1));
-        prevDayButton.setOnClickListener(v -> loggerViewModel.addDaysToCurrentDateInView(-1));
-
-        return root;
+        bindingFragment.currentDateTextView.setOnClickListener(this::openDatePicker);
+        return view;
     }
 
     public void openAddFragment(View v) {
-        Fragment addLogFragment = new CreateOrEditLogFragment();
+        Fragment addLogFragment = new CreateLogFragment();
+        MaterialContainerTransform transform = new MaterialContainerTransform();
+        transform.setDuration(400);
+        addLogFragment.setSharedElementEnterTransition(transform);
 
         Bundle data = new Bundle();
-        data.putString(Constants.CURRENT_DATE_BUNDLE_KEY, Long.toString(loggerViewModel.getCurrentDateInViewLive().getValue().toEpochDay()));
+        data.putString(LogConstants.CURRENT_DATE_BUNDLE_KEY, loggerViewModel.getCurrentDateInViewLive().getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         addLogFragment.setArguments(data);
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction.addSharedElement(bindingFragment.addLogButton, "shared_elem_container_logger");
         fragmentTransaction.replace(R.id.nav_host_fragment, addLogFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
-    public void openEditFragment(LogDTO logDTO) {
-        Fragment editLogFragment = new CreateOrEditLogFragment();
+    public void onAddGroupsClick() {
+        Intent intent = new Intent(getActivity(), IncludeGroupsActivity.class);
+        ArrayList<GroupDTO> groups = (ArrayList<GroupDTO>) mainActivityViewModel.getGroupsLiveData().getValue();
+        ArrayList<ExerciseDTO> exercises = (ArrayList<ExerciseDTO>) mainActivityViewModel.getExerciseLiveData().getValue();
 
-        Bundle data = new Bundle();
-        data.putString(Constants.LOG_ID_BUNDLE_KEY, logDTO.getId().toString());
+        intent.putParcelableArrayListExtra(Constants.GROUPS, new ArrayList<>(groups));
+        intent.putParcelableArrayListExtra(Constants.EXERCISES, new ArrayList<>(exercises));
+        intent.putExtra(Constants.DATE, loggerViewModel.getCurrentDateInViewLive().getValue());
 
-        editLogFragment.setArguments(data);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, editLogFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        getActivity().startActivityForResult(intent, INCLUDE_GROUPS_REQUEST_CODE);
     }
 
     private void handleDateChange(LocalDate newDate) {
         if (isSameDay(newDate, LocalDate.now())) {
-            currentDateTextView.setText("Today");
+            bindingFragment.currentDateTextView.setText("Today");
         } else {
-            currentDateTextView.setText(newDate.toString());
+            bindingFragment.currentDateTextView.setText(newDate.toString());
         }
         loggerViewModel.fetchLogs(newDate);
     }
 
     private void onError(APIError apiError) {
-        Toast.makeText(this.getContext(), apiError.getUiMessage(), Toast.LENGTH_LONG);
+        Toast.makeText(this.getActivity(), apiError.getUiMessage(), Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == INCLUDE_GROUPS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Log.i("INCLUDE GROUPS RESULT", "Success");
+        }
+    }
+
+    private void attachListFragment() {
+        Bundle data = new Bundle();
+        data.putParcelableArrayList(LogConstants.LOGS, (ArrayList<LogDTO>) loggerViewModel.getLogs().getValue());
+        logsListFragment.setArguments(data);
+
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.logsListFrame, logsListFragment);
+        fragmentTransaction.commit();
     }
 
     private boolean isSameDay(LocalDate date1, LocalDate date2) {
         return date1.isEqual(date2);
+    }
+
+    private void updateTotalKcal(List<LogDTO> logs) {
+        bindingFragment.totalCaloriesTextView.setText(
+                logs.stream().mapToInt(LogDTO::getKcal).sum() + " Kcal"
+        );
+    }
+
+    private void openDatePicker(View v) {
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Pick a date")
+                .build();
+
+        datePicker.addOnPositiveButtonClickListener(picked -> {
+            Long epoch = (Long) picked;
+            Date pickedDate = new Date(epoch.longValue());
+            LocalDate ld = pickedDate.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            loggerViewModel.getCurrentDateInViewLive().setValue(ld);
+        });
+        datePicker.showNow(getChildFragmentManager(), "date_picker");
+    }
+
+    private void onChanged(List<LogDTO> logDTOS) {
+        updateTotalKcal(logDTOS);
+        logsListFragment.updateList(logDTOS);
     }
 }

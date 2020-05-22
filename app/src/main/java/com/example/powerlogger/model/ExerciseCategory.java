@@ -1,9 +1,11 @@
 package com.example.powerlogger.model;
 
+import com.example.powerlogger.lib.SelectableItem;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ExerciseCategory {
+public enum ExerciseCategory implements SelectableItem {
     HIIT("HIIT Cardio"),
     SLOW_CARDIO("Slow cardio"),
     MEDIUM_CARDIO("Medium cardio"),
@@ -16,8 +18,13 @@ public enum ExerciseCategory {
         name = s;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public static ExerciseCategory fromString(String text) {

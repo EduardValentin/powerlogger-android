@@ -1,77 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <!--        <import type="com.example.powerlogger.utils.BasicConverters" />-->
+
+        <!--        <variable-->
+        <!--            name="model"-->
+        <!--            type="com.example.powerlogger.ui.logger.EditLogViewModel" />-->
+
+        <variable
+            name="view"
+            type="com.example.powerlogger.ui.groups.GroupsFragment" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/groupsFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.groups.GroupsFragment">
+        android:layout_height="match_parent">
 
-        <!-- Main content -->
-
-
-        <com.diegodobelo.expandingview.ExpandingList
-            android:id="@+id/expanding_list_main"
-            android:layout_width="0dp"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!--        <ListView-->
-        <!--            android:id="@+id/groupsListView"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:layout_marginTop="50dp"-->
-        <!--            android:layout_marginBottom="10dp"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/addGroupButton"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.0"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/groupsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="100dp"
+                android:layout_marginTop="25dp" />
 
-        <!--        <ImageButton-->
-        <!--            android:id="@+id/addGroupButton"-->
-        <!--            android:layout_width="122dp"-->
-        <!--            android:layout_height="69dp"-->
-        <!--            android:layout_marginStart="100dp"-->
-        <!--            android:layout_marginLeft="100dp"-->
-        <!--            android:layout_marginEnd="100dp"-->
-        <!--            android:layout_marginRight="100dp"-->
-        <!--            android:layout_marginBottom="10dp"-->
-        <!--            android:background="@android:color/transparent"-->
-        <!--            android:contentDescription="@string/add_a_log_group"-->
-        <!--            android:scaleType="fitCenter"-->
-        <!--            android:tint="@android:color/transparent"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:srcCompat="@drawable/ic_add_button_round" />-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                tools:context=".ui.groups.GroupsFragment">-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                &lt;!&ndash; Main content &ndash;&gt;-->
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addGroupButton"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="16dp"
-        android:scrollbarSize="50dp"
-        android:src="@drawable/ic_add_white_24dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:maxImageSize="50dp"
-        app:rippleColor="@color/textColor" />
+<!--                <com.diegodobelo.expandingview.ExpandingList-->
+<!--                    android:id="@+id/expanding_list_main"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_bias="0.0"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintVertical_bias="1.0" />-->
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addGroupButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="16dp"
+                android:clickable="true"
+                android:onClick="@{(v) -> view.onAddNewGroup(v)}"
+                android:scrollbarSize="40dp"
+                app:fabSize="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+                app:maxImageSize="40dp"
+                app:srcCompat="@drawable/ic_add_white_24dp" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
+
+</layout>

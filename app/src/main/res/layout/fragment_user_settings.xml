@@ -4,100 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.example.powerlogger.utils.BasicConverters" />
+
         <variable
             name="viewmodel"
-            type="com.example.powerlogger.ui.register.RegisterViewModel" />
+            type="com.example.powerlogger.ui.userSettings.UserSettingsViewModel" />
 
         <variable
             name="fragment"
-            type="com.example.powerlogger.ui.register.UserSettingsFragment" />
+            type="com.example.powerlogger.ui.userSettings.UserSettingsFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.register.UserSettingsFragment">
+        android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/loadingSpinner"
-            android:layout_width="272dp"
-            android:layout_height="144dp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.userSettings.UserSettingsFragment">
 
-        <EditText
-            android:id="@+id/userBirthDate"
-            style="@style/MyEditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="100dp"
-            android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
-            android:clickable="true"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="@string/birth_date"
-            android:importantForAutofill="no"
-            android:inputType="none"
-            android:text="@{viewmodel.registerRequestDTO.settings.birthDate}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userHeight" />
+            <ProgressBar
+                android:id="@+id/loadingSpinner"
+                android:layout_width="272dp"
+                android:layout_height="144dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
 
-        <EditText
-            android:id="@+id/userHeight"
-            style="@style/MyEditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="100dp"
-            android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
-            android:ems="10"
-            android:hint="@string/height"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:text="@={BasicConverters.fromFloatToString(viewmodel.registerRequestDTO.settings.height)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userWeight" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userBirthDateLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:hint="@string/birth_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/userWeight"
-            style="@style/MyEditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginEnd="100dp"
-            android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
-            android:ems="10"
-            android:hint="@string/weight"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:text="@={BasicConverters.fromFloatToString(viewmodel.registerRequestDTO.settings.weight)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userBirthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:text="@={viewmodel.userSettingsDTO.birthDate}" />
 
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="151dp"
-            android:width="150dp"
-            android:enabled="false"
-            android:text="@string/register"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userHeightLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/height"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userBirthDateLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userHeight"
+                    style="@style/MyEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
+                    android:inputType="numberDecimal"
+                    android:text="@={BasicConverters.fromFloatToString(viewmodel.userSettingsDTO.height)}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userWeightLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/weight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userHeightLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
+                    android:inputType="numberDecimal"
+                    android:text="@={BasicConverters.fromFloatToString(viewmodel.userSettingsDTO.weight)}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:width="150dp"
+                android:enabled="false"
+                android:text="@string/submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </layout>

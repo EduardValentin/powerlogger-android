@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.powerlogger.APIClient;
+import com.example.powerlogger.MinifiedExerciseDTO;
 import com.example.powerlogger.dto.ExerciseDTO;
 import com.example.powerlogger.services.ExerciseDataService;
 import com.example.powerlogger.utils.APICallsUtils;
+import com.example.powerlogger.utils.ArrayUtills;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import retrofit2.Call;
@@ -34,6 +38,19 @@ public class ExerciseRepository {
 
     public LiveData<List<ExerciseDTO>> getExerciseCache() {
         return exerciseCache;
+    }
+
+    public void updateCache(List<ExerciseDTO> exercises) {
+        exerciseCache.setValue(exercises);
+    }
+
+    // To avoid O(N^2) searching for selected items
+    public static Map<String, Integer> getMappingFromExerciseIdToIndex(List<ExerciseDTO> exercises) {
+        Map<String, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < exercises.size(); i++) {
+            indexMap.put(exercises.get(i).getId(), i);
+        }
+        return indexMap;
     }
 
     public static ExerciseRepository getInstance() {
@@ -65,7 +82,7 @@ public class ExerciseRepository {
         });
     }
 
-    public ExerciseDTO addNewExercise(ExerciseDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
+    public ExerciseDTO addNewExercise(MinifiedExerciseDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
         exerciseDataService.addNewExercise(exerciseDTO, userRepository.getToken()).enqueue(new Callback<ExerciseDTO>() {
             @Override
             public void onResponse(Call<ExerciseDTO> call, Response<ExerciseDTO> response) {
@@ -84,5 +101,55 @@ public class ExerciseRepository {
             }
         });
         return exerciseDTO;
+    }
+
+    public void updateExercise(String id, MinifiedExerciseDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
+        exerciseDataService.updateExercise(id, exerciseDTO, userRepository.getToken()).enqueue(new Callback<ExerciseDTO>() {
+            @Override
+            public void onResponse(Call<ExerciseDTO> call, Response<ExerciseDTO> response) {
+                if (response.code() == 200) {
+                    int index = ArrayUtills.findIndexByPredicate(exerciseCache.getValue(), ex -> ex.getId().equals(id));
+
+                    List<ExerciseDTO> oldList = exerciseCache.getValue();
+                    oldList.set(index, response.body());
+
+                    exerciseCache.setValue(oldList);
+                    APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
+                } else {
+                    Log.e("UPDATE EXERCISE ERROR", "Error while updating exercise for user: " + userRepository.getToken());
+                    APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExerciseDTO> call, Throwable t) {
+                APICallsUtils.getHandlerOrDefault(handleError).accept(t);
+            }
+        });
+    }
+
+
+    public void deleteExercise(String id, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
+        exerciseDataService.deleteExercise(id, userRepository.getToken()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    List<ExerciseDTO> list = exerciseCache.getValue();
+                    list.removeIf(exercise -> exercise.getId().toString().equals(id));
+                    exerciseCache.setValue(list);
+
+                    APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
+                } else {
+                    Log.e("DELETE EXERCISE NO SUCCESS", "No success while deleting exercise for user: " + userRepository.getToken());
+                    APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("DELETE EXERCISE ERROR", "Error while deleting exercise for user: " + userRepository.getToken());
+                APICallsUtils.getHandlerOrDefault(handleError).accept(t);
+            }
+        });
     }
 }

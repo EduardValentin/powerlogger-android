@@ -9,24 +9,32 @@
         android:id="@+id/navigation_logger"
         android:name="com.example.powerlogger.ui.logger.LoggerFragment"
         android:label="@string/title_logger"
-        tools:layout="@layout/fragment_logger" >
+        tools:layout="@layout/fragment_logger">
         <action
-            android:id="@+id/action_navigation_logger_to_navigation_groups"
-            app:destination="@id/navigation_groups" />
+            android:id="@+id/action_logger_to_activity"
+            app:destination="@id/navigation_activity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/navigation_activity"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.powerlogger.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
-        <action
-            android:id="@+id/action_navigation_dashboard_to_navigation_logger"
-            app:destination="@id/navigation_logger" />
-    </fragment>
+        tools:layout="@layout/fragment_dashboard" />
     <fragment
-        android:id="@+id/navigation_groups"
-        android:name="com.example.powerlogger.ui.groups.GroupsFragment"
-        android:label="@string/title_groups"
-        tools:layout="@layout/fragment_groups" />
+        android:id="@+id/navigation_activity"
+        android:name="com.example.powerlogger.ui.activity.ActivityFragment"
+        android:label="@string/title_activity"
+        tools:layout="@layout/fragment_activity" />
+
+    <fragment
+        android:id="@+id/more_fragment"
+        android:name="com.example.powerlogger.ui.more.MoreFragment"
+        android:label="@string/more"
+        tools:layout="@layout/more_fragment" />
 </navigation>

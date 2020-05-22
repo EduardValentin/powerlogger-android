@@ -1,42 +1,34 @@
 package com.example.powerlogger.ui.logger;
 
+import android.view.View;
 import android.widget.TextView;
 
-public class LogListItemViewHolder {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.powerlogger.R;
+import com.example.powerlogger.dto.LogDTO;
+
+public class LogListItemViewHolder extends RecyclerView.ViewHolder {
     private TextView logName;
     private TextView kcal;
-    private int position;
 
-    public LogListItemViewHolder(TextView logName, TextView kcal, int position) {
-        this.logName = logName;
-        this.kcal = kcal;
-        this.position = position;
+    private View itemView;
+
+    public LogListItemViewHolder(@NonNull View itemView) {
+        super(itemView);
+        this.itemView = itemView;
     }
 
-    public LogListItemViewHolder() {
-    }
+    public void bindLog(LogDTO logDTO) {
+        TextView rowCal = itemView.findViewById(R.id.logsRowLogCal);
+        rowCal.setText(logDTO.getKcal() + " Kcal");
 
-    public TextView getLogName() {
-        return logName;
-    }
-
-    public void setLogName(TextView logName) {
-        this.logName = logName;
-    }
-
-    public TextView getKcal() {
-        return kcal;
-    }
-
-    public void setKcal(TextView kcal) {
-        this.kcal = kcal;
-    }
-
-    public int getPosition() {
-        return position;
+        TextView rowName = itemView.findViewById(R.id.logsRowLogName);
+        rowName.setText(logDTO.getExercise().getName());
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        itemView.setTag(position);
     }
 }

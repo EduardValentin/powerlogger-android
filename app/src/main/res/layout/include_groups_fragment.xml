@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.example.powerlogger.ui.includeWorkouts.IncludeGroupsFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/includegroups"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.powerlogger.ui.includeWorkouts.IncludeGroupsActivity">
+
+        <LinearLayout
+            android:id="@+id/noWorkoutsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_workouts_with_exercises"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/goBackButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:onClick="@{(v) -> view.goBack()}"
+                android:text="@string/to_workouts"
+                app:icon="@drawable/ic_chevron_left_white_24dp" />
+        </LinearLayout>
+
+        <com.diegodobelo.expandingview.ExpandingList
+            android:id="@+id/includeGroupsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintVertical_bias="0">
+
+        </com.diegodobelo.expandingview.ExpandingList>
+
+        <Button
+            android:id="@+id/pickExercisesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{(v) -> view.onPickExercisesClick()}"
+            android:text="@string/pick_exercises"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

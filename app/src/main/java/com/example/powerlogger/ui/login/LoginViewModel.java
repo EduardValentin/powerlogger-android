@@ -10,14 +10,22 @@ import androidx.lifecycle.ViewModel;
 import android.util.Patterns;
 
 import com.example.powerlogger.R;
+import com.example.powerlogger.dto.user.GoogleUserAuthenticationDTO;
+import com.example.powerlogger.dto.user.UserAuthenticationResponseDTO;
+import com.example.powerlogger.dto.user.UserDTO;
+import com.example.powerlogger.dto.user.UserSettingsDTO;
 import com.example.powerlogger.repositories.UserRepository;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
 public class LoginViewModel extends ViewModel implements LifecycleOwner {
 
-    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
+    private final MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
+
     private UserRepository userRepository;
+
+    private String userBirthDate;
 
     LoginViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -43,6 +51,18 @@ public class LoginViewModel extends ViewModel implements LifecycleOwner {
         }
     }
 
+    public void saveUserSettings(UserSettingsDTO settingsDTO) {
+        userRepository.saveUserSettings(settingsDTO);
+    }
+
+    void validateToken(String token, String username, Consumer<Void> onSuccess, Consumer<Throwable> onFail) {
+        userRepository.validateToken(token, username, onSuccess, onFail);
+    }
+
+    void validateAndCreateIfNotExistsGoogleAccount(String token, Consumer<GoogleUserAuthenticationDTO> onSuccess, Consumer<Throwable> onFail) {
+        userRepository.validateAndCreateIfNotExistsGoogleAccount(token, onSuccess, onFail);
+    }
+
     // A placeholder username validation check
     private boolean isUserNameValid(String username) {
         if (username == null) {
@@ -60,9 +80,17 @@ public class LoginViewModel extends ViewModel implements LifecycleOwner {
         return password != null && password.trim().length() > 5;
     }
 
+    private void onGoogleValidationResponse(Object res) {
+        UserAuthenticationResponseDTO authDetails = (UserAuthenticationResponseDTO) res;
+    }
+
     @NonNull
     @Override
     public Lifecycle getLifecycle() {
         return null;
+    }
+
+    public void setUserBirthDate(String userBirthDate) {
+        this.userBirthDate = userBirthDate;
     }
 }

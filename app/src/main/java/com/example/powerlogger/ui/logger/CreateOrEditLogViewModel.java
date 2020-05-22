@@ -2,18 +2,20 @@ package com.example.powerlogger.ui.logger;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.powerlogger.MinifiedExerciseDTO;
 import com.example.powerlogger.dto.ExerciseDTO;
 import com.example.powerlogger.dto.LogDTO;
 import com.example.powerlogger.model.ExerciseCategory;
 import com.example.powerlogger.repositories.ExerciseRepository;
 import com.example.powerlogger.repositories.LogRepository;
 
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class CreateOrEditLogViewModel extends ViewModel {
     private boolean isCreatingNewExercise;
 
-    public ExerciseDTO creatingExercise;
+    public MinifiedExerciseDTO creatingExercise;
     public LogDTO logDTO;
 
     private ExerciseRepository exerciseRepository;
@@ -25,7 +27,8 @@ public class CreateOrEditLogViewModel extends ViewModel {
         this.exerciseRepository = ExerciseRepository.getInstance();
         this.logRepository = LogRepository.getInstance();
 
-        this.creatingExercise = new ExerciseDTO();
+        this.creatingExercise = new MinifiedExerciseDTO();
+        this.creatingExercise.setGroups(new ArrayList<>());
         this.logDTO = new LogDTO();
         this.isCreatingNewExercise = false;
     }
@@ -34,29 +37,21 @@ public class CreateOrEditLogViewModel extends ViewModel {
         isCreatingNewExercise = value;
     }
 
-    public void onSave() {
-        if (isCreatingNewExercise) {
-            exerciseRepository.addNewExercise(creatingExercise, this::addLog, null);
-        } else {
-            addLog();
-        }
+    public void addLog(Consumer<Object> handleSuccess) {
+        logRepository.addLog(logDTO, this.selectedExercise, handleSuccess, null);
     }
 
-    public void addLog() {
-        logRepository.addLog(logDTO, this.selectedExercise,null, null);
-    }
-
-    public void addLog(Object exercise) {
+    public void addLog(Object exercise, Consumer<Object> handleSuccess) {
         ExerciseDTO convertedExercise = (ExerciseDTO) exercise;
         this.selectedExercise = convertedExercise;
-        addLog();
+        addLog(handleSuccess);
     }
 
     public void createExercise(Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
         exerciseRepository.addNewExercise(creatingExercise, handleSuccess, handleError);
     }
 
-    public ExerciseDTO getCreatingExercise() {
+    public MinifiedExerciseDTO getCreatingExercise() {
         return creatingExercise;
     }
 

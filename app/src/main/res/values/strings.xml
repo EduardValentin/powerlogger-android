@@ -3,7 +3,16 @@
     <string name="title_nutrition">Nutrition</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_logger">Logger</string>
-    <string name="title_groups">Log Groups</string>
+    <string name="title_activity">Activity</string>
+    <string name="title_groups">Workouts</string>
+    <string name="title_exercises">Exercises</string>
+
+    <string name="add_to_group_title">Add to workouts</string>
+
+    <string name="pick_exercise_title">Select exercise</string>
+
+    <string name="exercise_type_title">Chose exercise type</string>
+    <string name="exercise_type_hint">Select type</string>
 
     <string name="logger_date_button">Logs Today</string>
 
@@ -13,37 +22,54 @@
     <string name="log_name_here_placeholder">name</string>
     <string name="exercise_name_placeholder">name</string>
     <string name="include_group">Include Group</string>
-    <string name="add_a_log_group">Add a log group</string>
+    <string name="add_a_log_group">Add a workout</string>
 
 
-    <string-array name="exercice_types">
-        <item>Strength Training</item>
-        <item>Slow Pace Cardio</item>
-        <item>Medium Pace Cardio</item>
-        <item>HIIT</item>
-        <item>Swiming</item>
-    </string-array>
-    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in_short">Sign In</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register">Register</string>
+    <string name="create_account">Or create an account if you don\'t have one</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="username">Username</string>
     <string name="to_user_settings">Next</string>
-    <string name="height">height</string>
-    <string name="birth_date">birth date</string>
-    <string name="weight">weight</string>
-    <string name="add_new_exercise">Add New Exercise</string>
-    <string name="minutes">minutes</string>
-    <string name="notes">notes</string>
+    <string name="height">Height</string>
+    <string name="birth_date">Birth date</string>
+    <string name="weight">Weight</string>
+    <string name="add_new_exercise">New Exercise</string>
+    <string name="minutes">Minutes</string>
+    <string name="notes">Notes</string>
     <string name="add_log">Add Log</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
     <string name="name">Name</string>
+    <string name="edit">Edit</string>
+    <string name="exercise_category">Category</string>
+    <string name="delete">Delete</string>
+    <string name="textview_placeholder">TextView</string>
+    <string name="pick_exercises">Pick Exercises</string>
+    <string name="add_exercises">Add Exercises</string>
+    <string name="password">Password</string>
+
+
+    <string name="google_client_id">211202412035-1quv1105dhe8d9hrvf8lmj57p66v5bfi.apps.googleusercontent.com</string>
+    <string name="incorect_credentials">Incorrect username or password</string>
+    <string name="submit">Submit</string>
+    <string name="more">More</string>
+    <string name="pounds">Pounds</string>
+    <string name="kilograms">Kilograms</string>
+    <string name="centimeters">Centimeters</string>
+    <string name="feet_inches">Feet/Inches</string>
+    <string name="something_wrong_happened">Something wrong happened</string>
+    <string name="no_text">No text</string>
+    <string name="no_workouts_with_exercises">You have no workouts with exercises to select from</string>
+    <string name="go_back">Go Back</string>
+    <string name="no_logs_to_show">No logs to show</string>
+    <string name="to_workouts">To workouts</string>
+
 </resources>

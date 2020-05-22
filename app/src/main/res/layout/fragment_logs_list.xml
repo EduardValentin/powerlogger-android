@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.example.powerlogger.ui.logger.LogsListFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".ui.logger.LogsListFragment">
+
+        <TextView
+            android:id="@+id/noLogsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
+            android:layout_centerInParent="true"
+            android:text="@string/no_logs_to_show"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/logsListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+</layout>

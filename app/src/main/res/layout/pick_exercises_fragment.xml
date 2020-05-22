@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.example.powerlogger.ui.includeWorkouts.PickExercisesFragment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/pickExercisesFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="660dp">
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/includeExercisesButton"
+            android:layout_width="wrap_content"
+            android:onClick="@{(v) -> view.onAddExercisesConfirm()}"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/add_exercises" />
+    </LinearLayout>
+
+</layout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -25,96 +25,112 @@
                 android:id="@+id/toUserSettingsButton"
                 style="@style/MyButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginStart="161dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginEnd="162dp"
+                android:layout_marginStart="145dp"
+                android:layout_marginTop="245dp"
+                android:layout_marginEnd="146dp"
+                android:layout_marginBottom="100dp"
                 android:enabled="false"
                 android:text="@string/to_user_settings"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerConfirmPassword" />
-
-            <EditText
-                android:id="@+id/registerPassword"
-                style="@style/MyEditTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="100dp"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:autofillHints=""
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:selectAllOnFocus="true"
-                android:text="@={viewmodel.registerRequestDTO.password}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/registerConfirmPasswordLayout" />
 
-            <EditText
-                android:id="@+id/registerConfirmPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerEmailLayout"
                 style="@style/MyEditTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="100dp"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:autofillHints=""
-                android:hint="@string/confirm_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:selectAllOnFocus="true"
-                android:text="@={viewmodel.confirmPassword}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
 
-            <EditText
-                android:id="@+id/registerUsername"
-                style="@style/MyEditTextStyle"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="156dp"
-                android:layout_marginEnd="100dp"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:hint="@string/username"
-                android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
-                android:selectAllOnFocus="true"
-                android:text="@={viewmodel.registerRequestDTO.username}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/registerEmail"
-                style="@style/MyEditTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="100dp"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
+                android:layout_marginTop="100dp"
                 android:hint="@string/prompt_email"
-                android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
-                android:selectAllOnFocus="true"
-                android:text="@={viewmodel.registerRequestDTO.email}"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent">
 
-        <!-- TODO: Update blank fragment layout -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:text="@={viewmodel.registerRequestDTO.email}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerUsernameLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/username"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerEmailLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:text="@={viewmodel.registerRequestDTO.username}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerPasswordLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerUsernameLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:inputType="textPassword"
+                    android:text="@={viewmodel.registerRequestDTO.password}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerConfirmPasswordLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/confirm_password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerPasswordLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:inputType="textPassword"
+                    android:text="@={viewmodel.confirmPassword}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 </layout>

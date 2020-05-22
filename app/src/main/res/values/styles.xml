@@ -3,71 +3,126 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
+
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+<!--        <item name="tabMaxWidth">@dimen/tab_max_width</item>-->
+<!--        <item name="tabIndicatorColor">?attr/colorAccent</item>-->
+<!--        <item name="tabIndicatorHeight">2dp</item>-->
+<!--        <item name="tabPaddingStart">0dp</item>-->
+<!--        <item name="tabPaddingEnd">0dp</item>-->
+<!--        <item name="tabBackground">@color/background</item>-->
+<!--        <item name="tabTextAppearance">@style/AppTabTextAppearance</item>-->
+<!--        <item name="tabSelectedTextColor">@color/colorPrimary</item>-->
+    </style>
+
+    <!-- for text -->
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+<!--        <item name="android:textSize">12sp</item>-->
+<!--        <item name="android:textColor">@color/textColor</item>-->
+<!--        <item name="textAllCaps">false</item>-->
     </style>
 
     <!-- Base application theme. -->
-    <style name="MyMaterialTheme" parent="Theme.MaterialComponents.Light">
-        <!-- Customize your theme here. -->
-        <item name="android:background">@color/background</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorHint">@color/textColor</item>
-        <item name="android:windowBackground">@color/background</item>
-        <item name="android:colorBackground">@color/background</item>
-        <item name="android:buttonStyle">@style/MyButtonStyle</item>
-        <item name="android:spinnerStyle">@style/MyDropdownStyle</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    <style name="MyMaterialTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!--        <item name="android:windowNoTitle">true</item>-->
+<!--        <item name="android:windowBackground">@color/transparent</item>-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--&lt;!&ndash;        <item name="android:windowFullscreen">true</item>&ndash;&gt;-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
 
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="android:background">@color/background</item>-->
+<!--        <item name="android:textColor">@color/textColor</item>-->
+<!--        <item name="android:textColorHint">@color/textColor</item>-->
+<!--&lt;!&ndash;        <item name="android:windowBackground">@color/background</item>&ndash;&gt;-->
+<!--        <item name="android:colorBackground">@color/background</item>-->
+<!--        <item name="android:buttonStyle">@style/MyButtonStyle</item>-->
+<!--        <item name="android:spinnerStyle">@style/MyDropdownStyle</item>-->
+<!--        <item name="android:navigationBarColor">@color/colorPrimary</item>-->
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!--        <item name="colorPrimaryVariant">@color/primaryVariant</item>-->
-        <!--        <item name="colorOnPrimary">@color/onPrimary</item>-->
-        <!--        <item name="colorSecondary">@color/colorPrimary</item>-->
-        <!--        <item name="colorSecondaryVariant">@color/secondaryVariant</item>-->
-        <item name="colorOnSecondary">@color/textColor</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--        <item name="colorSurface">@color/surface</item>-->
-        <!--        <item name="colorOnSurface">@color/onSurface</item>-->
-        <!--        <item name="colorError">@color/error</item>-->
-        <!--        <item name="colorOnError">@color/onError</item>-->
-        <!--        <item name="colorButtonNormal">@color/buttonNormal</item>-->
-        <!--        <item name="colorControlNormal">@color/controlNormal</item>-->
-        <!--        <item name="colorControlActivated">@color/controlActivated</item>-->
-        <!--        <item name="colorControlHighlight">@color/controlHighlight</item>-->
-        <!--        <item name="colorBackgroundFloating">@color/backgroundFloating</item>-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        &lt;!&ndash;        <item name="colorPrimaryVariant">@color/primaryVariant</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorOnPrimary">@color/onPrimary</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorSecondary">@color/colorPrimary</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorSecondaryVariant">@color/secondaryVariant</item>&ndash;&gt;-->
+<!--        <item name="colorOnSecondary">@color/textColor</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        &lt;!&ndash;        <item name="colorSurface">@color/surface</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorOnSurface">@color/onSurface</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorError">@color/error</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorOnError">@color/onError</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorButtonNormal">@color/buttonNormal</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorControlNormal">@color/controlNormal</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorControlActivated">@color/controlActivated</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorControlHighlight">@color/controlHighlight</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorBackgroundFloating">@color/backgroundFloating</item>&ndash;&gt;-->
     </style>
 
-    <style name="MyAlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="MyAlertDialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="android:textColorPrimary">@color/textColor</item>-->
+<!--        <item name="android:colorAccent">@color/colorAccent</item>-->
+<!--        <item name="android:textColorAlertDialogListItem">@color/textColor</item>-->
+<!--        <item name="textColorAlertDialogListItem">@color/textColor</item>-->
+
+<!--        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>-->
+<!--        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>-->
     </style>
 
-    <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorHint">@color/fadedTextColor</item>
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+<!--        <item name="android:textColor">@color/colorPrimary</item>-->
+<!--        <item name="android:background">@color/transparent</item>-->
+<!--        <item name="android:backgroundTint">@color/transparent</item>-->
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+<!--        <item name="android:textColor">@color/colorPrimary</item>-->
+<!--        <item name="android:background">@color/transparent</item>-->
+<!--        <item name="android:backgroundTint">@color/transparent</item>-->
+    </style>
+
+    <style name="MyEditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--        <item name="android:textColor">@color/textColor</item>-->
+<!--        <item name="android:textColorHint">@color/fadedTextColor</item>-->
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+
     </style>
 
 
     <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:width">120dp</item>
+<!--        <item name="android:width">120dp</item>-->
     </style>
 
+    <style name="MyBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+<!--        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>-->
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorOnPrimary">@color/colorPrimary</item>-->
+    </style>
 
     <style name="MyAccentButtonStyle" parent="Widget.MaterialComponents.Button">
         <!-- Customize your theme here. -->
-        <item name="android:width">120dp</item>
-        <item name="android:backgroundTint">@color/colorAccent</item>
+<!--        <item name="android:width">120dp</item>-->
+<!--        <item name="android:backgroundTint">@color/colorAccent</item>-->
     </style>
 
 
     <style name="MyDropdownStyle" parent="Widget.AppCompat.Spinner.DropDown">
         <!-- Customize your theme here. -->
-        <item name="android:backgroundTint">@color/colorPrimary</item>
+<!--        <item name="android:backgroundTint">@color/colorPrimary</item>-->
     </style>
 
     <style name="HiddenTitleTheme" parent="AppTheme">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="windowActionBar">false</item>-->
     </style>
 </resources>

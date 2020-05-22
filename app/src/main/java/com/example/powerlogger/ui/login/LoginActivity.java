@@ -1,147 +1,141 @@
 package com.example.powerlogger.ui.login;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.content.Context;
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.powerlogger.MainActivity;
 import com.example.powerlogger.R;
-import com.example.powerlogger.dto.UserResponseDTO;
-import com.example.powerlogger.ui.register.RegisterActivity;
-import com.example.powerlogger.utils.Result;
+import com.example.powerlogger.dto.user.GoogleUserAuthenticationDTO;
+import com.example.powerlogger.dto.user.UserDTO;
+import com.example.powerlogger.dto.user.UserSettingsDTO;
+import com.example.powerlogger.repositories.UserRepository;
+import com.example.powerlogger.ui.userSettings.UserSettingsActionsListener;
+import com.example.powerlogger.ui.userSettings.UserSettingsFragment;
+import com.example.powerlogger.utils.Constants;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 
-public class LoginActivity extends AppCompatActivity {
+import java.time.LocalDate;
+import java.util.function.Consumer;
 
+public class LoginActivity extends AppCompatActivity implements UserSettingsActionsListener, DatePickerDialog.OnDateSetListener {
     private LoginViewModel loginViewModel;
-    private ProgressBar loadingProgressBar;
+    private static final int GOOGLE_SIGNIN_RC = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final Button registerButton = findViewById(R.id.toUserSettingsButton);
-        final Context self = this;
-        loadingProgressBar = findViewById(R.id.loading);
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(self, RegisterActivity.class);
-                startActivity(registerIntent);
-            }
-        });
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
-            }
-        });
-
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString(), o -> loginCallback(o));
-                }
-                return false;
-            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString(), o -> loginCallback(o));
-            }
-        });
+        Fragment loginFragment = new LoginFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.loginFragmentContainer, loginFragment);
+        fragmentTransaction.commit();
     }
 
-    public void loginCallback(Object response) {
-        loadingProgressBar.setVisibility(View.GONE);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        if(response instanceof Result.Success) {
-            // Success
-            Result.Success<UserResponseDTO> result = (Result.Success<UserResponseDTO> ) response;
-            Log.i("############### Login Result", "User logged with token: " + result.getData().getToken());
-            updateUiWithUser();
-            setResult(Activity.RESULT_OK);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-
-        } else {
-            // Errorv
-            Result.Error result = (Result.Error) response;
-            showLoginFailed(result.getError().toString());
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == GOOGLE_SIGNIN_RC) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
     }
 
-    public void onRegisterClick() { }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            loginViewModel.validateAndCreateIfNotExistsGoogleAccount(account.getIdToken(),
+                    this::storeCurrentlyLoggedUserAndGoToMain, null);
+
+//            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("GOOGLE_SIGNIN", "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
 
     private void updateUiWithUser() {
         String welcome = getString(R.string.welcome);
-        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(String errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+
+    private void storeCurrentlyLoggedUserAndGoToMain(GoogleUserAuthenticationDTO authDTO) {
+        UserRepository.getInstance().setToken(authDTO.getAuthToken());
+        UserRepository.getInstance().setUser(authDTO.getData());
+
+        SharedPreferences.Editor editor = getSharedPreferences(Constants.USER_INFO, MODE_PRIVATE).edit();
+
+        editor.putString(Constants.TOKEN, authDTO.getAuthToken());
+        editor.putString(Constants.USER_DATA_SHAREDPREF, new Gson().toJson(authDTO.getData()));
+        editor.apply();
+
+        if (authDTO.isNewAccount() || authDTO.getData().getSettings() == null) {
+            // Go to user settings setup
+            goToUserSettings(authDTO.getData().getUsername());
+            return;
+        }
+
+        finishAndGoToMain();
+    }
+
+    private void goToUserSettings(String username) {
+        UserSettingsFragment userSettingsFragment = new UserSettingsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        userSettingsFragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        fragmentTransaction.replace(R.id.loginFragmentContainer, userSettingsFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
+    private void finishAndGoToMain() {
+        updateUiWithUser();
+        setResult(Activity.RESULT_OK);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        LocalDate ld = LocalDate.of(year, month + 1, dayOfMonth);
+
+        loginViewModel.setUserBirthDate(ld.toString());
+        ((EditText) findViewById(R.id.userBirthDate)).setText(ld.toString());
+    }
+
+    @Override
+    public void onConfirmSettings(String username, UserSettingsDTO userSettingsDTO) {
+        loginViewModel.saveUserSettings(userSettingsDTO);
     }
 }

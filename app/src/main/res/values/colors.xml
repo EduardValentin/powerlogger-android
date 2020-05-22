@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#99B898</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#E84A5F</color>
-    <color name="background">#2A363B</color>
-    <color name="textColor">#dfe2db</color>
-    <color name="fadedTextColor">#80DFE2DB</color>
+        <color name="colorPrimary">#99B898</color>
+        <color name="colorPrimaryDark">#00574B</color>
+        <color name="colorAccent">#E84A5F</color>
+    <!--    <color name="background">#2A363B</color>-->
+        <color name="textColor">#dfe2db</color>
+        <color name="fadedTextColor">#9A9A9A</color>
+        <color name="transparent">#00FFFFFF</color>
+
+    <color name="background">#ffff</color>
 </resources>
