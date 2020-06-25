@@ -23,7 +23,7 @@ public class APIClient {
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.8:8888")
+                    .baseUrl("http://192.168.100.11:8888")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

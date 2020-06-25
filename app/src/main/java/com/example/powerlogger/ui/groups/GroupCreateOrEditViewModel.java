@@ -34,7 +34,10 @@ public class GroupCreateOrEditViewModel extends ViewModel {
 
     public void addGroup(Consumer<GroupDTO> onSuccess, Consumer<Throwable> onFail) {
         GroupDTO groupDTO = new GroupDTO(null, name);
-        groupRepository.createGroup(groupDTO, this::addExercisesToGroup, onFail);
+        groupRepository.createGroup(groupDTO, createdGroup -> {
+            this.addExercisesToGroup(createdGroup);
+            onSuccess.accept(createdGroup);
+        }, onFail);
 
     }
 

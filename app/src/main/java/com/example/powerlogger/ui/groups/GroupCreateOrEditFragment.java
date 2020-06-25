@@ -49,7 +49,10 @@ public class GroupCreateOrEditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle data = getArguments();
-        groupDTO = data.getParcelable("group");
+
+        if (data != null) {
+            groupDTO = data.getParcelable("group");
+        }
 
         viewModel = new ViewModelProvider(this).get(GroupCreateOrEditViewModel.class);
         mainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);

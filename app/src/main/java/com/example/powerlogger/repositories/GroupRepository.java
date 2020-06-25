@@ -119,7 +119,7 @@ public class GroupRepository {
     public void addExercises(String groupId, List<ExerciseDTO> exercises, Consumer<GroupAddExercisesResponse> onSuccess, Consumer<Throwable> onFail) {
         Consumer<GroupAddExercisesResponse> processSucess = response -> {
             exerciseRepository.fetchExercises(null, null);
-            onSuccess.accept(response);
+            APICallsUtils.getHandlerOrDefault(onSuccess).accept(response);
         };
 
         groupDataService.addExercises(userRepository.getToken(), groupId,
