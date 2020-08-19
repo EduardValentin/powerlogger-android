@@ -8,7 +8,7 @@
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.dashboard.DashboardFragment" />
+            type="com.eduardv.powerlogger.ui.dashboard.DashboardFragment" />
     </data>
 
     <ScrollView
@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="55dp"
                 android:text="You are more active than 20% of people"
+                android:textAlignment="center"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -35,47 +36,130 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="You are 10% less active this week than past week"
+                android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@id/activeThanPercent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shareBtn"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textCalLastWeek"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="@{(v) -> view.onShareClick(v)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="Share"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                android:text="Calories burned last week"
+                android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@id/activeThanWeek" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shareBtn" />
+                app:layout_constraintTop_toBottomOf="@id/textCalLastWeek" />
+
+
+            <TextView
+                android:id="@+id/topExerciseTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Your most preferred exercise types"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@id/lineChart" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
+                android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lineChart" />
+                app:layout_constraintTop_toBottomOf="@id/topExerciseTypes" />
+
+            <RelativeLayout
+                android:id="@+id/blurredPieChartLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:onClick="@{v -> view.showAd(v)}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topExerciseTypes">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/adIconPieChart"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="false"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_advertising" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/blurredPieChart"
+                    android:layout_width="126dp"
+                    android:layout_height="126dp"
+                    android:layout_marginTop="40dp"
+                    android:alpha="0.2"
+                    android:foregroundGravity="center"
+                    android:src="@drawable/ic_pie_chart" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/topWorkouts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/your_most_preferred_workouts"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@id/pieChart" />
+
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pieChart" />
+                app:layout_constraintTop_toBottomOf="@id/topWorkouts" />
+
+            <RelativeLayout
+                android:id="@+id/blurredBarChartLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:onClick="@{v -> view.showAd(v)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topWorkouts">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/adIconBarChart"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="false"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_advertising" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/blurredBarChart"
+                    android:layout_width="126dp"
+                    android:layout_height="126dp"
+                    android:layout_centerInParent="false"
+                    android:layout_centerHorizontal="false"
+                    android:layout_centerVertical="false"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.2"
+                    android:src="@drawable/ic_barchart_up" />
+
+            </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 
 </layout>

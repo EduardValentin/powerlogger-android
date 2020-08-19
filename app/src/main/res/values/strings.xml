@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PowerLogger</string>
+    <string name="app_name">CalorieWiz</string>
     <string name="title_nutrition">Nutrition</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_logger">Logger</string>
@@ -8,11 +8,9 @@
     <string name="title_exercises">Exercises</string>
 
     <string name="add_to_group_title">Add to workouts</string>
-
-    <string name="pick_exercise_title">Select exercise</string>
-
+    <string name="pick_exercise_title">Pick exercise</string>
     <string name="exercise_type_title">Chose exercise type</string>
-    <string name="exercise_type_hint">Select type</string>
+    <string name="exercise_type_hint">Exercise type</string>
 
     <string name="logger_date_button">Logs Today</string>
 
@@ -30,8 +28,8 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_username">Username must contain minimum 3 characters</string>
+    <string name="invalid_password">Password must be minimum 5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register">Register</string>
     <string name="create_account">Or create an account if you don\'t have one</string>
@@ -42,7 +40,7 @@
     <string name="birth_date">Birth date</string>
     <string name="weight">Weight</string>
     <string name="add_new_exercise">New Exercise</string>
-    <string name="minutes">Minutes</string>
+    <string name="duration">Duration</string>
     <string name="notes">Notes</string>
     <string name="add_log">Add Log</string>
     <string name="save">Save</string>
@@ -56,20 +54,32 @@
     <string name="add_exercises">Add Exercises</string>
     <string name="password">Password</string>
 
+    <string name="google_client_id">211202412035-gqcv290q8g1700o13kd0d36qsjav58f3.apps.googleusercontent.com</string>
 
-    <string name="google_client_id">211202412035-1quv1105dhe8d9hrvf8lmj57p66v5bfi.apps.googleusercontent.com</string>
     <string name="incorect_credentials">Incorrect username or password</string>
     <string name="submit">Submit</string>
     <string name="more">More</string>
     <string name="pounds">Pounds</string>
     <string name="kilograms">Kilograms</string>
     <string name="centimeters">Centimeters</string>
-    <string name="feet_inches">Feet/Inches</string>
+    <string name="inches">Inches</string>
+    <string name="Feet">Feet</string>
     <string name="something_wrong_happened">Something wrong happened</string>
     <string name="no_text">No text</string>
     <string name="no_workouts_with_exercises">You have no workouts with exercises to select from</string>
     <string name="go_back">Go Back</string>
-    <string name="no_logs_to_show">No logs to show</string>
+    <string name="no_logs_to_show">No logs to show on this day</string>
     <string name="to_workouts">To workouts</string>
+    <string name="weight_unit">Weight unit</string>
+    <string name="height_unit">Height unit</string>
+    <string name="no_chart_data">No data to be displayed yet. Start logging your activity</string>
+    <string name="no_piechart_data">No data. Start logging some exercises</string>
+    <string name="no_barchart_data">No data. Start logging some exercises from your favorite workouts</string>
+    <string name="no_exercises_created_yet">No exercises created yet</string>
+    <string name="no_workouts_created_yet">No workouts created yet</string>
+    <string name="kcal">Kcal</string>
+    <string name="your_most_preferred_workouts">Your most preferred workouts</string>
+    <string name="gender">Gender</string>
+    <string name="forgot_password">Forgot password</string>
 
 </resources>

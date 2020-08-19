@@ -6,13 +6,12 @@
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.logger.LogsListFragment" />
+            type="com.eduardv.powerlogger.ui.logger.LogsListFragment" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
         tools:context=".ui.logger.LogsListFragment">
 
         <TextView

@@ -6,7 +6,7 @@
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.activity.ActivityFragment" />
+            type="com.eduardv.powerlogger.ui.activity.ActivityFragment" />
     </data>
 
     <LinearLayout

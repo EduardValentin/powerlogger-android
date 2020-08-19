@@ -4,15 +4,15 @@
 
     <data>
 
-        <import type="com.example.powerlogger.utils.BasicConverters" />
+        <import type="com.eduardv.powerlogger.utils.BasicConverters" />
 
         <variable
             name="model"
-            type="com.example.powerlogger.ui.logger.CreateOrEditLogViewModel" />
+            type="com.eduardv.powerlogger.ui.logger.CreateOrEditLogViewModel" />
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.logger.CreateLogFragment" />
+            type="com.eduardv.powerlogger.ui.logger.CreateLogFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,37 +36,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp">
 
-
                 <Button
                     android:id="@+id/addExerciseButton"
-                    style="@android:style/Widget.DeviceDefault.Button"
-                    android:layout_width="0dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="50dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="100dp"
+                    android:layout_marginEnd="50dp"
                     android:text="@string/add_new_exercise"
-                    app:icon="@drawable/ic_add_black_24dp"
+                    app:icon="@drawable/ic_arrow_drop_down_black_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:rippleColor="#F43131" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/exercisesSpinnerLayout"
                     style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/pick_exercise_title"
+                    android:labelFor="@id/exercisesSpinner"
                     app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
                     app:endIconMode="custom"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/addExerciseButton">
 
-                    <com.example.powerlogger.lib.SingleSelectSpinner
+                    <com.eduardv.powerlogger.lib.SingleSelectSpinner
                         android:id="@+id/exercisesSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
@@ -76,10 +74,9 @@
                     android:id="@+id/addNewExerciseLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    app:el_duration="700"
+                    app:el_duration="400"
                     app:el_expanded="false"
-                    app:el_parallax="0.5"
+                    app:el_parallax="0"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/exercisesSpinnerLayout">
@@ -94,9 +91,10 @@
                             android:id="@+id/exerciseNameLayout"
                             style="@style/MyEditTextStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
                             android:layout_marginBottom="20dp"
-                            android:hint="@string/name">
+                            android:hint="@string/name"
+                            android:labelFor="@id/exerciseName">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/exerciseName"
@@ -111,12 +109,12 @@
                             android:id="@+id/exerciseGroupLayout"
                             style="@style/MyEditTextStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:hint="@string/add_to_group_title"
+                            android:labelFor="@id/exerciseGroup"
                             app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
                             app:endIconMode="custom">
 
-                            <com.example.powerlogger.lib.multiselect.MultiSelectSpinner
+                            <com.eduardv.powerlogger.lib.multiselect.MultiSelectSpinner
                                 android:id="@+id/exerciseGroup"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
@@ -127,23 +125,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="50dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginRight="50dp" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/exerciseTypeLayout"
                             style="@style/MyEditTextStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:hint="@string/exercise_type_hint"
+                            android:labelFor="@id/exerciseType"
                             app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
                             app:endIconMode="custom"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/addExerciseButton">
 
-                            <com.example.powerlogger.lib.SingleSelectSpinner
+                            <com.eduardv.powerlogger.lib.SingleSelectSpinner
                                 android:id="@+id/exerciseType"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
@@ -152,35 +149,54 @@
 
                 </net.cachapa.expandablelayout.ExpandableLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/logIntensityLayout"
-                    style="@style/MyEditTextStyle"
+                <RelativeLayout
+                    android:id="@+id/logIntensityLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/minutes"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/addNewExerciseLayout">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/logIntensity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:elegantTextHeight="false"
-                        android:inputType="number"
-                        android:text="@={BasicConverters.fromIntegerToString(model.logDTO.minutes)}" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/logIntensityLayout"
+                        style="@style/MyEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="0dp"
+                        android:hint="@string/duration"
+                        android:labelFor="@id/logIntensity">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/logIntensity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:inputType="numberDecimal"
+                            android:text="@={BasicConverters.fromFloatToString(model.logDTO.intensity)}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Spinner
+                        android:id="@+id/logIntensityType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignWithParentIfMissing="false"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="25dp"
+                        android:entries="@array/intensityTypeEntries" />
+                </RelativeLayout>
 
                 <Button
                     android:id="@+id/confirmAddLog"
                     style="@style/MyAccentButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="128dp"
+                    android:layout_marginTop="222dp"
                     android:layout_marginBottom="50dp"
-                    android:width="180dp"
                     android:text="@string/save"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -194,7 +210,8 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="20dp"
                     android:hint="@string/notes"
-                    app:layout_constraintTop_toBottomOf="@+id/logIntensityLayout">
+                    android:labelFor="@id/logNotes"
+                    app:layout_constraintTop_toBottomOf="@+id/logIntensityLinearLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/logNotes"

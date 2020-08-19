@@ -5,15 +5,15 @@
 
     <data>
 
-        <import type="com.example.powerlogger.utils.BasicConverters" />
+        <import type="com.eduardv.powerlogger.utils.BasicConverters" />
 
         <variable
             name="viewmodel"
-            type="com.example.powerlogger.ui.userSettings.UserSettingsViewModel" />
+            type="com.eduardv.powerlogger.ui.userSettings.UserSettingsViewModel" />
 
         <variable
             name="fragment"
-            type="com.example.powerlogger.ui.userSettings.UserSettingsFragment" />
+            type="com.eduardv.powerlogger.ui.userSettings.UserSettingsFragment" />
     </data>
 
     <FrameLayout
@@ -41,9 +41,9 @@
                 android:id="@+id/userBirthDateLayout"
                 style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="55dp"
                 android:hint="@string/birth_date"
+                android:labelFor="@id/userBirthDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -54,25 +54,44 @@
                     android:layout_height="match_parent"
                     android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
                     android:focusable="false"
-                    android:inputType="none"
+                    android:inputType="date"
                     android:text="@={viewmodel.userSettingsDTO.birthDate}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/userHeightLayout"
+                android:id="@+id/heightUnitSelect"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/height"
+                android:hint="@string/height_unit"
+                android:labelFor="@id/heightUnit"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userBirthDateLayout">
+                app:layout_constraintTop_toBottomOf="@id/userBirthDateLayout">
+
+                <com.eduardv.powerlogger.ui.userSettings.HeightUnitSelectSpinner
+                    android:id="@+id/heightUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userHeightLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:hint="@string/height"
+                android:labelFor="@id/userHeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/heightUnitSelect">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userHeight"
-                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
@@ -82,15 +101,34 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/weightUnitSelect"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:hint="@string/weight_unit"
+                android:labelFor="@id/weightUnit"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userHeightLayout">
+
+                <com.eduardv.powerlogger.ui.userSettings.WeightUnitSelectSpinner
+                    android:id="@+id/weightUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/userWeightLayout"
                 style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="@string/weight"
+                android:labelFor="@id/userWeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userHeightLayout">
+                app:layout_constraintTop_toBottomOf="@+id/weightUnitSelect">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userWeight"
@@ -99,6 +137,26 @@
                     android:addTextChangedListener="@{viewmodel.userSettingsTextWatcher}"
                     android:inputType="numberDecimal"
                     android:text="@={BasicConverters.fromFloatToString(viewmodel.userSettingsDTO.weight)}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/genderLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:hint="@string/gender"
+                android:labelFor="@id/gender"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userWeightLayout">
+
+                <com.eduardv.powerlogger.ui.userSettings.GenderSpinner
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -8,11 +8,11 @@
 
         <variable
             name="viewmodel"
-            type="com.example.powerlogger.ui.units.UnitsViewModel" />
+            type="com.eduardv.powerlogger.ui.units.UnitsViewModel" />
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.units.UnitsFragment" />
+            type="com.eduardv.powerlogger.ui.units.UnitsFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="20dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,13 +78,20 @@
                 android:text="@string/centimeters" />
 
             <RadioButton
-                android:id="@+id/feetInchesButton"
+                android:id="@+id/inchesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/feet_inches" />
+                android:text="@string/inches" />
+
+            <RadioButton
+                android:id="@+id/feetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Feet" />
         </RadioGroup>
 
         <Button
+            style="@style/MyAccentButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"

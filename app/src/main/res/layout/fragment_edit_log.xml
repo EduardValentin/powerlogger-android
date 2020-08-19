@@ -4,42 +4,65 @@
 
     <data>
 
-        <import type="com.example.powerlogger.utils.BasicConverters" />
+        <import type="com.eduardv.powerlogger.utils.BasicConverters" />
 
         <variable
             name="model"
-            type="com.example.powerlogger.ui.logger.EditLogViewModel" />
+            type="com.eduardv.powerlogger.ui.logger.EditLogViewModel" />
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.logger.EditLogFragment" />
+            type="com.eduardv.powerlogger.ui.logger.EditLogFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
+        android:background="?android:attr/windowBackground"
         tools:context=".ui.logger.EditLogFragment">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/logIntensityLayout"
-            style="@style/MyEditTextStyle"
+        <RelativeLayout
+            android:id="@+id/logIntensityLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:hint="@string/minutes"
+            android:layout_height="0dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="70dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/logIntensity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:text="@={BasicConverters.fromIntegerToString(model.logToEdit.minutes)}" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/logIntensityLayout"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:labelFor="@id/logIntensity"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="0dp"
+                android:hint="@string/duration">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/logIntensity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:inputType="numberDecimal"
+                    android:text="@={BasicConverters.fromFloatToString(model.logToEdit.intensity)}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/logIntensityType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="-19dp" />
+        </RelativeLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/logNotesLayout"
@@ -48,9 +71,10 @@
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
             android:hint="@string/notes"
+            android:labelFor="@id/logNotes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logIntensityLayout">
+            app:layout_constraintTop_toBottomOf="@+id/logIntensityLinearLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/logNotes"
@@ -64,21 +88,15 @@
 
         <Button
             android:id="@+id/confirmEditLog"
-            style="@style/MyButtonStyle"
+            style="@style/MyAccentButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginEnd="120dp"
-            android:layout_marginBottom="60dp"
-            android:width="180dp"
-            android:background="#C84848"
+            android:layout_marginBottom="15dp"
             android:onClick="@{(v) -> view.onSave(v)}"
             android:text="@string/save"
-            android:textColorHighlight="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:rippleColor="#00FFFFFF" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

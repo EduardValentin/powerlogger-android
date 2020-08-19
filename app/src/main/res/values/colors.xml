@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-        <color name="colorPrimary">#99B898</color>
-        <color name="colorPrimaryDark">#00574B</color>
-        <color name="colorAccent">#E84A5F</color>
-    <!--    <color name="background">#2A363B</color>-->
-        <color name="textColor">#dfe2db</color>
-        <color name="fadedTextColor">#9A9A9A</color>
-        <color name="transparent">#00FFFFFF</color>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color name="textDark">#303030</color>
+    <color name="textColor">#dfe2db</color>
+    <color name="fadedTextColor">#9A9A9A</color>
+    <color name="transparent">#00FFFFFF</color>
 
-    <color name="background">#ffff</color>
+    <color name="primaryColor">#688e4e</color>
+    <color name="primaryLightColor">#97be7b</color>
+    <color name="primaryDarkColor">#3b6024</color>
+    <color name="secondaryColor">#82c5b2</color>
+    <color name="secondaryLightColor">#b3f8e4</color>
+    <color name="secondaryDarkColor">#529483</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="shade">#D5DDDF</color>
+
+    <color name="bg_row_background">#fa315b</color>
+    <color android:color="?attr/backgroundColor" name="background" />
 </resources>

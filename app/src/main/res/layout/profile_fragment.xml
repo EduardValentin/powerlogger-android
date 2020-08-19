@@ -6,142 +6,149 @@
 
     <data>
 
-        <import type="com.example.powerlogger.utils.BasicConverters" />
+        <import type="com.eduardv.powerlogger.utils.BasicConverters" />
 
         <variable
             name="viewmodel"
-            type="com.example.powerlogger.ui.profile.ProfileViewModel" />
+            type="com.eduardv.powerlogger.ui.profile.ProfileViewModel" />
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.profile.ProfileFragment" />
+            type="com.eduardv.powerlogger.ui.profile.ProfileFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/registerEmailLayout"
-            style="@style/MyEditTextStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:hint="@string/prompt_email"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/registerEmail"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerEmailLayout"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:text="@={viewmodel.dto.email}" />
+                android:layout_marginTop="80dp"
+                android:hint="@string/prompt_email"
+                android:labelFor="@id/registerEmail"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:text="@={viewmodel.dto.email}" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/registerUsernameLayout"
-            style="@style/MyEditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/username"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerEmailLayout">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/registerUsername"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerUsernameLayout"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:text="@={viewmodel.dto.username}" />
+                android:layout_marginTop="20dp"
+                android:hint="@string/username"
+                android:labelFor="@id/registerUsername"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerEmailLayout">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:text="@={viewmodel.dto.username}" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/userBirthDateLayout"
-            style="@style/MyEditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/birth_date"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerUsernameLayout">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/userBirthDate"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userBirthDateLayout"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:focusable="false"
-                android:inputType="none"
-                android:text="@={viewmodel.dto.settings.birthDate}"
-                android:textColorHint="@color/fadedTextColor" />
+                android:layout_marginTop="20dp"
+                android:hint="@string/birth_date"
+                android:labelFor="@id/userBirthDate"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerUsernameLayout">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userBirthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:text="@={viewmodel.dto.settings.birthDate}"
+                    android:textColorHint="@color/fadedTextColor" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/userHeightLayout"
-            style="@style/MyEditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/height"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userBirthDateLayout">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/userHeight"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userHeightLayout"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:inputType="numberDecimal"
-                android:text="@={BasicConverters.fromFloatToString(viewmodel.dto.settings.height)}" />
+                android:layout_marginTop="20dp"
+                android:hint="@string/height"
+                android:labelFor="@id/userHeight"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userBirthDateLayout">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:inputType="numberDecimal"
+                    android:text="@={BasicConverters.fromFloatToString(viewmodel.dto.settings.height)}" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/userWeightLayout"
-            style="@style/MyEditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/weight"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userHeightLayout">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/userWeight"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userWeightLayout"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:addTextChangedListener="@{viewmodel.textWatcher}"
-                android:inputType="numberDecimal"
-                android:text="@={BasicConverters.fromFloatToString(viewmodel.dto.settings.weight)}" />
+                android:layout_marginTop="20dp"
+                android:hint="@string/weight"
+                android:labelFor="@id/userWeight"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userHeightLayout">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addTextChangedListener="@{viewmodel.textWatcher}"
+                    android:inputType="numberDecimal"
+                    android:text="@={BasicConverters.fromFloatToString(viewmodel.dto.settings.weight)}" />
 
-        <Button
-            android:id="@+id/saveProfileData"
-            style="@style/MyButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginBottom="50dp"
-            android:onClick="@{v -> view.onConfirm()}"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/saveProfileData"
+                style="@style/MyAccentButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="106dp"
+                android:layout_marginBottom="50dp"
+                android:onClick="@{v -> view.onConfirm()}"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userWeightLayout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

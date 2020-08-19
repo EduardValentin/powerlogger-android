@@ -3,15 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--        <import type="com.example.powerlogger.utils.BasicConverters" />-->
-
-        <!--        <variable-->
-        <!--            name="model"-->
-        <!--            type="com.example.powerlogger.ui.logger.EditLogViewModel" />-->
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.groups.GroupsFragment" />
+            type="com.eduardv.powerlogger.ui.groups.GroupsFragment" />
     </data>
 
     <FrameLayout
@@ -27,32 +22,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/noGroupsCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/no_workouts_created_yet"
+                android:visibility="invisible" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/groupsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="100dp"
-                android:layout_marginTop="25dp" />
-
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                tools:context=".ui.groups.GroupsFragment">-->
-
-<!--                &lt;!&ndash; Main content &ndash;&gt;-->
-
-<!--                <com.diegodobelo.expandingview.ExpandingList-->
-<!--                    android:id="@+id/expanding_list_main"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintHorizontal_bias="0.0"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintVertical_bias="1.0" />-->
-
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="100dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addGroupButton"

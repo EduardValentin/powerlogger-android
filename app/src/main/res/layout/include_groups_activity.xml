@@ -4,5 +4,5 @@
     android:id="@+id/includeGroupsActivityContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context="com.example.powerlogger.ui.includeWorkouts.IncludeGroupsActivity" />
+    android:background="?android:attr/windowBackground"
+    tools:context="com.eduardv.powerlogger.ui.includeWorkouts.IncludeGroupsActivity" />

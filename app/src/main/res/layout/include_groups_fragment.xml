@@ -7,14 +7,14 @@
 
         <variable
             name="view"
-            type="com.example.powerlogger.ui.includeWorkouts.IncludeGroupsFragment" />
+            type="com.eduardv.powerlogger.ui.includeWorkouts.IncludeGroupsFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/includegroups"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.powerlogger.ui.includeWorkouts.IncludeGroupsActivity">
+        tools:context="com.eduardv.powerlogger.ui.includeWorkouts.IncludeGroupsActivity">
 
         <LinearLayout
             android:id="@+id/noWorkoutsLayout"
