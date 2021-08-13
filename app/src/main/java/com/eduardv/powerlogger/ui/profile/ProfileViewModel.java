@@ -50,15 +50,15 @@ public class ProfileViewModel extends ViewModel {
 
     private void onUserRegistrationTextChange(Editable editable) {
 
-        String usernameError = null;
+//        String usernameError = null;
         String emailError = null;
         String heightError = null;
         String weightError = null;
         String birthDateError = null;
 
-        if (dto.getUsername().length() < 3) {
-            usernameError = "Username length must be greater than 3";
-        }
+//        if (dto.getUsername().length() < 3) {
+//            usernameError = "Username length must be greater than 3";
+//        }
 
         if (dto.getEmail().length() == 0) {
             emailError = "Email is required";
@@ -94,7 +94,7 @@ public class ProfileViewModel extends ViewModel {
         }
 
         Map<String, String> errorsMap = errorsLiveData.getValue();
-        errorsMap.put("username", usernameError);
+//        errorsMap.put("username", usernameError);
         errorsMap.put("email", emailError);
         errorsMap.put("height", heightError);
         errorsMap.put("weight", weightError);

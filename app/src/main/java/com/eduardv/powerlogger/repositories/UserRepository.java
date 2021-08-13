@@ -3,6 +3,7 @@ package com.eduardv.powerlogger.repositories;
 import android.util.Log;
 
 import com.eduardv.powerlogger.APIClient;
+import com.eduardv.powerlogger.dto.TokenDTO;
 import com.eduardv.powerlogger.dto.charts.ChartResponseDTO;
 import com.eduardv.powerlogger.dto.charts.UserStatsDTO;
 import com.eduardv.powerlogger.dto.user.ForgotPasswordRequestDTO;

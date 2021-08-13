@@ -18,67 +18,83 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/groupNameLayout"
-                style="@style/MyEditTextStyle"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="80dp"
-                android:hint="@string/name"
-                android:labelFor="@id/groupName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/groupName"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/groupNameLayout"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@={model.name}" />
+                    android:layout_marginTop="80dp"
+                    android:hint="@string/name"
+                    android:labelFor="@id/groupName"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/groupName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:addTextChangedListener="@{view.afterTextChangedListener}"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@={model.name}" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/groupExercisesLayout"
-                style="@style/MyEditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:hint="@string/add_exercises"
-                android:labelFor="@id/groupExercises"
-                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
-                app:endIconMode="custom"
-                app:layout_constraintTop_toBottomOf="@id/groupNameLayout">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.eduardv.powerlogger.lib.multiselect.MultiSelectSpinner
-                    android:id="@+id/groupExercises"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/groupExercisesLayout"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/add_exercises"
+                    android:labelFor="@id/groupExercises"
+                    app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                    app:endIconMode="custom"
+                    app:layout_constraintTop_toBottomOf="@id/groupNameLayout">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="50dp"
-                app:layout_constraintTop_toBottomOf="@id/groupExercisesLayout" />
+                    <com.eduardv.powerlogger.lib.multiselect.MultiSelectSpinner
+                        android:id="@+id/groupExercises"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/saveGroup"
-                style="@style/MyAccentButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:text="@string/save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/groupExercisesLayout" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/saveGroup"
+                    style="@style/MyAccentButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="402dp"
+                    android:layout_marginBottom="50dp"
+                    android:enabled="false"
+                    android:text="@string/save"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/chipGroup" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
     </FrameLayout>
 </layout>

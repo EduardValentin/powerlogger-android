@@ -39,7 +39,7 @@ public class LogRepository {
     }
 
     public void addLog(LogDTO log, ExerciseDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logDataService.postNewLog(userRepository.getToken(), exerciseDTO.getId(), log)
+        logDataService.postNewLog(userRepository.getUser().getUsername(), userRepository.getToken(), exerciseDTO.getId(), log)
                 .enqueue(new Callback<LogDTO>() {
                     @Override
                     public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
@@ -63,7 +63,7 @@ public class LogRepository {
     }
 
     public void fetchLogs(LocalDate date, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logDataService.fetchAllLogs(userRepository.getToken(), date).enqueue(new Callback<List<LogDTO>>() {
+        logDataService.fetchAllLogs(userRepository.getUser().getUsername(), userRepository.getToken(), date).enqueue(new Callback<List<LogDTO>>() {
             @Override
             public void onResponse(Call<List<LogDTO>> call, Response<List<LogDTO>> response) {
                 if (response.code() == 200) {
@@ -84,7 +84,7 @@ public class LogRepository {
     }
 
     public void updateLog(LogDTO logDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        logDataService.updateLog(userRepository.getToken(), logDTO.getId(), logDTO).enqueue(new Callback<LogDTO>() {
+        logDataService.updateLog(userRepository.getUser().getUsername(), userRepository.getToken(), logDTO.getId(), logDTO).enqueue(new Callback<LogDTO>() {
             @Override
             public void onResponse(Call<LogDTO> call, Response<LogDTO> response) {
 
@@ -110,7 +110,7 @@ public class LogRepository {
     }
 
     public void getLogCalories(String category, LogDTO logDTO, Consumer<LogDTO> handleSuccess, Consumer<Throwable> handleError) {
-        logDataService.getCaloriesForLog(userRepository.getToken(), category, logDTO.getIntensity(), logDTO.getIntensityType())
+        logDataService.getCaloriesForLog(userRepository.getUser().getUsername(), userRepository.getToken(), category, logDTO.getIntensity(), logDTO.getIntensityType())
                 .enqueue(new ApiGenericCallback<>(handleSuccess, handleError, "LOG_COMPUTE_CALORIES"));
     }
 
@@ -125,7 +125,7 @@ public class LogRepository {
             APICallsUtils.getHandlerOrDefault(handleSuccess).accept(responseBody);
         };
 
-        logDataService.sendBatchLogs(userRepository.getToken(), logs)
+        logDataService.sendBatchLogs(userRepository.getUser().getUsername(), userRepository.getToken(), logs)
                 .enqueue(new ApiGenericCallback<List<LogDTO>>(onResponseSuccess, handleError, "BATCH_LOGS"));
     }
 
@@ -139,7 +139,7 @@ public class LogRepository {
             handleSuccess.ifPresent(Runnable::run);
         };
 
-        logDataService.delete(userRepository.getToken(), logId)
+        logDataService.delete(userRepository.getUser().getUsername(), userRepository.getToken(), logId)
                 .enqueue(new ApiGenericCallback(onResponseSuccess, handleError, "LOG_DELETE"));
     }
 

@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,31 @@ public class GroupCreateOrEditFragment extends Fragment {
     private FragmentGroupCreateOrEditBinding binding;
     private GroupCreateOrEditViewModel viewModel;
     private MainActivityViewModel mainActivityViewModel;
+
+    private TextWatcher afterTextChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // ignore
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // ignore
+        }
+
+        @Override
+        public void afterTextChanged(Editable groupName) {
+            String groupNameStr = groupName.toString();
+
+            if (groupNameStr.isEmpty()) {
+                binding.groupNameLayout.setError("Workout name cannot be empty");
+                binding.saveGroup.setEnabled(false);
+            } else {
+                binding.groupNameLayout.setError(null);
+                binding.saveGroup.setEnabled(true);
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -183,5 +210,9 @@ public class GroupCreateOrEditFragment extends Fragment {
             indexMap.put(exercises.get(i).getId(), i);
         }
         return indexMap;
+    }
+
+    public TextWatcher getAfterTextChangedListener() {
+        return afterTextChangedListener;
     }
 }

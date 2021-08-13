@@ -2,6 +2,7 @@ package com.eduardv.powerlogger.ui.forgotPassword;
 
 import androidx.lifecycle.ViewModel;
 
+import com.eduardv.powerlogger.dto.TokenDTO;
 import com.eduardv.powerlogger.dto.user.ForgotPasswordRequestDTO;
 import com.eduardv.powerlogger.repositories.UserRepository;
 

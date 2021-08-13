@@ -55,10 +55,9 @@ public class MoreFragment extends Fragment {
                     goToItemTab(new UnitsFragment());
                     break;
                 case LOG_OUT:
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.stopPooling();
 
                     UserRepository.getInstance().logout();
+
                     getActivity()
                             .getSharedPreferences(Constants.USER_INFO, MODE_PRIVATE)
                             .edit().clear().apply();

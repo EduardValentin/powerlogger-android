@@ -40,7 +40,7 @@ public class GroupRepository {
             APICallsUtils.getHandlerOrDefault(onSuccess).accept(res);
         };
 
-        groupDataService.fetchAllGroups(userRepository.getToken()).enqueue(
+        groupDataService.fetchAllGroups(userRepository.getUser().getUsername(), userRepository.getToken()).enqueue(
                 new ApiGenericCallback<>(onSuccessResponse, onError, "Fetch Groups"));
     }
 
@@ -55,7 +55,7 @@ public class GroupRepository {
             APICallsUtils.getHandlerOrDefault(onSuccess).accept(resp);
         };
 
-        groupDataService.postNewGroup(userRepository.getToken(), groupDTO).enqueue(
+        groupDataService.postNewGroup(userRepository.getUser().getUsername(), userRepository.getToken(), groupDTO).enqueue(
                 new ApiGenericCallback<>(onSuccessResponse, onError, "Create Group"));
     }
 
@@ -80,7 +80,7 @@ public class GroupRepository {
             onSuccess.accept(groupDTO);
         };
 
-        groupDataService.updateGroup(userRepository.getToken(), groupId, groupDTO).enqueue(
+        groupDataService.updateGroup(userRepository.getUser().getUsername(), userRepository.getToken(), groupId, groupDTO).enqueue(
                 new ApiGenericCallback<>(onSuccessResponse, onError, "Groups Update API"));
     }
 
@@ -93,7 +93,7 @@ public class GroupRepository {
             groupCache.getValue().remove(index);
         };
 
-        groupDataService.removeExerciseFromGroup(userRepository.getToken(), groupId, exerciseId).enqueue(
+        groupDataService.removeExerciseFromGroup(userRepository.getUser().getUsername(), userRepository.getToken(), groupId, exerciseId).enqueue(
                 new ApiGenericCallback<>(onSuccessResponse, onError, "Remove Exercise from Group")
         );
     }
@@ -103,8 +103,13 @@ public class GroupRepository {
         groups.removeIf(g -> g.getId().equals(groupId));
         groupCache.setValue(groups);
 
-        groupDataService.removeGroup(userRepository.getToken(), groupId).enqueue(
-                new ApiGenericCallback<>(onSuccess, onError, "REMOVE_GROUP")
+        Consumer<Void> processSuccess = v -> {
+            exerciseRepository.fetchExercises(null, null);
+            APICallsUtils.getHandlerOrDefault(onSuccess).accept(v);
+        };
+
+        groupDataService.removeGroup(userRepository.getUser().getUsername(), userRepository.getToken(), groupId).enqueue(
+                new ApiGenericCallback<>(processSuccess, onError, "REMOVE_GROUP")
         );
     }
 
@@ -114,7 +119,7 @@ public class GroupRepository {
             APICallsUtils.getHandlerOrDefault(onSuccess).accept(response);
         };
 
-        groupDataService.addExercises(userRepository.getToken(), groupId, exercises.stream()
+        groupDataService.addExercises(userRepository.getUser().getUsername(), userRepository.getToken(), groupId, exercises.stream()
                 .map(ExerciseDTO::getId)
                 .collect(Collectors.toList()))
                 .enqueue(new ApiGenericCallback<>(processSucess, onFail, "ADD_EXERCISES_TO_GROUP"));

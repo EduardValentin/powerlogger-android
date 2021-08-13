@@ -1,30 +1,30 @@
 package com.eduardv.powerlogger.dto.charts;
 
 public class AxisPoint {
-    private String xPoint;
-    private String yPoint;
+    private String xpoint;
+    private String ypoint;
 
     public AxisPoint() {
     }
 
-    public AxisPoint(String xPoint, String yPoint) {
-        this.xPoint = xPoint;
-        this.yPoint = yPoint;
+    public AxisPoint(String xPoint, String ypoint) {
+        this.xpoint = xPoint;
+        this.ypoint = ypoint;
     }
 
-    public String getyPoint() {
-        return yPoint;
+    public String getYpoint() {
+        return ypoint;
     }
 
-    public void setyPoint(String yPoint) {
-        this.yPoint = yPoint;
+    public void setYpoint(String ypoint) {
+        this.ypoint = ypoint;
     }
 
-    public String getxPoint() {
-        return xPoint;
+    public String getXpoint() {
+        return xpoint;
     }
 
-    public void setxPoint(String xPoint) {
-        this.xPoint = xPoint;
+    public void setXpoint(String xpoint) {
+        this.xpoint = xpoint;
     }
 }

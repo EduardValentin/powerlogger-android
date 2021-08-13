@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CalorieWiz</string>
+    <string name="app_name">CalorieNotebook</string>
     <string name="title_nutrition">Nutrition</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_logger">Logger</string>
@@ -9,7 +9,7 @@
 
     <string name="add_to_group_title">Add to workouts</string>
     <string name="pick_exercise_title">Pick exercise</string>
-    <string name="exercise_type_title">Chose exercise type</string>
+    <string name="exercise_type_title">Pick exercise type</string>
     <string name="exercise_type_hint">Exercise type</string>
 
     <string name="logger_date_button">Logs Today</string>
@@ -29,7 +29,7 @@
     <string name="action_sign_in_short">Sign In</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Username must contain minimum 3 characters</string>
-    <string name="invalid_password">Password must be minimum 5 characters</string>
+    <string name="invalid_password">Password must be minimum 6 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register">Register</string>
     <string name="create_account">Or create an account if you don\'t have one</string>
@@ -73,13 +73,14 @@
     <string name="weight_unit">Weight unit</string>
     <string name="height_unit">Height unit</string>
     <string name="no_chart_data">No data to be displayed yet. Start logging your activity</string>
-    <string name="no_piechart_data">No data. Start logging some exercises</string>
-    <string name="no_barchart_data">No data. Start logging some exercises from your favorite workouts</string>
+    <string name="no_piechart_data">No data. Log some exercises</string>
+    <string name="no_barchart_data">No data. Add some workouts with exercises</string>
     <string name="no_exercises_created_yet">No exercises created yet</string>
     <string name="no_workouts_created_yet">No workouts created yet</string>
     <string name="kcal">Kcal</string>
     <string name="your_most_preferred_workouts">Your most preferred workouts</string>
     <string name="gender">Gender</string>
     <string name="forgot_password">Forgot password</string>
+    <string name="reset_pass_message">You will receive the instructions to reset your password on email</string>
 
 </resources>

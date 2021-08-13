@@ -15,7 +15,7 @@
             type="com.eduardv.powerlogger.ui.logger.CreateLogFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:transitionName="shared_elem_container_logger"
@@ -25,11 +25,7 @@
             android:id="@+id/scrollView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent">
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -94,12 +90,17 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="20dp"
                             android:hint="@string/name"
-                            android:labelFor="@id/exerciseName">
+                            android:labelFor="@id/exerciseName"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/exerciseName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:singleLine="true"
                                 android:text="@={model.creatingExercise.name}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -124,8 +125,8 @@
                             android:id="@+id/chipGroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:layout_marginRight="50dp" />
+                            android:layout_marginLeft="70dp"
+                            android:layout_marginRight="70dp" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/exerciseTypeLayout"
@@ -190,19 +191,6 @@
                         android:entries="@array/intensityTypeEntries" />
                 </RelativeLayout>
 
-                <Button
-                    android:id="@+id/confirmAddLog"
-                    style="@style/MyAccentButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="222dp"
-                    android:layout_marginBottom="50dp"
-                    android:text="@string/save"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logNotesLayout" />
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/logNotesLayout"
                     style="@style/MyEditTextStyle"
@@ -217,13 +205,27 @@
                         android:id="@+id/logNotes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:inputType="textMultiLine"
                         android:text="@={model.logDTO.notes}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <Button
+                    android:id="@+id/confirmAddLog"
+                    style="@style/MyAccentButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="200dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/save"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logNotesLayout" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 
 </layout>

@@ -16,15 +16,15 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ExerciseDataService {
-    @GET(Env.BASE_API_PREFIX + "/exercises")
-    Call<List<ExerciseDTO>> fetchAllExercises(@Header("Authorization") String token);
+    @GET(Env.BASE_API_PREFIX + "/users/{username}/exercises")
+    Call<List<ExerciseDTO>> fetchAllExercises(@Path("username") String username, @Header("Authorization") String token);
 
-    @POST(Env.BASE_API_PREFIX + "/exercises")
-    Call<ExerciseDTO> addNewExercise(@Body CreateExerciseRequestDTO exerciseDTO, @Header("Authorization") String token);
+    @POST(Env.BASE_API_PREFIX + "/users/{username}/exercises")
+    Call<ExerciseDTO> addNewExercise(@Path("username") String username, @Body CreateExerciseRequestDTO exerciseDTO, @Header("Authorization") String token);
 
-    @PUT(Env.BASE_API_PREFIX + "/exercises/{id}")
-    Call<ExerciseDTO> updateExercise(@Path("id") String id, @Body CreateExerciseRequestDTO exerciseDTO, @Header("Authorization") String token);
+    @PUT(Env.BASE_API_PREFIX + "/users/{username}/exercises/{id}")
+    Call<ExerciseDTO> updateExercise(@Path("username") String username, @Path("id") String id, @Body CreateExerciseRequestDTO exerciseDTO, @Header("Authorization") String token);
 
-    @DELETE(Env.BASE_API_PREFIX + "/exercises/{id}")
-    Call<Void> deleteExercise(@Path("id") String id, @Header("Authorization") String token);
+    @DELETE(Env.BASE_API_PREFIX + "/users/{username}/exercises/{id}")
+    Call<Void> deleteExercise(@Path("username") String username, @Path("id") String id, @Header("Authorization") String token);
 }

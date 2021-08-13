@@ -23,6 +23,7 @@ import com.eduardv.powerlogger.dto.ExerciseDTO;
 import com.eduardv.powerlogger.dto.GroupDTO;
 import com.eduardv.powerlogger.lib.lists.RecyclerItemTouchHelperListener;
 import com.eduardv.powerlogger.lib.lists.SwipeCallbackWithDeleteIcon;
+import com.eduardv.powerlogger.repositories.ExerciseRepository;
 import com.eduardv.powerlogger.ui.exercises.create.CreateExerciseFragment;
 import com.eduardv.powerlogger.ui.exercises.edit.EditExerciseFragment;
 import com.eduardv.powerlogger.ui.groups.GroupsViewHolder;

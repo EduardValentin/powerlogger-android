@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -58,7 +59,12 @@ public class MainActivity extends AppCompatActivity implements OnEditExerciseFra
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
+        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.mobile_navigation);
+        navGraph.setStartDestination(R.id.navigation_logger);
+        navController.setGraph(navGraph);
+
         MobileAds.initialize(this, initializationStatus -> {
+            Log.i("ADS initialization", initializationStatus.toString());
         });
 
         this.rewardedAd = createAndLoadRewardedAds();
@@ -104,12 +110,6 @@ public class MainActivity extends AppCompatActivity implements OnEditExerciseFra
     @Override
     public void addLogToCache(LogDTO log) {
         mainActivityViewModel.addLogToCache(log);
-    }
-
-    public void stopPooling() {
-        mainActivityViewModel
-                .getDataFetchTimer()
-                .cancel();
     }
 
     @Override

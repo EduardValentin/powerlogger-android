@@ -3,6 +3,7 @@ package com.eduardv.powerlogger.ui.profile;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,10 @@ import com.eduardv.powerlogger.dto.units.HeightUnit;
 import com.eduardv.powerlogger.dto.units.WeightUnit;
 import com.eduardv.powerlogger.dto.user.UserDTO;
 import com.eduardv.powerlogger.dto.user.UserSettingsDTO;
+import com.eduardv.powerlogger.utils.Constants;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -30,6 +33,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment {
 
@@ -114,6 +119,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void onSuccess(UserDTO o) {
+
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(Constants.USER_INFO, MODE_PRIVATE).edit();
+        editor.putString(Constants.USER_DATA_SHAREDPREF, new Gson().toJson(o));
+        editor.apply();
+
         getParentFragmentManager().popBackStack();
     }
 
@@ -123,7 +133,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void errorsChanged(Map<String, String> errorsMap) {
-        binding.registerUsernameLayout.setError(errorsMap.get("username"));
+//        binding.registerUsernameLayout.setError(errorsMap.get("username"));
         binding.registerEmailLayout.setError(errorsMap.get("email"));
         binding.userWeightLayout.setError(errorsMap.get("weight"));
         binding.userHeightLayout.setError(errorsMap.get("height"));

@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,32 @@ public class EditExerciseFragment extends Fragment {
     private EditExerciseFragmentBinding binding;
     private List<GroupDTO> groups;
     private OnEditExerciseFragmentSubmitListener listener;
+
+
+    private TextWatcher afterTextChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // ignore
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // ignore
+        }
+
+        @Override
+        public void afterTextChanged(Editable groupName) {
+            String groupNameStr = groupName.toString();
+
+            if (groupNameStr.isEmpty()) {
+                binding.exerciseNameLayout.setError("Exercise name cannot be empty");
+                binding.button.setEnabled(false);
+            } else {
+                binding.exerciseNameLayout.setError(null);
+                binding.button.setEnabled(true);
+            }
+        }
+    };
 
     public static EditExerciseFragment newInstance() {
         return new EditExerciseFragment();
@@ -192,4 +220,9 @@ public class EditExerciseFragment extends Fragment {
 
         binding.chipGroup.addView(chip);
     }
+
+    public TextWatcher getAfterTextChangedListener() {
+        return afterTextChangedListener;
+    }
+
 }

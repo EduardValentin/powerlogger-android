@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.eduardv.powerlogger.CreateExerciseRequestDTO;
 import com.eduardv.powerlogger.MainActivityViewModel;
 import com.eduardv.powerlogger.R;
+import com.eduardv.powerlogger.databinding.FragmentCreateLogBinding;
 import com.eduardv.powerlogger.databinding.FragmentCreateLogBindingImpl;
 import com.eduardv.powerlogger.dto.ExerciseCategoryDTO;
 import com.eduardv.powerlogger.dto.ExerciseDTO;
@@ -41,7 +44,7 @@ public class CreateLogFragment extends Fragment {
 
     private String currentDateInView;
 
-    private FragmentCreateLogBindingImpl bindingFragment;
+    private FragmentCreateLogBinding bindingFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

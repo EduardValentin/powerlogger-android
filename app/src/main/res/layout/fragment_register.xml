@@ -27,7 +27,7 @@
                 <Button
                     android:id="@+id/toUserSettingsButton"
                     style="@style/MyButtonStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginStart="145dp"
@@ -57,6 +57,7 @@
                         android:id="@+id/registerEmail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
                         android:addTextChangedListener="@{viewmodel.textWatcher}"
                         android:text="@={viewmodel.registerRequestDTO.email}" />
 
@@ -78,6 +79,10 @@
                         android:id="@+id/registerUsername"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:inputType = "textPersonName"
                         android:addTextChangedListener="@{viewmodel.textWatcher}"
                         android:text="@={viewmodel.registerRequestDTO.username}" />
 

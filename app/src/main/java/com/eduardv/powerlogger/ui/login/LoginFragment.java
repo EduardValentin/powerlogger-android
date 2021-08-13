@@ -136,6 +136,10 @@ public class LoginFragment extends Fragment {
 
         binding.login.setOnClickListener(v -> {
             binding.loading.setVisibility(View.VISIBLE);
+            binding.loginViewContent.setVisibility(View.INVISIBLE);
+
+            setLoginDataToPreferences(null, null);
+
             loginViewModel.login(binding.username.getText().toString(),
                     binding.password.getText().toString(), this::loginCallback);
         });
@@ -146,6 +150,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         UserDTO user = getCurrentlyLoggedUser();
 
         if (user == null) {
@@ -155,11 +160,16 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        // Check for existing Google Sign In account, if the user is already signed in
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        if (user.getExternalId() != null) {
 
-        if (account != null) {
-            validateLastGoogleSignInAndRenewIfNeeded(account);
+            // Check for existing Google Sign In account, if the user is already signed in
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+
+            if (account != null) {
+                validateLastGoogleSignInAndRenewIfNeeded(account);
+            }
+
+            this.stopLoadingOnFail(new Throwable());
             return;
         }
 
@@ -175,9 +185,11 @@ public class LoginFragment extends Fragment {
     }
 
     public void loginCallback(Object response) {
-        binding.loading.setVisibility(View.GONE);
 
         if (response instanceof Result.Error) {
+            binding.loading.setVisibility(View.GONE);
+            binding.loginViewContent.setVisibility(View.VISIBLE);
+
             showIncorrectCredentials();
             return;
         }
@@ -194,7 +206,14 @@ public class LoginFragment extends Fragment {
     }
 
     public void onGoogleSignInClick(View v) {
+
+        binding.loading.setVisibility(View.VISIBLE);
+        binding.loginViewContent.setVisibility(View.INVISIBLE);
+
+        setLoginDataToPreferences(null, null);
+
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+
         if (account != null) {
             validateLastGoogleSignInAndRenewIfNeeded(account);
             return;
@@ -210,15 +229,18 @@ public class LoginFragment extends Fragment {
         }
 
         if (account.isExpired()) {
-            googleSignInClient.silentSignIn().addOnCompleteListener(
-                    getActivity(), this::handleSignInResult);
+            googleSignInClient.silentSignIn()
+                    .addOnCompleteListener(getActivity(), this::handleSignInResult);
         } else {
-            loginViewModel.validateAndCreateIfNotExistsGoogleAccount(account.getIdToken(),
-                    this::storeCurrentlyLoggedUserAndGoToMain, this::stopLoadingOnFail);
+            loginViewModel.validateAndCreateIfNotExistsGoogleAccount(
+                    account.getIdToken(),
+                    this::storeCurrentlyLoggedUserAndGoToMain,
+                    this::stopLoadingOnFail);
         }
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             loginViewModel.validateAndCreateIfNotExistsGoogleAccount(account.getIdToken(),
@@ -229,6 +251,12 @@ public class LoginFragment extends Fragment {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             this.stopLoadingOnFail(e);
+
+            if (getUserAccessToken() != null && getCurrentlyLoggedUser() != null) {
+                Log.w("GOOGLE_SIGNIN_FAIL", "Google signin gailed. Trying token authentication");
+                validateToken(getUserAccessToken(), getCurrentlyLoggedUser().getUsername());
+            }
+
             Log.e("GOOGLE_SIGNIN", "signInResult:failed code=" + e.getStatusCode());
         }
     }
@@ -279,7 +307,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void onInternalTokenValidCb(Object res) {
-        binding.loading.setVisibility(View.INVISIBLE);
         storeCurrentlyLoggedUserAndGoToMain(getUserAccessToken(), getCurrentlyLoggedUser());
     }
 
@@ -314,5 +341,11 @@ public class LoginFragment extends Fragment {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    private void setLoginDataToPreferences(UserDTO user, String token) {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(Constants.USER_INFO, MODE_PRIVATE).edit();
+        editor.putString(Constants.TOKEN, token);
+        editor.putString(Constants.USER_DATA_SHAREDPREF, gson.toJson(user));
     }
 }

@@ -36,7 +36,6 @@ public class MainActivityViewModel extends ViewModel {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryRepository exerciseCategoryRepository;
     private final LogRepository logRepository;
-    private final Timer dataFetchTimer;
     private final Timer rewardCleanTimer;
 
     public MainActivityViewModel() {
@@ -62,24 +61,15 @@ public class MainActivityViewModel extends ViewModel {
         exerciseRepository.getExerciseCache().observeForever(exerciseLiveData::setValue);
         groupRepository.getGroupCache().observeForever(groupsLiveData::setValue);
 
-
-        dataFetchTimer = new Timer();
-
-        dataFetchTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Log.i("Scheduled fetch", "Started fetching data");
-                fetchExercises();
-                fetchGroups();
-                fetchCategories();
-            }
-        }, 0, 30 * SECONDS);
+        fetchExercises();
+        fetchGroups();
+        fetchCategories();
 
         rewardCleanTimer = new Timer();
         rewardCleanTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                chartRewards.setValue(0);
+                chartRewards.postValue(0);
             }
         }, 30 * MINUTES, 30 * MINUTES);
 
@@ -103,10 +93,6 @@ public class MainActivityViewModel extends ViewModel {
 
     public LiveData<List<ExerciseCategoryDTO>> getExerciseCategoriesLive() {
         return exerciseCategoriesLiveData;
-    }
-
-    public Timer getDataFetchTimer() {
-        return dataFetchTimer;
     }
 
     private void fetchExercises() {

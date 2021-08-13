@@ -19,24 +19,24 @@ public interface GroupDataService {
 
     String AUTHORIZATION = "Authorization";
 
-    @GET(Env.BASE_API_PREFIX + "/groups")
-    Call<List<GroupDTO>> fetchAllGroups(@Header(AUTHORIZATION) String token);
+    @GET(Env.BASE_API_PREFIX + "/users/{username}/groups")
+    Call<List<GroupDTO>> fetchAllGroups(@Path("username") String username, @Header(AUTHORIZATION) String token);
 
-    @GET(Env.BASE_API_PREFIX + "/groups/{id}")
-    Call<GroupDTO> fetchOneGroup(@Header(AUTHORIZATION) String token, @Path("id") int id);
+    @GET(Env.BASE_API_PREFIX + "/users/{username}/groups/{id}")
+    Call<GroupDTO> fetchOneGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("id") int id);
 
-    @POST(Env.BASE_API_PREFIX + "/groups")
-    Call<GroupDTO> postNewGroup(@Header(AUTHORIZATION) String token, @Body GroupDTO group);
+    @POST(Env.BASE_API_PREFIX + "/users/{username}/groups")
+    Call<GroupDTO> postNewGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Body GroupDTO group);
 
-    @PUT(Env.BASE_API_PREFIX + "/groups/{id}")
-    Call<GroupDTO> updateGroup(@Header(AUTHORIZATION) String token, @Path("id") String id, @Body GroupDTO group);
+    @PUT(Env.BASE_API_PREFIX + "/users/{username}/groups/{id}")
+    Call<GroupDTO> updateGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("id") String id, @Body GroupDTO group);
 
-    @POST(Env.BASE_API_PREFIX + "/groups/{id}/exercises")
-    Call<GroupAddExercisesResponse> addExercises(@Header(AUTHORIZATION) String token, @Path("id") String id, @Body List<String> exercisesId);
+    @POST(Env.BASE_API_PREFIX + "/users/{username}/groups/{id}/exercises")
+    Call<GroupAddExercisesResponse> addExercises(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("id") String id, @Body List<String> exercisesId);
 
     @DELETE(Env.BASE_API_PREFIX + "/groups/{groupId}/exercises/{exerciseId}")
-    Call<GroupDTO> removeExerciseFromGroup(@Header(AUTHORIZATION) String token, @Path("groupId") String groupId, @Path("exerciseId") String exerciseId);
+    Call<GroupDTO> removeExerciseFromGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("groupId") String groupId, @Path("exerciseId") String exerciseId);
 
     @DELETE(Env.BASE_API_PREFIX + "/groups/{groupId}")
-    Call<Void> removeGroup(@Header(AUTHORIZATION) String token, @Path("groupId") String groupId);
+    Call<Void> removeGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("groupId") String groupId);
 }

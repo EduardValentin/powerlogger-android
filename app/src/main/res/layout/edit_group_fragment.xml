@@ -23,15 +23,19 @@
             android:layout_width="match_parent"
             android:layout_marginTop="80dp"
             android:hint="@string/name"
-            app:layout_constraintEnd_toEndOf="parent"
             android:labelFor="@id/groupName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/groupName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,10 +45,10 @@
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
             android:hint="@string/add_exercises"
+            android:labelFor="@id/groupExercises"
             app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
             app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="parent"
-            android:labelFor="@id/groupExercises"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/groupNameLayout">
 
@@ -70,12 +74,14 @@
             style="@style/MyAccentButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="419dp"
             android:layout_marginBottom="50dp"
             android:width="150dp"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

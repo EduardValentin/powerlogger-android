@@ -25,7 +25,6 @@ import com.eduardv.powerlogger.databinding.FragmentDashboardBinding;
 import com.eduardv.powerlogger.dto.charts.AxisPoint;
 import com.eduardv.powerlogger.dto.charts.ChartResponseDTO;
 import com.eduardv.powerlogger.dto.charts.UserStatsDTO;
-import com.eduardv.powerlogger.model.ExerciseCategory;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -187,9 +186,9 @@ public class DashboardFragment extends Fragment {
 
         int i = 0;
         for (AxisPoint axisPoint : axisPoints) {
-            float val = Float.parseFloat(axisPoint.getyPoint());
+            float val = Float.parseFloat(axisPoint.getYpoint());
 
-            BarDataSet barDataSet = new BarDataSet(Collections.singletonList(new BarEntry(i, val)), axisPoint.getxPoint());
+            BarDataSet barDataSet = new BarDataSet(Collections.singletonList(new BarEntry(i, val)), axisPoint.getXpoint());
             barDataSet.setValueFormatter(formatter);
             barDataSet.setColors(barChartColors.get(i));
             barData.addDataSet(barDataSet);
@@ -209,7 +208,7 @@ public class DashboardFragment extends Fragment {
         }
 
         List<PieEntry> pieEntries = axisPoints.stream()
-                .map(axisPoint -> new PieEntry(Float.parseFloat(axisPoint.getyPoint()), axisPoint.getxPoint()))
+                .map(axisPoint -> new PieEntry(Float.parseFloat(axisPoint.getYpoint()), axisPoint.getXpoint()))
                 .collect(Collectors.toList());
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
@@ -235,7 +234,7 @@ public class DashboardFragment extends Fragment {
         List<Entry> entries = new ArrayList<>();
 
         for (AxisPoint p : axis) {
-            entries.add(new Entry(entries.size(), Float.parseFloat(p.getyPoint())));
+            entries.add(new Entry(entries.size(), Float.parseFloat(p.getYpoint())));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "calories / day");
@@ -249,7 +248,7 @@ public class DashboardFragment extends Fragment {
         binding.lineChart.setData(new LineData(dataSet));
 
         String[] labels = axis.stream().map(axisPoint -> {
-            LocalDate ld = LocalDate.parse(axisPoint.getxPoint());
+            LocalDate ld = LocalDate.parse(axisPoint.getXpoint());
             return ld.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
         }).toArray(String[]::new);
 

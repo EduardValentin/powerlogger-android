@@ -2,8 +2,6 @@ package com.eduardv.powerlogger.ui.forgotPassword;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.eduardv.powerlogger.R;
-import com.eduardv.powerlogger.databinding.ForgotPasswordFragmentBinding;
 import com.eduardv.powerlogger.databinding.ForgotPasswordFragmentBindingImpl;
-
-import java.util.regex.Pattern;
 
 public class ForgotPasswordFragment extends Fragment {
 
@@ -68,15 +63,23 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     public void onSubmit() {
+        binding.loading.setVisibility(View.VISIBLE);
+
         mViewModel.sendResetPasswordEmail(this::onSuccess, this::onError);
     }
 
     public void onSuccess(Void v) {
-        binding.message.setText("Please open the email and follow the instructions in order to reset your password");
+        binding.message.setText("We've sent you an email with instructions to reset your password");
+        binding.loading.setVisibility(View.INVISIBLE);
+        binding.emailLayout.setVisibility(View.INVISIBLE);
+
+        binding.sendForgotEmail.setText("Back");
+        binding.sendForgotEmail.setOnClickListener(view -> getActivity().getSupportFragmentManager().popBackStack());
     }
 
     public void onError(Throwable t) {
-        binding.message.setText("We couldn't send an email to you. Please try again later");
+        binding.loading.setVisibility(View.INVISIBLE);
+        binding.message.setText("There was a problem sending your email. Please try again later");
     }
 
     public TextWatcher getAfterTextChangedListener() {

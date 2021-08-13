@@ -2,12 +2,14 @@ package com.eduardv.powerlogger.lib.multiselect;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -62,7 +64,10 @@ public class MultiSelectSpinner extends TextInputEditText implements DialogInter
         this.onMultiChoiceClickListener = onMultiChoiceClickListener;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setItems(List<? extends SelectableItem> items) {
+        if (items == null) return;
+
         this.items = items;
 
         List<Boolean> sel = new ArrayList<>();

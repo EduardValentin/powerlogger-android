@@ -19,91 +19,104 @@
         android:layout_height="match_parent"
         tools:context=".ui.exercises.create.CreateExerciseFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/exerciseNameLayout"
-                style="@style/MyEditTextStyle"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:labelFor="@id/exerciseName"
-                android:layout_marginTop="55dp"
-                android:hint="@string/name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/exerciseName"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/exerciseNameLayout"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@={viewmodel.exercise.name}" />
+                    android:layout_marginTop="55dp"
+                    android:hint="@string/name"
+                    android:labelFor="@id/exerciseName"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/exerciseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:addTextChangedListener="@{view.afterTextChangedListener}"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@={viewmodel.exercise.name}" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/exerciseTypeLayout"
-                style="@style/MyEditTextStyle"
-                android:layout_width="match_parent"
-                android:labelFor="@id/exerciseType"
-                android:layout_marginTop="20dp"
-                android:hint="@string/exercise_type_hint"
-                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
-                app:endIconMode="custom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/exerciseNameLayout">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.eduardv.powerlogger.lib.SingleSelectSpinner
-                    android:id="@+id/exerciseType"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/exerciseTypeLayout"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/exercise_type_hint"
+                    android:labelFor="@id/exerciseType"
+                    app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                    app:endIconMode="custom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/exerciseNameLayout">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/exerciseGroupLayout"
-                style="@style/MyEditTextStyle"
-                android:layout_width="match_parent"
-android:labelFor="@id/exerciseGroup"
-                android:layout_marginTop="20dp"
-                android:hint="@string/add_to_group_title"
-                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
-                app:endIconMode="custom"
-                app:layout_constraintTop_toBottomOf="@id/exerciseTypeLayout">
+                    <com.eduardv.powerlogger.lib.SingleSelectSpinner
+                        android:id="@+id/exerciseType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.eduardv.powerlogger.lib.multiselect.MultiSelectSpinner
-                    android:id="@+id/exerciseGroup"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/exerciseGroupLayout"
+                    style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/add_to_group_title"
+                    android:labelFor="@id/exerciseGroup"
+                    app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                    app:endIconMode="custom"
+                    app:layout_constraintTop_toBottomOf="@id/exerciseTypeLayout">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/exerciseGroupLayout"
-                app:layout_goneMarginTop="20dp" />
+                    <com.eduardv.powerlogger.lib.multiselect.MultiSelectSpinner
+                        android:id="@+id/exerciseGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/exerciseGroupLayout"
+                    app:layout_goneMarginTop="20dp" />
 
 
-            <Button
-                android:id="@+id/saveGroup"
-                style="@style/MyAccentButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:onClick="@{v -> view.onCreateExerciseClick(v)}"
-                android:text="@string/save"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+                <Button
+                    android:id="@+id/saveGroup"
+                    style="@style/MyAccentButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="348dp"
+                    android:layout_marginBottom="50dp"
+                    android:onClick="@{v -> view.onCreateExerciseClick(v)}"
+                    android:text="@string/save"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/chipGroup" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
     </FrameLayout>
 </layout>

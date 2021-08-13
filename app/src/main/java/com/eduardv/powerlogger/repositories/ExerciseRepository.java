@@ -63,7 +63,7 @@ public class ExerciseRepository {
     }
 
     public void fetchExercises(Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        exerciseDataService.fetchAllExercises(userRepository.getToken()).enqueue(new Callback<List<ExerciseDTO>>() {
+        exerciseDataService.fetchAllExercises(userRepository.getUser().getUsername(), userRepository.getToken()).enqueue(new Callback<List<ExerciseDTO>>() {
             @Override
             public void onResponse(Call<List<ExerciseDTO>> call, Response<List<ExerciseDTO>> response) {
                 if (response.code() == 200) {
@@ -84,7 +84,7 @@ public class ExerciseRepository {
     }
 
     public ExerciseDTO addNewExercise(CreateExerciseRequestDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        exerciseDataService.addNewExercise(exerciseDTO, userRepository.getToken()).enqueue(new Callback<ExerciseDTO>() {
+        exerciseDataService.addNewExercise(userRepository.getUser().getUsername(), exerciseDTO, userRepository.getToken()).enqueue(new Callback<ExerciseDTO>() {
             @Override
             public void onResponse(Call<ExerciseDTO> call, Response<ExerciseDTO> response) {
                 if (response.code() == 200) {
@@ -105,7 +105,7 @@ public class ExerciseRepository {
     }
 
     public void updateExercise(String id, CreateExerciseRequestDTO exerciseDTO, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        exerciseDataService.updateExercise(id, exerciseDTO, userRepository.getToken()).enqueue(new Callback<ExerciseDTO>() {
+        exerciseDataService.updateExercise(userRepository.getUser().getUsername(), id, exerciseDTO, userRepository.getToken()).enqueue(new Callback<ExerciseDTO>() {
             @Override
             public void onResponse(Call<ExerciseDTO> call, Response<ExerciseDTO> response) {
                 if (response.code() == 200) {
@@ -131,17 +131,17 @@ public class ExerciseRepository {
 
 
     public void deleteExercise(String id, Consumer<Object> handleSuccess, Consumer<Throwable> handleError) {
-        exerciseDataService.deleteExercise(id, userRepository.getToken()).enqueue(new Callback<Void>() {
+        exerciseDataService.deleteExercise(userRepository.getUser().getUsername(), id, userRepository.getToken()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     List<ExerciseDTO> list = exerciseCache.getValue();
-                    list.removeIf(exercise -> exercise.getId().toString().equals(id));
+                    list.removeIf(exercise -> exercise.getId().equals(id));
                     exerciseCache.setValue(list);
 
                     APICallsUtils.getHandlerOrDefault(handleSuccess).accept(response.body());
                 } else {
-                    Log.e("DELETE EXERCISE NO SUCCESS", "No success while deleting exercise for user: " + userRepository.getToken());
+                    Log.e("DELETE EXERCISE FAIL", "No success while deleting exercise for user: " + userRepository.getToken());
                     APICallsUtils.getHandlerOrDefault(handleError).accept(new Throwable(response.message()));
                 }
             }
