@@ -21,30 +21,25 @@ android {
     buildTypes {
 
         debug {
-//            buildConfigField "String", 'API_URL', '"http://hwsrv-760453.hostwindsdns.com"'
-            buildConfigField "String", 'API_URL', '"http://35.210.162.50"'
-//            buildConfigField "String", 'API_URL', '"http://35.207.80.191"'
             buildConfigField "String", 'ADD_UNIT_CODE', '"ca-app-pub-3940256099942544/5224354917"'
             buildConfigField "String", 'LIST_ADD_UNIT_CODE', '"ca-app-pub-3940256099942544/6300978111"'
             buildConfigField "String", 'GOOGLE_SIGN_IN_CLIENT_ID', '"211202412035-l72man43e9ucpfq0vl6j5j19bfnguk4t.apps.googleusercontent.com"'
+            buildConfigField "String", 'API_URL', '"http://35.210.162.50"'
         }
 
         staging {
-//            buildConfigField "String", 'API_URL', '"http://hwsrv-760453.hostwindsdns.com"'
             buildConfigField "String", 'ADD_UNIT_CODE', '"ca-app-pub-3940256099942544/5224354917"'
             buildConfigField "String", 'LIST_ADD_UNIT_CODE', '"ca-app-pub-3940256099942544/6300978111"'
             buildConfigField "String", 'GOOGLE_SIGN_IN_CLIENT_ID', '"211202412035-l72man43e9ucpfq0vl6j5j19bfnguk4t.apps.googleusercontent.com"'
-            buildConfigField "String", 'API_URL', '"http://35.207.80.191"'
-
+            buildConfigField "String", 'API_URL', '"http://35.210.162.50"'
+//            buildConfigField "String", 'API_URL', '"http://35.207.80.191"'
         }
 
         release {
-//            buildConfigField "String", 'API_URL', '"http:/hwsrv-760453.hostwindsdns.com"'
             buildConfigField "String", 'ADD_UNIT_CODE', '"ca-app-pub-2421168263848478/5447453634"'
             buildConfigField "String", 'LIST_ADD_UNIT_CODE', '"ca-app-pub-2421168263848478/7700245713"'
             buildConfigField "String", 'GOOGLE_SIGN_IN_CLIENT_ID', '"211202412035-l72man43e9ucpfq0vl6j5j19bfnguk4t.apps.googleusercontent.com"'
-            buildConfigField "String", 'API_URL', '"http://35.207.80.191"'
-
+            buildConfigField "String", 'API_URL', '"http://35.210.162.50"'
         }
 
     }
