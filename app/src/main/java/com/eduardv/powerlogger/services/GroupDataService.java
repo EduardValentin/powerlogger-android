@@ -34,9 +34,9 @@ public interface GroupDataService {
     @POST(Env.BASE_API_PREFIX + "/users/{username}/groups/{id}/exercises")
     Call<GroupAddExercisesResponse> addExercises(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("id") String id, @Body List<String> exercisesId);
 
-    @DELETE(Env.BASE_API_PREFIX + "/groups/{groupId}/exercises/{exerciseId}")
+    @DELETE(Env.BASE_API_PREFIX + "/users/{username}/groups/{groupId}/exercises/{exerciseId}")
     Call<GroupDTO> removeExerciseFromGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("groupId") String groupId, @Path("exerciseId") String exerciseId);
 
-    @DELETE(Env.BASE_API_PREFIX + "/groups/{groupId}")
+    @DELETE(Env.BASE_API_PREFIX + "/users/{username}/groups/{groupId}")
     Call<Void> removeGroup(@Path("username") String username, @Header(AUTHORIZATION) String token, @Path("groupId") String groupId);
 }

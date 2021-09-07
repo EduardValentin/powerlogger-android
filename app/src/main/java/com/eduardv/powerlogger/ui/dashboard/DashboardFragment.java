@@ -129,17 +129,22 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel.getTopGroupsLive().observe(getViewLifecycleOwner(), this::updateTopGroupsData);
 
         mainActivityViewModel.getChartRewards().observe(getViewLifecycleOwner(), rewards -> {
-            if (rewards > 0) {
-                binding.blurredBarChartLayout.setVisibility(INVISIBLE);
-                binding.blurredPieChartLayout.setVisibility(INVISIBLE);
-                binding.barChart.setVisibility(VISIBLE);
-                binding.pieChart.setVisibility(VISIBLE);
-            } else {
-                binding.blurredBarChartLayout.setVisibility(VISIBLE);
-                binding.blurredPieChartLayout.setVisibility(VISIBLE);
-                binding.barChart.setVisibility(INVISIBLE);
-                binding.pieChart.setVisibility(INVISIBLE);
-            }
+//            if (rewards > 0) {
+//                binding.blurredBarChartLayout.setVisibility(INVISIBLE);
+//                binding.blurredPieChartLayout.setVisibility(INVISIBLE);
+//                binding.barChart.setVisibility(VISIBLE);
+//                binding.pieChart.setVisibility(VISIBLE);
+//            } else {
+//                binding.blurredBarChartLayout.setVisibility(VISIBLE);
+//                binding.blurredPieChartLayout.setVisibility(VISIBLE);
+//                binding.barChart.setVisibility(INVISIBLE);
+//                binding.pieChart.setVisibility(INVISIBLE);
+//            }
+
+            binding.blurredBarChartLayout.setVisibility(INVISIBLE);
+            binding.blurredPieChartLayout.setVisibility(INVISIBLE);
+            binding.barChart.setVisibility(VISIBLE);
+            binding.pieChart.setVisibility(VISIBLE);
         });
 
 

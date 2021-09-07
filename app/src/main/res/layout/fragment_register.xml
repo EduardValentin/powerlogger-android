@@ -18,7 +18,9 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/background"
+            android:paddingBottom="20pt">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -31,12 +33,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginStart="145dp"
-                    android:layout_marginTop="245dp"
+                    android:layout_marginTop="200dp"
                     android:layout_marginEnd="146dp"
-                    android:layout_marginBottom="20dp"
                     android:enabled="false"
                     android:text="@string/to_user_settings"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/registerConfirmPasswordLayout" />
@@ -44,10 +44,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/registerEmailLayout"
                     style="@style/MyEditTextStyle"
-                    android:labelFor="@id/registerEmail"
                     android:layout_width="match_parent"
                     android:layout_marginTop="50dp"
                     android:hint="@string/prompt_email"
+                    android:labelFor="@id/registerEmail"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -57,8 +57,8 @@
                         android:id="@+id/registerEmail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textEmailAddress"
                         android:addTextChangedListener="@{viewmodel.textWatcher}"
+                        android:inputType="textEmailAddress"
                         android:text="@={viewmodel.registerRequestDTO.email}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -67,9 +67,9 @@
                     android:id="@+id/registerUsernameLayout"
                     style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:labelFor="@id/registerUsername"
                     android:layout_marginTop="20dp"
                     android:hint="@string/username"
+                    android:labelFor="@id/registerUsername"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,11 +79,11 @@
                         android:id="@+id/registerUsername"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:singleLine="true"
-                        android:inputType = "textPersonName"
                         android:addTextChangedListener="@{viewmodel.textWatcher}"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="@={viewmodel.registerRequestDTO.username}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -92,9 +92,9 @@
                     android:id="@+id/registerPasswordLayout"
                     style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:labelFor="@id/registerPassword"
                     android:layout_marginTop="20dp"
                     android:hint="@string/password"
+                    android:labelFor="@id/registerPassword"
                     app:endIconMode="password_toggle"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,9 +115,9 @@
                     android:id="@+id/registerConfirmPasswordLayout"
                     style="@style/MyEditTextStyle"
                     android:layout_width="match_parent"
-                    android:labelFor="@id/registerConfirmPassword"
                     android:layout_marginTop="20dp"
                     android:hint="@string/confirm_password"
+                    android:labelFor="@id/registerConfirmPassword"
                     app:endIconMode="password_toggle"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"

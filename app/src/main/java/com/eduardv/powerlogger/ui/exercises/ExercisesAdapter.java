@@ -13,12 +13,10 @@ import com.eduardv.powerlogger.R;
 import com.eduardv.powerlogger.dto.ExerciseCategoryDTO;
 import com.eduardv.powerlogger.dto.ExerciseDTO;
 import com.eduardv.powerlogger.lib.lists.SwipeListAdapter;
-import com.eduardv.powerlogger.ui.logger.LogListItemViewHolder;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExerciseViewHolder> implements SwipeListAdapter<ExerciseDTO> {
@@ -35,7 +33,8 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExerciseViewHolder> i
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_list_layout, parent, false);
+        view.setOnClickListener(onItemClick);
         if (viewType == VIEW_TYPE) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_list_layout, parent, false);
             view.setOnClickListener(onItemClick);
@@ -45,6 +44,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExerciseViewHolder> i
             AdView adView = (AdView) view;
             adView.setAdSize(AdSize.BANNER);
             adView.setAdUnitId(BuildConfig.LIST_ADD_UNIT_CODE);
+            adView.setVisibility(View.INVISIBLE);
             AdRequest adRequest = new AdRequest.Builder().build();
             float density = parent.getContext().getResources().getDisplayMetrics().density;
             int height = Math.round(AdSize.BANNER.getHeight() * density);

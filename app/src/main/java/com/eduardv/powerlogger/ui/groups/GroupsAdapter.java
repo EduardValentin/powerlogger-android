@@ -43,6 +43,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> implem
             AdView adView = (AdView) view;
             adView.setAdSize(AdSize.BANNER);
             adView.setAdUnitId(BuildConfig.LIST_ADD_UNIT_CODE);
+            adView.setVisibility(View.INVISIBLE);
             AdRequest adRequest = new AdRequest.Builder().build();
             float density = parent.getContext().getResources().getDisplayMetrics().density;
             int height = Math.round(AdSize.BANNER.getHeight() * density);

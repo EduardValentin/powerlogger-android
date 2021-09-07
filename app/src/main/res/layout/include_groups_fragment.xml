@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <com.diegodobelo.expandingview.ExpandingList
+            android:paddingBottom="@dimen/padd_10"
             android:id="@+id/includeGroupsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

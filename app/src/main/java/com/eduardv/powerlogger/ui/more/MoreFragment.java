@@ -34,7 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class MoreFragment extends Fragment {
 
     private MoreFragmentBinding binding;
-    private List<String> listItems = Arrays.asList(MoreItemType.PROFILE.getName(), MoreItemType.UNITS.getName(), MoreItemType.LOG_OUT.getName(), MoreItemType.CREDITS.getName());
+    private List<String> listItems = Arrays.asList(MoreItemType.PROFILE.getName(), MoreItemType.UNITS.getName(), MoreItemType.LOG_OUT.getName());
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
